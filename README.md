@@ -23,13 +23,13 @@ Travel & Local
 ### 2. Contact Us (Nicholas Josiah Kam Yin Ting)
 - Provide customer service (e.g. FAQs) and help if they face any issues.
 
-### 3. Booking Accommodations (Vetriselvan Praveen)
+### 3. Booking Accommodations (Tan Jun Qin)
 - Allow user to book their desired hotel & stay.
 
 ### 4. Booking Attractions (Yu Haniel Bharwani)
 - Allow user to book their entertainment attraction.
 
-### 5. Checkout (Tan Jun Qin)
+### 5. Checkout (Vetriselvan Praveen)
 - Checkout feature streamlines the booking process, allowing users to seamlessly reserve accommodations and attractions within the app.
 
 
