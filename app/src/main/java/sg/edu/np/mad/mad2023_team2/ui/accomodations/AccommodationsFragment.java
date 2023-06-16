@@ -1,6 +1,8 @@
 package sg.edu.np.mad.mad2023_team2.ui.accomodations;
 
 import androidx.lifecycle.ViewModelProvider;
+
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -77,27 +79,21 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
         return v;
     }
 
-     @Override
-     public void onViewCreated(View v, Bundle savedInstanceState)
-     {
-         super.onViewCreated(v, savedInstanceState);
-
-     }
-
     public ArrayList<Accommodations> generateHotels()
     {
 
-        ArrayList<Accommodations> hotelList = new ArrayList<Accommodations>();
+        ArrayList<Accommodations> hotelList = new ArrayList<>();
         for (int i=0; i<=10; i++)
         {
             hotelList.add(new Accommodations(i,"Holiday Inn","Nostra ligula, commodo hac metus scelerisque nullam luctus ultrices. Quam at et etiam purus lacinia placerat condimentum eros dapibus imperdiet in. Iaculis aliquam integer integer."
-                    , "5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad"));
+                    , "5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad", 1.00, 1.00));
         }
         return hotelList;
     }
 
     @Override
-    public void onClick() {
-
+    public void onClick(int pos) {
+        Intent intent = new Intent(getView().getContext(), AccommodationsDetails.class);
+        startActivity(intent);
     }
 }

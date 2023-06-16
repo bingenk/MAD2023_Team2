@@ -26,25 +26,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="52dp"
                 android:background="@drawable/hotel_outline"
-                android:ems="12"
+                android:ems="13"
                 android:hint="Search for Accommodation"
                 android:inputType="text"
                 android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:autofillHints=""
+                tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/button3"
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="4dp"
                 android:background="@drawable/hotel_outline"
-                android:backgroundTint="@color/teal_200"
                 app:icon="@android:drawable/ic_menu_search"
-                app:iconTint="#000000"
+                app:iconPadding="0dp"
+                app:iconTint="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/hotel_search"
@@ -58,7 +59,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/accommodations_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:listitem="@layout/accommodations_layout" />
 
     </LinearLayout>
 

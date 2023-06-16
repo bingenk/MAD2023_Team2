@@ -12,19 +12,25 @@ public class Accommodations {
     private int id;
     private String name;
     private String description;
-    private String rating;
+    private String type;
     private String address;
+
+    private double latitude;
+    private double longitude;
     private byte[] image;
+
 
     public Accommodations(){}
 
-    public Accommodations(int i, String n, String d, String r, String a)
+    public Accommodations(int i, String n, String d, String r, String a, double lat, double lon)
     {
         id = i;
         name = n;
         description = d;
-        rating = r;
+        type = r;
         address = a;
+        latitude = lat;
+        longitude = lon;
         image = null;
     }
 
@@ -33,7 +39,7 @@ public class Accommodations {
         id = i;
         name = n;
         description = d;
-        rating = r;
+        type = r;
         address = a;
         image = bytes;
     }
@@ -55,7 +61,7 @@ public class Accommodations {
     }
 
     public String getRating() {
-        return rating;
+        return type;
     }
 
     public Bitmap getImage() {
