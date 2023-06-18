@@ -7,6 +7,7 @@
     tools:context=".ui.accomodations.AccommodationsFragment">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -15,52 +16,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_dropdown_light_frame">
+            android:layout_height="match_parent"
+            android:background="@drawable/hotel_search_outline">
 
-            <EditText
+            <SearchView
                 android:id="@+id/hotel_search"
-                style="@style/Widget.AppCompat.EditText"
                 android:layout_width="wrap_content"
-                android:layout_height="52dp"
-                android:background="@drawable/hotel_outline"
-                android:ems="13"
-                android:hint="Search for Accommodation"
-                android:inputType="text"
-                android:singleLine="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:autofillHints=""
-                tools:ignore="HardcodedText" />
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/hotel_outline"
+                android:foregroundTint="@color/material_on_surface_stroke"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@android:color/transparent"
+                android:queryHint="Search Accomodations..." />
 
-            <Button
-                android:id="@+id/button3"
-                style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/hotel_outline"
-                app:icon="@android:drawable/ic_menu_search"
-                app:iconPadding="0dp"
-                app:iconTint="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/hotel_search"
-                app:layout_constraintTop_toTopOf="@+id/hotel_search"
-                app:strokeColor="#000000"
-                app:strokeWidth="2dp"
+                android:backgroundTint="@color/material_dynamic_primary60"
+                android:src="@drawable/baseline_filter_alt_24"
                 tools:ignore="SpeakableTextPresentCheck" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </TableRow>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/accommodations_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/accommodations_layout" />
+            tools:listitem="@layout/accommodations_layout">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 
