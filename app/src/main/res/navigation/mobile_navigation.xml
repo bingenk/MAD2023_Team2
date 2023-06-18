@@ -22,4 +22,9 @@
         android:name="sg.edu.np.mad.mad2023_team2.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_accommodations"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.accomodations.AccommodationsFragment"
+        android:label="@string/menu_accommodations"
+        tools:layout="@layout/fragment_accomodations" />
 </navigation>
