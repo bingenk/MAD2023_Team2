@@ -45,11 +45,11 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signup_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:id="@+id/signup_email"/>
+            android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,6 +88,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <Button
         android:id="@+id/Signupbutton"
         android:layout_width="match_parent"
@@ -115,6 +116,7 @@
             android:layout_marginStart="5dp"
             android:id="@+id/RedirectLogin"
             android:text="Login"
+            android:textColor="@color/purple_700"
             android:textStyle="bold"/>
 
     </LinearLayout>

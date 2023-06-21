@@ -75,7 +75,7 @@
         android:id="@+id/Loginbutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="35dp"
         android:layout_marginLeft="25dp"
         android:text="Login" />
@@ -98,6 +98,7 @@
             android:layout_marginStart="5dp"
             android:id="@+id/RedirectSignup"
             android:text="Sign up"
+            android:textColor="@color/purple_700"
             android:textStyle="bold"/>
 
     </LinearLayout>
