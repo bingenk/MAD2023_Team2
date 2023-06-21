@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "569074907403",
+    "firebase_url": "https://mad-team2-loginsignup-default-rtdb.firebaseio.com",
+    "project_id": "mad-team2-loginsignup",
+    "storage_bucket": "mad-team2-loginsignup.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569074907403:android:0f352e632c67d45842ca0e",
+        "android_client_info": {
+          "package_name": "sg.edu.np.mad.mad2023_team2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569074907403-4tck3en6nrc2ucjfvgo7nh8fque0prja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqpTwrqzOLjA06anC40Jr6B0VAkimbkbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569074907403-4tck3en6nrc2ucjfvgo7nh8fque0prja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
