@@ -23,7 +23,7 @@ public class Signup extends AppCompatActivity {
     //Validation for email format
     private boolean isValidEmail(String email) {
         // Email validation regex pattern
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String emailPattern = "^[a-z0-9._-]+@[a-z]+\\.[a-z]+$";
 
         return email.matches(emailPattern);
     }
@@ -78,7 +78,8 @@ public class Signup extends AppCompatActivity {
 
                 // Validation message for email format
                 if (!isValidEmail(email)) {
-                    emailEditText.setError("Invalid email format");
+                    emailEditText.setError("Invalid email format\n" +
+                            "**Note** Only small chase letters allowed.");
                     emailEditText.requestFocus();
                     return;
                 }
