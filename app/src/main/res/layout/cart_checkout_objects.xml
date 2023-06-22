@@ -18,67 +18,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <LinearLayout
+            android:id="@+id/ll_cart_checkout_item_box"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/hotel_image"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/hotel_search_outline"
-                android:backgroundTint="#4CAF50"
-                android:contentDescription="TODO"
-                app:srcCompat="@drawable/ic_menu_gallery"
-                tools:ignore="ContentDescription,HardcodedText"
-                tools:srcCompat="@drawable/ic_menu_gallery" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                tools:layout_editor_absoluteX="1dp"
-                tools:layout_editor_absoluteY="101dp">
+                android:layout_height="200dp">
 
-                <TextView
-                    android:id="@+id/hotel_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-smallcaps"
-                    android:text="Accommodation Name"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="HardcodedText" />
+                <ImageView
+                    android:id="@+id/hotel_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/flag_japan"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop" />
 
                 <TextView
                     android:id="@+id/hotel_type"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="sans-serif"
-                    android:text="5-Star Hotel"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hotel_name"
-                    tools:ignore="HardcodedText" />
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:shadowColor="@color/black"
+                    android:shadowDy="0"
+                    android:shadowRadius="20"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <TextView
-                    android:id="@+id/hotel_address"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/hotel_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="sans-serif"
-                    android:text="Accomodation Location"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hotel_type"
-                    tools:ignore="HardcodedText" />
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:shadowColor="@color/black"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="20"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/hotel_type"/>
 
                 <ImageButton
                     android:id="@+id/ib_delete_cart_item"
@@ -91,6 +79,15 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/baseline_delete_24"
                     tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/tv_more_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="@string/more_details"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

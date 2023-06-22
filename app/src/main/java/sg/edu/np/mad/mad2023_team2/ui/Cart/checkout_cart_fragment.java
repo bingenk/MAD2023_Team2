@@ -1,5 +1,6 @@
 package sg.edu.np.mad.mad2023_team2.ui.Cart;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.checkout.Checkout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +33,8 @@ public class checkout_cart_fragment extends Fragment {
 
     checkout_cart_recyclerAdapter recyclerAdapter;
     List<Cart_item> checkout_cart;
+
+    Button proceed_to_checkout;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,6 +104,21 @@ public class checkout_cart_fragment extends Fragment {
 
         rv.addItemDecoration(dividerItemDecoration
         );
+
+
+        proceed_to_checkout=v.findViewById(R.id.btn_proced_to_checkout);
+
+        proceed_to_checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent forwardtocheckout = new Intent(v.getContext(), Checkout.class);
+
+                startActivity(forwardtocheckout);
+
+            }
+        });
+
 
 
         return v;

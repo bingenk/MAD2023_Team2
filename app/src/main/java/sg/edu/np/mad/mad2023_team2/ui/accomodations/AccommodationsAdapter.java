@@ -3,15 +3,12 @@ package sg.edu.np.mad.mad2023_team2.ui.accomodations;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad2023_team2.R;
@@ -68,8 +65,8 @@ public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAd
         {
             super(view);
             hotelPhoto = view.findViewById(R.id.hotel_image);
-            hotelName = view.findViewById(R.id.hotel_name);
-            hotelRating = view.findViewById(R.id.hotel_type);
+            hotelName = view.findViewById(R.id.hotel_type);
+            hotelRating = view.findViewById(R.id.hotel_name);
             hotelAddress = view.findViewById(R.id.hotel_address);
 
             view.setOnClickListener(new View.OnClickListener() {

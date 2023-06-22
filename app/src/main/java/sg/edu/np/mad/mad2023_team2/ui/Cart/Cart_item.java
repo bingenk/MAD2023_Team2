@@ -29,6 +29,9 @@ public class Cart_item implements Parcelable {
     private Date checkin_date;
     private Date checkout_date;
 
+    private boolean expanded;
+
+
 
     public Cart_item(){}
 
@@ -44,9 +47,16 @@ public class Cart_item implements Parcelable {
         this.image = image;
         this.checkin_date = checkin_date;
         this.checkout_date = checkout_date;
+        this.expanded=false;
     }
 
+    public boolean isExpanded() {
+        return expanded;
+    }
 
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
+    }
 
     protected Cart_item(Parcel in) {
         id = in.readInt();

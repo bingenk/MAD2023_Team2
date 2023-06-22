@@ -57,8 +57,8 @@ public class Checkout extends AppCompatActivity {
 
     Button paymentbutton;
 
-    String SECRET_KEY="sk_test_51NL1IVArVetI75gXAaWfW0ZIEbRwNCbmDvI692u6W5EPaXtOkBRoK7OTwAc5xbcjawcfrKooy5j8hUMQC7qGT87s00XVfKw9F3";
-    String PUBLISH_KEY="pk_test_51NL1IVArVetI75gX1NpOAdurG9Ojti56zfKjGD3VBxFUEDkLZmijmiy0St2SYRPMHpE62mwYikY4tauIftaFsUno00TMiWl405";
+    String SECRET_KEY = "sk_test_51NL1IVArVetI75gXAaWfW0ZIEbRwNCbmDvI692u6W5EPaXtOkBRoK7OTwAc5xbcjawcfrKooy5j8hUMQC7qGT87s00XVfKw9F3";
+    String PUBLISH_KEY = "pk_test_51NL1IVArVetI75gX1NpOAdurG9Ojti56zfKjGD3VBxFUEDkLZmijmiy0St2SYRPMHpE62mwYikY4tauIftaFsUno00TMiWl405";
 
     PaymentSheet paymentSheet;
 
@@ -77,34 +77,17 @@ public class Checkout extends AppCompatActivity {
 
         //RECYCLER VIEW
 
-        checkout_cart=generateHotels();
+        checkout_cart = generateHotels();
 
-
-        rv=findViewById(R.id.rv_checkout_items);
-
-        recyclerAdapter=new checkout_recyclerAdapter(checkout_cart);
-
-        // you can also set the layout in the xml file using the layout manager attribute
-        rv.setLayoutManager(new LinearLayoutManager(this));
-
-
-        rv.setAdapter(recyclerAdapter);
-
-       //To add dividers to between the views
-        DividerItemDecoration dividerItemDecoration=new DividerItemDecoration(this,DividerItemDecoration.VERTICAL
-        );
-
-        rv.addItemDecoration(dividerItemDecoration
-        );
-
+         initRecyclerView();
 
 
 
         //STRIPE PAYMENT
 
-        PaymentConfiguration.init(this,PUBLISH_KEY);
+        PaymentConfiguration.init(this, PUBLISH_KEY);
 
-        paymentSheet=new PaymentSheet(this,paymentSheetResult -> {
+        paymentSheet = new PaymentSheet(this, paymentSheetResult -> {
             onPaymentResult(paymentSheetResult);
 
         });
@@ -117,13 +100,13 @@ public class Checkout extends AppCompatActivity {
                 PaymentFlow();
             }
         });
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://api.stripe.com/v1/customers", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://api.stripe.com/v1/customers", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject object=new JSONObject(response);
-                    customerID=object.getString("id");
-                    Toast.makeText(Checkout.this, customerID, Toast.LENGTH_SHORT).show();
+                    JSONObject object = new JSONObject(response);
+                    customerID = object.getString("id");
+
 
                     getEphericalKey(customerID);
                 } catch (JSONException e) {
@@ -135,24 +118,47 @@ public class Checkout extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> header=new HashMap<>();
-                header.put("Authorization","Bearer "+SECRET_KEY);
+                Map<String, String> header = new HashMap<>();
+                header.put("Authorization", "Bearer " + SECRET_KEY);
                 return header;
             }
         };
 
-        RequestQueue requestQueue= Volley.newRequestQueue(Checkout.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(Checkout.this);
         requestQueue.add(stringRequest);
-
 
 
     }
 
+
+
+
+
+
+    private void initRecyclerView() {
+
+        recyclerAdapter = new checkout_recyclerAdapter(checkout_cart);
+
+        // you can also set the layout in the xml file using the layout manager attribute
+        rv.setLayoutManager(new LinearLayoutManager(this));
+
+
+        rv.setAdapter(recyclerAdapter);
+
+        //To add dividers to between the views
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL
+        );
+
+        rv.addItemDecoration(dividerItemDecoration
+        );
+
+    }
+
     private void onPaymentResult(PaymentSheetResult paymentSheetResult) {
-        if (paymentSheetResult instanceof PaymentSheetResult.Completed){
+        if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
             Toast.makeText(this, "payment success", Toast.LENGTH_SHORT).show();
         }
     }
@@ -160,16 +166,16 @@ public class Checkout extends AppCompatActivity {
     private void getEphericalKey(String customerID) {
 
 
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://api.stripe.com/v1/ephemeral_keys", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://api.stripe.com/v1/ephemeral_keys", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject object=new JSONObject(response);
-                    EphericalKey=object.getString("id");
+                    JSONObject object = new JSONObject(response);
+                    EphericalKey = object.getString("id");
 
-                    getEphericalKey(customerID);
+
                     Toast.makeText(Checkout.this, EphericalKey, Toast.LENGTH_SHORT).show();
-                    getCientSecret(customerID,EphericalKey);
+                    getCientSecret(customerID, EphericalKey);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
@@ -179,12 +185,12 @@ public class Checkout extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> header=new HashMap<>();
-                header.put("Authorization","Bearer "+SECRET_KEY);
-                header.put("Stripe-Version","2022-11-15");
+                Map<String, String> header = new HashMap<>();
+                header.put("Authorization", "Bearer " + SECRET_KEY);
+                header.put("Stripe-Version", "2022-11-15");
                 return header;
             }
 
@@ -192,26 +198,26 @@ public class Checkout extends AppCompatActivity {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params=new HashMap<>();
-                params.put("customer",customerID);
+                Map<String, String> params = new HashMap<>();
+                params.put("customer", customerID);
 
                 return params;
             }
         };
 
-        RequestQueue requestQueue= Volley.newRequestQueue(Checkout.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(Checkout.this);
         requestQueue.add(stringRequest);
 
     }
 
     private void getCientSecret(String customerID, String ephericalKey) {
 
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://api.stripe.com/v1/payment_intents", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://api.stripe.com/v1/payment_intents", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject object=new JSONObject(response);
-                    ClientSecret=object.getString("client_secret");
+                    JSONObject object = new JSONObject(response);
+                    ClientSecret = object.getString("client_secret");
 
                     Toast.makeText(Checkout.this, ClientSecret, Toast.LENGTH_SHORT).show();
 
@@ -224,11 +230,11 @@ public class Checkout extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> header=new HashMap<>();
-                header.put("Authorization","Bearer "+SECRET_KEY);
+                Map<String, String> header = new HashMap<>();
+                header.put("Authorization", "Bearer " + SECRET_KEY);
                 return header;
             }
 
@@ -236,24 +242,24 @@ public class Checkout extends AppCompatActivity {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params=new HashMap<>();
-                params.put("customer",customerID);
-                params.put("amount","10"+"00");
-                params.put("currency","usd");
-                params.put("automatic_payment_methods[enabled]","true");
+                Map<String, String> params = new HashMap<>();
+                params.put("customer", customerID);
+                params.put("amount", "10" + "00");
+                params.put("currency", "usd");
+                params.put("automatic_payment_methods[enabled]", "true");
 
 
                 return params;
             }
         };
 
-        RequestQueue requestQueue= Volley.newRequestQueue(Checkout.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(Checkout.this);
         requestQueue.add(stringRequest);
 
 
-
-
     }
+
+
 
     private void PaymentFlow() {
         paymentSheet.presentWithPaymentIntent(
@@ -271,6 +277,7 @@ public class Checkout extends AppCompatActivity {
      phoneTextView=(EditText) findViewById(R.id.Phone_Number_Input);
      email_Input=findViewById(R.id.Email_Input);
      paymentbutton=findViewById(R.id.btn_proceed_to_payment);
+     rv = findViewById(R.id.rv_checkout_items);
      ccp.registerCarrierNumberEditText(phoneTextView);
     }
 
