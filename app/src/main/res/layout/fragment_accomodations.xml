@@ -32,7 +32,7 @@
                 android:queryHint="Search Accomodations..." />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/hotel_filter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"

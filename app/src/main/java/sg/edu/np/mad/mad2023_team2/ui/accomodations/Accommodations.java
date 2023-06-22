@@ -14,7 +14,6 @@ public class Accommodations implements Parcelable {
 
     private int id;
     private String name;
-    private String description;
     private String type;
     private String address;
 
@@ -27,12 +26,11 @@ public class Accommodations implements Parcelable {
 
     public Accommodations(){}
 
-    public Accommodations(int i, String n, String d, String r, String a,double p, double lat, double lon)
+    public Accommodations(int i, String n, String t, String a,double p, double lat, double lon)
     {
         id = i;
         name = n;
-        description = d;
-        type = r;
+        type = t;
         address = a;
         price = p;
         latitude = lat;
@@ -40,12 +38,11 @@ public class Accommodations implements Parcelable {
         image = null;
     }
 
-    public Accommodations(int i, String n, String d, String r, String a,double p, double lat, double lon, byte[] bytes)
+    public Accommodations(int i, String n, String t, String a,double p, double lat, double lon, byte[] bytes)
     {
         id = i;
         name = n;
-        description = d;
-        type = r;
+        type = t;
         address = a;
         price = p;
         latitude = lat;
@@ -56,7 +53,6 @@ public class Accommodations implements Parcelable {
     protected Accommodations(Parcel in) {
         id = in.readInt();
         name = in.readString();
-        description = in.readString();
         type = in.readString();
         address = in.readString();
         price = in.readDouble();
@@ -83,10 +79,6 @@ public class Accommodations implements Parcelable {
 
     public String getName() {
         return name;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public String getAddress() {
@@ -131,7 +123,6 @@ public class Accommodations implements Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
-        dest.writeString(description);
         dest.writeString(type);
         dest.writeString(address);
         dest.writeDouble(price);

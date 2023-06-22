@@ -31,7 +31,8 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="20dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -102,6 +103,7 @@
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="20dp"
             android:text="Any notes: "
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="16sp" />

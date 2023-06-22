@@ -33,10 +33,7 @@ public class AccommodationsDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accommodations_details);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             accommodation = getIntent().getParcelableExtra("accommodation");
@@ -45,19 +42,17 @@ public class AccommodationsDetails extends AppCompatActivity {
         name = findViewById(R.id.details_name);
         type = findViewById(R.id.details_type);
         location = findViewById(R.id.details_address);
-        desc = findViewById(R.id.details_desc);
         photo = findViewById(R.id.details_image);
 
         if (accommodation != null) {
             name.setText(accommodation.getName());
             type.setText(accommodation.getType());
             location.setText(accommodation.getAddress());
-            desc.setText(accommodation.getDescription());
 
             if (accommodation.getImage() != null)
                 photo.setImageBitmap(accommodation.getImage());
         }
-
+        
         FloatingActionButton map = findViewById(R.id.details_location);
         map.setOnClickListener(new View.OnClickListener() {
             @Override
