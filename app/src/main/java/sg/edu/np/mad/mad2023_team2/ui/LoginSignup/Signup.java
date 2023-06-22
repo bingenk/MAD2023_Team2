@@ -1,5 +1,6 @@
 package sg.edu.np.mad.mad2023_team2.ui.LoginSignup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import sg.edu.np.mad.mad2023_team2.R;
 import android.widget.EditText;
 
@@ -52,6 +57,28 @@ public class Signup extends AppCompatActivity {
         return username.length() <= maxLength;
     }
 
+    private void isEmailExists(final String email, final EmailExistsCallback callback) {
+        Query query = databaseReference.orderByChild("email").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean emailExists = dataSnapshot.exists();
+                callback.onCallback(emailExists);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                callback.onCallback(false);
+            }
+        });
+    }
+
+    // Define a callback interface for handling the email existence result
+    private interface EmailExistsCallback {
+        void onCallback(boolean emailExists);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +96,7 @@ public class Signup extends AppCompatActivity {
 
         // Set click listener for the signup button
         signupButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 // Get user input from EditText fields
@@ -76,62 +104,71 @@ public class Signup extends AppCompatActivity {
                 String username = usernameEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
 
-                // Validation message for email format
-                if (!isValidEmail(email)) {
-                    emailEditText.setError("Invalid email format\n" +
-                            "**Note** Only small chase letters allowed.");
-                    emailEditText.requestFocus();
-                    return;
-                }
+                // Validation message for checking existing registered email
+                isEmailExists(email, new EmailExistsCallback() {
+                    @Override
+                    public void onCallback(boolean emailExists) {
+                        if (emailExists) {
+                            emailEditText.setError("Email has already registered!");
+                            emailEditText.requestFocus();
+                        } else {
+                            // Check if theres unfilled column
+                            if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+                                Toast.makeText(Signup.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                            }
 
-                // Validation message for password format
-                if (!isValidPassword(password)) {
-                    passwordEditText.setError("Invalid password format. Please avoid the following:\n" +
-                            "- Using commas (,)\n" +
-                            "- Using periods (.)\n" +
-                            "- Using underscores (_)\n" +
-                            "- Using dashes (-)\n" +
-                            "- Using exclamation marks (!)\n" +
-                            "- Using question marks (?)\n" +
-                            "- Ensure your password contains at least one alphabet character.");
-                    passwordEditText.requestFocus();
-                    return;
-                }
+                            // Validation message for email format
+                            if (!isValidEmail(email)) {
+                                emailEditText.setError("Invalid email format\n" +
+                                        "**Note** Only small case letters allowed.");
+                                emailEditText.requestFocus();
+                                return;
+                            }
 
-                // Validation message for username length
-                if (!isValidUsername(username)) {
-                    usernameEditText.setError("Username is too long!");
-                    usernameEditText.requestFocus();
-                    return;
-                }
+                            // Validation message for password format
+                            if (!isValidPassword(password)) {
+                                passwordEditText.setError("Invalid password format. Please avoid the following:\n" +
+                                        "- Using commas (,)\n" +
+                                        "- Using periods (.)\n" +
+                                        "- Using underscores (_)\n" +
+                                        "- Using dashes (-)\n" +
+                                        "- Using exclamation marks (!)\n" +
+                                        "- Using question marks (?)\n" +
+                                        "- Ensure your password contains at least one alphabet character.");
+                                passwordEditText.requestFocus();
+                                return;
+                            }
 
+                            // Validation message for username length
+                            if (!isValidUsername(username)) {
+                                usernameEditText.setError("Username is too long!");
+                                usernameEditText.requestFocus();
+                                return;
+                            } else {
+                                // Create a new HelperClass instance with the user input (HelperClass.java)
+                                HelperClass user = new HelperClass(email, username, password);
 
-                if(email.isEmpty() || username.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(Signup.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                                // Generate a new unique key for the user (Extra for other features use)
+                                String userId = databaseReference.push().getKey();
 
-                } else {
-                    // Create a new HelperClass instance with the user input (HelperClass.java)
-                    HelperClass user = new HelperClass(email, username, password);
+                                // Store the user information in Firebase Realtime Database
+                                databaseReference.child(userId).setValue(user);
 
-                    // Generate a new unique key for the user (Extra for other features use)
-                    String userId = databaseReference.push().getKey();
+                                // Display successfully registered message
+                                Toast.makeText(Signup.this, "You have signed up successfully!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Signup.this, Login.class);
+                                startActivity(intent);
 
-                    // Store the user information in Firebase Realtime Database
-                    databaseReference.child(userId).setValue(user);
-
-                    // Display successfully registered message
-                    Toast.makeText(Signup.this, "You have sign up successfully!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Signup.this, Login.class);
-                    startActivity(intent);
-
-                    // Clear the EditText fields
-                    emailEditText.setText("");
-                    usernameEditText.setText("");
-                    passwordEditText.setText("");
-                }
+                                // Clear the EditText fields
+                                emailEditText.setText("");
+                                usernameEditText.setText("");
+                                passwordEditText.setText("");
+                            }
+                        }
+                    }
+                });
             }
         });
-
         //Direct user to login if user already have an account
         loginRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
