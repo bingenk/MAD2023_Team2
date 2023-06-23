@@ -1,50 +1,52 @@
 package sg.edu.np.mad.mad2023_team2.ui.accomodations;
 
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AlertDialog;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import android.os.Parcelable;
+
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.PopupWindow;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
+import android.widget.ImageButton;
+
+import android.widget.SearchView;
+
+
+
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
+
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+
 
 import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
+import sg.edu.np.mad.mad2023_team2.MainActivity;
 import sg.edu.np.mad.mad2023_team2.R;
-import sg.edu.np.mad.mad2023_team2.ui.home.HomeFragment;
+
 
 public class AccommodationsFragment extends Fragment implements HotelListInterface {
 
@@ -61,18 +63,25 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
 //    private double hotelLon;
 
     private AccommodationsAdapter adapter;
-    private ArrayList<Accommodations> hotelList = generateHotels();
+    public ArrayList<Accommodations> hotelList = new ArrayList<>();
     private ArrayList<Accommodations> searchList = new ArrayList<>();
-    private AccommodationPopup popup = new AccommodationPopup();
+    private final AccommodationPopup popup = new AccommodationPopup();
     private int noAdults;
     private int noRooms;
     private int noChildren;
     private int noNights;
+    private Date checkin;
+    private Date checkout;
     private String mParam1;
     private String mParam2;
 
     public AccommodationsFragment() {
         // Required empty public constructor
+    }
+
+    public HotelListInterface getinterface()
+    {
+        return this;
     }
 
     public static AccommodationsFragment newInstance(String param1, String param2) {
@@ -97,17 +106,26 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_accomodations, container, false);
-        RecyclerView rv = (RecyclerView)v.findViewById(R.id.accommodations_list);
-        adapter = new AccommodationsAdapter(hotelList,this);
-        LinearLayoutManager lm = new LinearLayoutManager(requireContext());
-        rv.setHasFixedSize(true);
-        rv.setLayoutManager(lm);
-        rv.setItemAnimator(new DefaultItemAnimator());
-        rv.setAdapter(adapter);
         noAdults = 2;
+        noRooms = 1;
         noChildren = 0;
         noNights = 1;
-        retrieveHotels(v, noAdults, noChildren, noNights);
+        checkin = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
+        checkout =  new Date(checkin.getTime() + (24 * 60 * 60 * 1000));
+        retrieveHotels(v, noAdults,noRooms,checkin,checkout, new hotelCallback() {
+            @Override
+            public void onRetrieved(ArrayList<Accommodations> hotels) {
+                hotelList = hotels;
+                RecyclerView rv = (RecyclerView) v.findViewById(R.id.accommodations_list);
+                adapter = new AccommodationsAdapter(hotelList, getinterface());
+                LinearLayoutManager lm = new LinearLayoutManager(requireContext());
+                rv.setHasFixedSize(true);
+                rv.setLayoutManager(lm);
+                rv.setItemAnimator(new DefaultItemAnimator());
+                rv.setAdapter(adapter);
+                v.findViewById(R.id.hotel_pb).setVisibility(View.GONE);
+            }
+        });
 
         SearchView search = (SearchView) v.findViewById(R.id.hotel_search);
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -154,10 +172,10 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
         ArrayList<Accommodations> hotelList = new ArrayList<>();
         for (int i=0; i<=10; i++)
         {
-            hotelList.add(new Accommodations(i,"Holiday Inn","5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad",234.00, 1.00, 1.00));
+            hotelList.add(new Accommodations(i,"Holiday Inn","5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad",234.00, 1.00, 1.00, 4.8, "Bedok","123456", "1km from city centre", "15:00", "00:00","Hotel room: 2 beds"));
         }
 
-        hotelList.add(new Accommodations(11,"Hotel Stay", "5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad",234.00, 1.00, 1.00));
+        hotelList.add(new Accommodations(11,"Hotel Stay", "5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad",234.00, 1.00, 1.00, 4.8, "Bedok","123456", "1km from city centre", "15:00", "00:00", "Hotel room, 3 beds"));
 
         return hotelList;
     }
@@ -174,50 +192,115 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
         {
             item = hotelList.get(pos);
         }
-        
         Intent intent = new Intent(getView().getContext(), AccommodationsDetails.class);
         intent.putExtra("accommodation", (Parcelable) item);
         startActivity(intent);
     }
 
-    private void retrieveHotels(View v, int noAdults, int noChildren, int noNights) {
+    private void retrieveHotels(View v, int noAdults,int noRooms, Date checkin, Date checkout,  final hotelCallback callback) {
 
-        String url= "https://booking-com.p.rapidapi.com/v2/hotels/search?order_by=popularity&adults_number=2&checkin_date=2023-09-27&filter_by_currency=SGD&dest_id=-73635&locale=en-gb&checkout_date=2023-09-28&units=metric&room_number=1&dest_type=city&include_adjacency=true&children_number=2&page_number=0&children_ages=5%2C0&categories_filter_ids=class%3A%3A2%2Cclass%3A%3A4%2Cfree_cancellation%3A%3A1";
-
+        String url= "https://booking-com.p.rapidapi.com/v1/hotels/search";
+        JSONObject params = new JSONObject();
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String checkinS= dateFormat.format(checkin);
+            String checkoutS = dateFormat.format(checkout);
+            params.put("checkin_date", checkinS);
+            params.put("checkout_date", checkoutS);
+            params.put("dest_type", "city");
+            params.put("units", "metric");
+            params.put("adults_number", String.valueOf(noAdults));
+            params.put("order_by", "popularity");
+            params.put("dest_id", "-73635");
+            params.put("filter_by_currency", "SGD");
+            params.put("locale", "en-gb");
+            params.put("room_number", String.valueOf(noRooms));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         AlertDialog.Builder errorAlert =  new AlertDialog.Builder(v.getContext());
-        errorAlert.setTitle("Error occurred when fetching request :(");
+        errorAlert.setTitle("Error occurred when fetching request \n:(");
         errorAlert.setMessage("Do you want to try again?");
         errorAlert.setPositiveButton("Reload", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                retrieveHotels(v,noAdults, noChildren, noNights);
+                retrieveHotels(v, noAdults,noRooms,checkin,checkout, new hotelCallback() {
+                    @Override
+                    public void onRetrieved(ArrayList<Accommodations> hotels) {
+                        hotelList = hotels;
+                    }
+                });
             }
         });
+
         errorAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(v.getContext(), HomeFragment.class));
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
-        JsonObjectRequest hotelRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+        JsonObjectRequest hotelRequest = new JsonObjectRequest(Request.Method.GET, url, params,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        ArrayList<Accommodations> temp = new ArrayList<>();
                         try {
-                            JSONArray hotelArray = response.getJSONArray("results");
+                            JSONArray hotelArray = response.getJSONArray("result");
                             Log.d("Json", response.toString());
 
-                            for (int i=0; i<hotelArray.length() ; i++)
+                            for (int i = 0; i< hotelArray.length() ; i++)
                             {
                                 JSONObject hotel = hotelArray.getJSONObject(i);
-                                ArrayList<Accommodations> accommodations = new ArrayList<>();
-//                                accommodations.add(
-////                                        new Accommodations(
-////
-////                                    )
-//                                );
+                                JSONArray distances = hotel.getJSONArray("distances");
+                                if (distances.length() == 1)
+                                {
+                                    temp.add(
+                                            new Accommodations(
+                                                    hotel.getInt("hotel_id"),
+                                                    hotel.getString("hotel_name"),
+                                                    hotel.getString("accommodation_type_name"),
+                                                    hotel.getString("address"),
+                                                    hotel.getDouble("min_total_price"),
+                                                    hotel.getDouble("latitude"),
+                                                    hotel.getDouble("longitude"),
+                                                    hotel.getDouble("review_score"),
+                                                    hotel.getString("district"),
+                                                    hotel.getString("zip"),
+                                                    distances.getJSONObject(0).getString("text"),
+                                                    hotel.getJSONObject("checkin").getString("from"),
+                                                    hotel.getJSONObject("checkout").getString("until"),
+                                                    Html.fromHtml(hotel.getString("unit_configuration_label")).toString()
+                                            ));
+                                }
+                                else if (distances.length() == 2)
+                                {
+                                    temp.add(
+                                            new Accommodations(
+                                                    hotel.getInt("hotel_id"),
+                                                    hotel.getString("hotel_name"),
+                                                    hotel.getString("accommodation_type_name"),
+                                                    hotel.getString("address"),
+                                                    hotel.getDouble("min_total_price"),
+                                                    hotel.getDouble("latitude"),
+                                                    hotel.getDouble("longitude"),
+                                                    hotel.getDouble("review_score"),
+                                                    hotel.getString("district"),
+                                                    hotel.getString("zip"),
+                                                    distances.getJSONObject(0).getString("text"),
+                                                    hotel.getJSONObject("checkin").getString("from"),
+                                                    hotel.getJSONObject("checkout").getString("until"),
+                                                    Html.fromHtml(hotel.getString("unit_configuration_label")).toString(),
+                                                    distances.getJSONObject(1).getString("text")
+                                            ));
+                                }
+                            }
+                            callback.onRetrieved(temp);
+                            for(Accommodations a : hotelList)
+                            {
+                                Log.d("Names in response", a.getName());
                             }
                         } catch (Exception e) {
                             throw new RuntimeException(e);
@@ -229,7 +312,8 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
                     public void onErrorResponse(VolleyError error) {
                         errorAlert.show();
                     }
-                }) {
+                })
+        {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
@@ -238,8 +322,13 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
                 return headers;
             }
         };
-
         AccommodationSingleton.getInstance(v.getContext()).addToRequestQueue(hotelRequest);
-
+        for(Accommodations a : hotelList)
+        {
+            Log.d("Names", a.getName());
+        }
+    }
+    interface hotelCallback {
+        void onRetrieved(ArrayList<Accommodations> hotels);
     }
 }

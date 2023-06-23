@@ -23,7 +23,6 @@ import sg.edu.np.mad.mad2023_team2.R;
 
 public class AccommodationsDetails extends AppCompatActivity {
     private TextView name;
-    private TextView desc;
     private TextView type;
     private TextView location;
     private ImageView photo;
