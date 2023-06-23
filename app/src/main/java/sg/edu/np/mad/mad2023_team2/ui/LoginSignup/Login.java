@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
-import sg.edu.np.mad.mad2023_team2.MainActivity;
+import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.MainActivity;
 import sg.edu.np.mad.mad2023_team2.R;
 
 public class Login extends AppCompatActivity {
