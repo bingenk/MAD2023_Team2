@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity {
     //Create Variables
     TextInputEditText loginUsername, loginPassword;
     Button loginButton;
-    TextView signupRedirectText;
+    TextView signupRedirectText, forgetPassword;
     CheckBox rememberMe;
     SharedPreferences sharedPreferences;
     PreferenceManager PreferenceManager;
@@ -43,6 +43,7 @@ public class Login extends AppCompatActivity {
         signupRedirectText = findViewById(R.id.RedirectSignup);
         rememberMe = findViewById(R.id.rememberMe);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this); // obtain an instance of the SharedPreferences interface.
+        forgetPassword = findViewById(R.id.forgetpassword);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +53,14 @@ public class Login extends AppCompatActivity {
                 } else {
                     checkUser();
                 }
+            }
+        });
+
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, ForgetPassword.class);
+                startActivity(intent);
             }
         });
 
