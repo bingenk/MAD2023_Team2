@@ -10,10 +10,8 @@
     <string name="menu_home">TravelWise</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-<<<<<<<<< Temporary merge branch 1
     <string name="contact_us">Contact Us</string>
     <string name="travel_wise_faq_gmail_com">travel.wise.faq@gmail.com</string>
-=========
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
@@ -33,9 +31,4 @@
 
     <string name="select">Select Item</string>
 
-
-
-
-
->>>>>>>>> Temporary merge branch 2
 </resources>

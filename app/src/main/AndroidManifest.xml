@@ -28,10 +28,10 @@
         </intent-filter>
 
         <activity
-            android:name=".BookAttractActivity"
+            android:name=".ui.BookingAttraction.BookAttractActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.BookingAttraction.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MAD2023_Team2.NoActionBar">
