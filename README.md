@@ -17,8 +17,10 @@ Travel & Local
 
 ## Stage 1 Features :
 
-### 1. Login / Register (Koo Bing En)
-- Allow user to login to their account or resgister an account if they do not have one. 
+### 1. Login / Register / Logout (Koo Bing En)
+- Allow user to login to their account or resgister an account if they do not have one.
+- After user login it shows user profile.
+- Allow user to logout for the session.
 
 ### 2. Contact Us (Nicholas Josiah Kam Yin Ting)
 - Provide customer service (e.g. FAQs) and help if they face any issues.
@@ -35,17 +37,17 @@ Travel & Local
 
 ## Stage 2 Features :
 
-### 1. Carpark Availability 
+### 1. Carpark Availability (Yu Haniel Bharwani)
 - Allow user to find nearest carpark that is available to them when travelling. 
 
-### 2. Google Maps Direction 
+### 2. Google Maps Direction (Koo Bing En)
 - For user to direct themselve more easily with the use of the map that is available in the app.
 
-### 3. Currency Exchange 
+### 3. Currency Exchange (Vetriselvan Praveen)
 - For travellers that are required to see the exchange rate based on different countries.  
 
-### 4. Nearby Recommendations
+### 4. Nearby Recommendations (Tan Jun Qin)
 - Provide users with personalized recommendations for nearby attractions, restaurants, and points of interest based on their current location.
 
-### 5. Language Translator
+### 5. Language Translator (Nicholas Josiah Kam Yin Ting)
 - Enable users to translate text or phrases from one language to another, helping them overcome language barriers during their travels. 
