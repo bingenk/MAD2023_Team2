@@ -3,7 +3,9 @@ package sg.edu.np.mad.mad2023_team2.ui.LoginSignup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,6 +27,9 @@ public class Login extends AppCompatActivity {
     TextInputEditText loginUsername, loginPassword;
     Button loginButton;
     TextView signupRedirectText;
+    CheckBox rememberMe;
+    SharedPreferences sharedPreferences;
+    PreferenceManager PreferenceManager;
 
 
     @Override
@@ -36,11 +41,13 @@ public class Login extends AppCompatActivity {
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.Loginbutton);
         signupRedirectText = findViewById(R.id.RedirectSignup);
+        rememberMe = findViewById(R.id.rememberMe);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this); // obtain an instance of the SharedPreferences interface.
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!validateUsername() | !validatePassword()){
+                if (!validateUsername() || !validatePassword()){
 
                 } else {
                     checkUser();
@@ -114,5 +121,18 @@ public class Login extends AppCompatActivity {
 
             }
         });
+    }
+    private void rememberUser(String username, String password) {
+        boolean shouldRemember = rememberMe.isChecked();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("remembered", shouldRemember);
+        if (shouldRemember) {
+            editor.putString("username", username);
+            editor.putString("password", password);
+        } else {
+            editor.remove("username");
+            editor.remove("password");
+        }
+        editor.apply();
     }
 }

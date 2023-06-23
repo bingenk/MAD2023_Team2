@@ -81,6 +81,7 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+           android:id="@+id/rememberMe"
            android:text="Remember Me"/>
 
         <TextView
