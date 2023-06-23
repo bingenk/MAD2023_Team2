@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,10 +24,12 @@ import android.widget.EditText;
 
 public class Signup extends AppCompatActivity {
 
+    //Create class/private instance variables
     private EditText emailEditText, usernameEditText, passwordEditText;
     private Button signupButton;
     private DatabaseReference databaseReference;
     TextView loginRedirectText;
+    private FirebaseAuth firebaseAuth;
 
     //Validation for email format
     private boolean isValidEmail(String email) {
@@ -57,6 +63,7 @@ public class Signup extends AppCompatActivity {
         return username.length() <= maxLength;
     }
 
+    //Validation for existing email in database upon user signup
     private void isEmailExists(final String email, final EmailExistsCallback callback) {
         Query query = databaseReference.orderByChild("email").equalTo(email);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -73,11 +80,10 @@ public class Signup extends AppCompatActivity {
         });
     }
 
-    // Define a callback interface for handling the email existence result
+    // Define a callback interface for handling the email existing result
     private interface EmailExistsCallback {
         void onCallback(boolean emailExists);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +92,9 @@ public class Signup extends AppCompatActivity {
 
         // Initialize Firebase Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
+
+        // Initialize Firebase Authentication
+        firebaseAuth = FirebaseAuth.getInstance();
 
         // Get references to the EditText fields and signup button
         emailEditText = findViewById(R.id.signup_email);
@@ -112,9 +121,10 @@ public class Signup extends AppCompatActivity {
                             emailEditText.setError("Email has already registered!");
                             emailEditText.requestFocus();
                         } else {
-                            // Check if theres unfilled column
+                            // Check if there are unfilled columns
                             if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
                                 Toast.makeText(Signup.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                                return;
                             }
 
                             // Validation message for email format
@@ -144,32 +154,46 @@ public class Signup extends AppCompatActivity {
                                 usernameEditText.setError("Username is too long!");
                                 usernameEditText.requestFocus();
                                 return;
-                            } else {
-                                // Create a new HelperClass instance with the user input (HelperClass.java)
-                                HelperClass user = new HelperClass(email, username, password);
-
-                                // Generate a new unique key for the user (Extra for other features use)
-                                String userId = databaseReference.push().getKey();
-
-                                // Store the user information in Firebase Realtime Database
-                                databaseReference.child(userId).setValue(user);
-
-                                // Display successfully registered message
-                                Toast.makeText(Signup.this, "You have signed up successfully!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Signup.this, Login.class);
-                                startActivity(intent);
-
-                                // Clear the EditText fields
-                                emailEditText.setText("");
-                                usernameEditText.setText("");
-                                passwordEditText.setText("");
                             }
+
+                            // Create a new HelperClass instance with the user input
+                            HelperClass user = new HelperClass(email, username, password);
+
+                            // Create a user in Firebase Authentication
+                            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        //Storing user data in both Firebase Realtime Database and Firebase Authentication
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+                                                // Get the unique user ID generated by Firebase Authentication
+                                                String userId = task.getResult().getUser().getUid();
+
+                                                // Store the user information in Firebase Realtime Database
+                                                databaseReference.child(username).setValue(user);
+
+                                                // Display successfully registered message
+                                                Toast.makeText(Signup.this, "You have signed up successfully!", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(Signup.this, Login.class);
+                                                startActivity(intent);
+
+                                                // Clear the EditText fields
+                                                emailEditText.setText("");
+                                                usernameEditText.setText("");
+                                                passwordEditText.setText("");
+                                            } else {
+                                                // Registration failed
+                                                Toast.makeText(Signup.this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
                         }
                     }
                 });
             }
         });
-        //Direct user to login if user already have an account
+
+        // Direct user to login if the user already has an account
         loginRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
