@@ -1,11 +1,16 @@
-package sg.edu.np.mad.mad2023_team2.ui.BookingAttraction;
+package sg.edu.np.mad.mad2023_team2.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.ktx.Firebase;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private TextView profileUsername;
+    private TextView profileEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +46,24 @@ public class MainActivity extends AppCompatActivity {
         });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
+        // Show user profile upon when user login
+        // Get references to the profileUsername and profileEmail TextViews
+        View headerView = navigationView.getHeaderView(0);
+        profileUsername = headerView.findViewById(R.id.profileUsername);
+        profileEmail = headerView.findViewById(R.id.profileEmail);
+
+        // Retrieve the user profile information from the intent
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("username") && intent.hasExtra("email")) {
+            String username = intent.getStringExtra("username");
+            String email = intent.getStringExtra("email");
+
+            // Set the user profile information to the TextViews
+            profileUsername.setText(username);
+            profileEmail.setText(email);
+        }
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_contact)
                 .setOpenableLayout(drawer)
@@ -52,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }

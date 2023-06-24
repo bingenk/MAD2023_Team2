@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
-import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.MainActivity;
+import sg.edu.np.mad.mad2023_team2.ui.MainActivity;
 import sg.edu.np.mad.mad2023_team2.R;
 
 public class Login extends AppCompatActivity {
@@ -44,6 +46,7 @@ public class Login extends AppCompatActivity {
         rememberMe = findViewById(R.id.rememberMe);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this); // obtain an instance of the SharedPreferences interface.
         forgetPassword = findViewById(R.id.forgetpassword);
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +118,17 @@ public class Login extends AppCompatActivity {
                         loginPassword.setError("Invalid Credentials!");
                         loginPassword.requestFocus();
                     }else {
+                        // Login successful, show a toast message
+                        Toast.makeText(Login.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+
+                        // For showing user profile
+                        rememberUser(userUsername, userPassword);
+                        String userEmailFromDB = snapshot.child(userUsername).child("email").getValue(String.class);
+
+                        // Pass the user profile information to MainActivity
                         Intent intent = new Intent(Login.this, MainActivity.class);
+                        intent.putExtra("username", userUsername);
+                        intent.putExtra("email", userEmailFromDB);
                         startActivity(intent);
                     }
                 }else {
@@ -144,4 +157,5 @@ public class Login extends AppCompatActivity {
         }
         editor.apply();
     }
+
 }
