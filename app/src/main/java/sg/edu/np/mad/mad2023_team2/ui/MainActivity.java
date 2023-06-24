@@ -1,7 +1,9 @@
 package sg.edu.np.mad.mad2023_team2.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.ktx.Firebase;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -21,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.databinding.ActivityMainBinding;
+import sg.edu.np.mad.mad2023_team2.ui.LoginSignup.Login;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,15 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private TextView profileUsername;
     private TextView profileEmail;
+    private FirebaseAuth mAuth;
+
+    // For user to logout upon clicking logout button and return to login page3
+    private void logoutUser() {
+        mAuth.signOut();
+        Intent intent = new Intent(MainActivity.this, Login.class);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +77,21 @@ public class MainActivity extends AppCompatActivity {
             profileEmail.setText(email);
         }
 
+        mAuth = FirebaseAuth.getInstance();
+
+        // User logout function
+        Menu menu = navigationView.getMenu();
+        MenuItem logoutItem = menu.findItem(R.id.nav_logout);
+
+        // set onClick listener when user click logout button and perform logout action
+        logoutItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                logoutUser();
+                return true;
+            }
+        });
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_contact)
                 .setOpenableLayout(drawer)
@@ -72,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
