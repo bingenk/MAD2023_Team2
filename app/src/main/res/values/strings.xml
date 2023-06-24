@@ -34,4 +34,10 @@
     <string name="Proceed_to_cart">Proceed to cart</string>
     <string name="proceed_to_checkout">Proceed to Checkout</string>
     <string name="more_details">Details\n</string>
+
+    //checkout_cart_sqllite//
+
+    <string name="CustomerName">Customer Name</string>
+    <string name="CustomerAge">Age</string>
+    <string name="ActiveCustomer">Active Customer\n\n</string>
 </resources>

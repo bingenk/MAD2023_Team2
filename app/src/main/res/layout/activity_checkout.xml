@@ -114,6 +114,7 @@
                             app:endIconMode="clear_text"
                             app:helperText="Required*"
                             app:helperTextTextColor="@color/Red"
+                            android:id="@+id/First_Name_Input_layout"
 
                             >
 
@@ -122,6 +123,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/baseline_person_24"
+                                android:drawablePadding="8dp"
                                 android:hint="@string/First_Name"
                                 android:inputType="textPersonName"
                                 android:maxLength="20" />
@@ -137,16 +139,19 @@
                             app:counterMaxLength="20"
                             app:endIconMode="clear_text"
                             app:helperText="Required*"
-                            app:helperTextTextColor="@color/Red">
+                            app:helperTextTextColor="@color/Red"
+                            android:id="@+id/Last_Name_Input_layout">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/Last_Name_Input"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/baseline_person_24"
+                                android:drawablePadding="8dp"
                                 android:hint="@string/Last_name"
                                 android:inputType="textPersonName"
-                                android:maxLength="20" />
+                                android:maxLength="20"
+                             />
                         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -158,13 +163,15 @@
                             app:counterMaxLength="20"
                             app:endIconMode="clear_text"
                             app:helperText="Required*"
-                            app:helperTextTextColor="@color/Red">
+                            app:helperTextTextColor="@color/Red"
+                            android:id="@+id/Email_Input_layout">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/Email_Input"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/baseline_email_24"
+                                android:drawablePadding="8dp"
                                 android:hint="@string/Email"
                                 android:inputType="textEmailAddress"
                                 android:maxLength="20" />
@@ -188,9 +195,11 @@
                                 android:id="@+id/country_picker"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                app:ccp_rememberLastSelection="false"
                                 app:ccp_showFullName="true"
                                 app:ccp_showNameCode="false"
-                                app:ccp_showPhoneCode="false" />
+                                app:ccp_showPhoneCode="false"
+                                />
 
                         </LinearLayout>
 
@@ -204,13 +213,16 @@
                                 android:id="@+id/country_code_picker"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center">
+                                android:layout_gravity="center"
+                                app:ccp_rememberLastSelection="false"
+                             >
 
                             </com.hbb20.CountryCodePicker>
 
 
                             <com.google.android.material.textfield.TextInputLayout
                                 style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                                android:id="@+id/til_country_code_selector"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:counterEnabled="true"
@@ -225,6 +237,9 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:drawableLeft="@drawable/baseline_person_24"
+                                    android:drawablePadding="8dp"
+
+                                    android:gravity="center_vertical"
                                     android:hint="@string/Phone_Number"
                                     android:inputType="number|phone"
                                     android:maxLength="20" />
@@ -270,7 +285,8 @@
                             app:counterMaxLength="20"
                             app:endIconMode="clear_text"
                             app:helperText="Required*"
-                            app:helperTextTextColor="@color/Red">
+                            app:helperTextTextColor="@color/Red"
+                            android:id="@+id/Guest_Information_First_Name_layout">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/Guest_Information_First_Name"
@@ -278,6 +294,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:drawableLeft="@drawable/baseline_person_24"
+                                android:drawablePadding="8dp"
                                 android:hint="@string/First_Name"
                                 android:inputType="textPersonName"
                                 android:maxLength="20" />
@@ -293,7 +310,8 @@
                             app:counterMaxLength="20"
                             app:endIconMode="clear_text"
                             app:helperText="Required*"
-                            app:helperTextTextColor="@color/Red">
+                            app:helperTextTextColor="@color/Red"
+                            android:id="@+id/Guest_Information_Last_Name_layout">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/Guest_Information_Last_Name"
@@ -301,6 +319,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:drawableLeft="@drawable/baseline_person_24"
+                                android:drawablePadding="8dp"
                                 android:hint="@string/Last_name"
                                 android:inputType="textPersonName"
                                 android:maxLength="20" />

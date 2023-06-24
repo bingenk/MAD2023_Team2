@@ -1,5 +1,8 @@
 package sg.edu.np.mad.mad2023_team2.ui.Cart;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +17,31 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
+import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 
 public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout_cart_recyclerAdapter.ViewHolder> {
+    public static final String CART_ITEM_TABLE = "CART_ITEM_TABLE";
 
    private static final String TAG="RecyclerAdapter";
-    List<Cart_item> checkout_cart;
+    ArrayList<Cart_item> checkout_cart;
+    Context context;
 
-    public checkout_cart_recyclerAdapter(List<Cart_item> checkout_cart) {
+    private TextView totalChargesTextView;
 
+    public checkout_cart_recyclerAdapter(ArrayList<Cart_item> checkout_cart, TextView totalChargesTextView) {
         this.checkout_cart = checkout_cart;
+        this.totalChargesTextView = totalChargesTextView;
     }
+
 
     //create individual rows necessary to display the items in recycler view
     //oncreateviewholder is only called as many views that can fit on the screen
@@ -49,15 +62,20 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
     //onbindviewholder is called for the total number of views unline the viewholder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        int Position = position;
 
-        holder.hotel_image.setImageDrawable(null);
-        holder.hotel_name.setText(checkout_cart.get(position).getName());
-        holder.hotel_type.setText(checkout_cart.get(position).getType());
-//        holder.hotel_address.setText(checkout_cart.get(position).getAddress());
-        holder.tv_checkin_date.setText(formatdate(checkout_cart.get(position).getCheckin_date()));
-        holder.tv_checkout_date.setText(formatdate(checkout_cart.get(position).getCheckout_date()));
+     Cart_item model =checkout_cart.get(Position);
+//        Picasso.with(context).load(checkout_cart.get(Position).getImage()).into(holder.hotel_image);
+        Picasso.with(holder.hotel_image.getContext())
+                .load(checkout_cart.get(Position).getImage())
+                .into(holder.hotel_image);
+        holder.hotel_name.setText(checkout_cart.get(Position).getName());
+        holder.hotel_type.setText(checkout_cart.get(Position).getType());
+//        holder.hotel_address.setText(checkout_cart.get(Position).getAddress());
+        holder.tv_checkin_date.setText(formatdate(checkout_cart.get(Position).getCheckin_date()));
+        holder.tv_checkout_date.setText(formatdate(checkout_cart.get(Position).getCheckout_date()));
         //holder.imageView.setImageDrawable(); ~ to set images
-        boolean isExpanded=checkout_cart.get(position).isExpanded();
+        boolean isExpanded=checkout_cart.get(Position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
         holder.details.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +89,20 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
         });
 
 
+
+
+
+
+
     }
+    public double calculateTotalPrice() {
+        double totalPrice = 0;
+        for (Cart_item item : checkout_cart) {
+            totalPrice += item.getPrice();
+        }
+        return totalPrice;
+    }
+
 
     public String formatdate(Date y){
         SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
@@ -96,6 +127,8 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
 
         ConstraintLayout expandableLayout;
 
+
+
         public ViewHolder(@NonNull View view) {
 
             super(view);
@@ -117,6 +150,7 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
 
 
 
+
             // removes the view row on long click
 //            view.setOnLongClickListener(new View.OnLongClickListener(){
 //
@@ -129,27 +163,78 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
 //                    return true;
 //                }
 //            });
+//
+//            ib_delete_cart_item.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    checkout_cart.remove(getAdapterPosition());
+//                    notifyItemRemoved(getAdapterPosition());
+//
+//                }
+//            });
 
-            ib_delete_cart_item.setOnClickListener(new View.OnClickListener() {
+           ib_delete_cart_item.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
+
+
+                    DataBaseHelper dataBaseHelper = new DataBaseHelper(ib_delete_cart_item.getRootView().getContext());
+                    TextView total_charges=view.findViewById(R.id.tv_total_price_caluclated_display);
+                    boolean success = dataBaseHelper.deleteOne(checkout_cart.get(getAdapterPosition()));
                     checkout_cart.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
+                    double totalCharges = calculateTotalPrice();
+                    totalChargesTextView.setText(String.valueOf(totalCharges));;
+
+                    notifyDataSetChanged();
+
 
                 }
             });
+
 
 
             clicktoexpand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Cart_item item = checkout_cart.get(getAdapterPosition());
-                    item.setExpanded(!item.isExpanded());
-                    notifyItemChanged(getAdapterPosition());
+                    int clickedPosition = getAdapterPosition();
+                    Cart_item clickedItem = checkout_cart.get(clickedPosition);
+
+                    // Check if the clicked item is already expanded
+                    if (clickedItem.isExpanded()) {
+                        // If it is already expanded, collapse it
+                        clickedItem.setExpanded(false);
+                        notifyItemChanged(clickedPosition);
+                    } else {
+                        // If it is not expanded, collapse the previously expanded item (if any)
+                        int previouslyExpandedPosition = getExpandedItemPosition();
+                        if (previouslyExpandedPosition != RecyclerView.NO_POSITION) {
+                            Cart_item previouslyExpandedItem = checkout_cart.get(previouslyExpandedPosition);
+                            previouslyExpandedItem.setExpanded(false);
+                            notifyItemChanged(previouslyExpandedPosition);
+                        }
+
+                        // Expand the clicked item
+                        clickedItem.setExpanded(true);
+                        notifyItemChanged(clickedPosition);
+                    }
                 }
             });
 
+
         }
+
+
+        // Method to get the position of the currently expanded item
+        private int getExpandedItemPosition() {
+            for (int i = 0; i < checkout_cart.size(); i++) {
+                if (checkout_cart.get(i).isExpanded()) {
+                    return i;
+                }
+            }
+            return RecyclerView.NO_POSITION;
+        }
+
 
         //getadapter position helps to get the position of the specific item in the list
         @Override

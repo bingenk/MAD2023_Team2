@@ -11,6 +11,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ProgressBar
+            android:id="@+id/progressBar_checkout_cart"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_checkout"
             android:layout_width="match_parent"
@@ -45,7 +54,7 @@
                         android:text="@string/Total_Price" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/tv_total_price_caluclated_display"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

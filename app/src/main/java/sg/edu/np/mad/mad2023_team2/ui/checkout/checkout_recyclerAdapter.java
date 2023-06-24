@@ -19,7 +19,8 @@ import java.util.Date;
 import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
-import sg.edu.np.mad.mad2023_team2.ui.Cart.Cart_item;
+import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
+import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 
 
 public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recyclerAdapter.ViewHolder> {
@@ -28,10 +29,12 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
 
     private static final String TAG="RecyclerAdapter";
     List<Cart_item> checkout_cart;
+    private TextView totalChargesTextView;
 
-    public checkout_recyclerAdapter(List<Cart_item> checkout_cart) {
+    public checkout_recyclerAdapter(List<Cart_item> checkout_cart,TextView totalChargesTextView) {
 
         this.checkout_cart = checkout_cart;
+        this.totalChargesTextView = totalChargesTextView;
     }
 
     //create individual rows necessary to display the items in recycler view
@@ -77,7 +80,13 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
 
 
     }
-
+    public double calculateTotalPrice() {
+        double totalPrice = 0;
+        for (Cart_item item : checkout_cart) {
+            totalPrice += item.getPrice();
+        }
+        return totalPrice;
+    }
     public String formatdate(Date y){
         SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
         String stringDate= DateFor.format(y);
@@ -135,13 +144,24 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
 //            });
 
             ib_delete_cart_item.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
+
+
+                    DataBaseHelper dataBaseHelper = new DataBaseHelper(ib_delete_cart_item.getRootView().getContext());
+                    TextView total_charges=view.findViewById(R.id.tv_total_price_caluclated_display);
+                    boolean success = dataBaseHelper.deleteOne(checkout_cart.get(getAdapterPosition()));
                     checkout_cart.remove(getAdapterPosition());
-//                    notifyItemRemoved(getAdapterPosition());
-//                    return true;
+                    double totalCharges = calculateTotalPrice();
+                    totalChargesTextView.setText(String.valueOf(totalCharges));;
+
+                    notifyDataSetChanged();
+
+
                 }
             });
+
             clicktoexpand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

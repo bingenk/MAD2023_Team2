@@ -1,16 +1,18 @@
-package sg.edu.np.mad.mad2023_team2.ui.Cart;
+package sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite;
+
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
-import java.util.Date;
 
 import androidx.annotation.NonNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 
 public class Cart_item implements Parcelable {
 
@@ -24,7 +26,7 @@ public class Cart_item implements Parcelable {
 
     private double latitude;
     private double longitude;
-    private byte[] image;
+    private String image;
 
     private Date checkin_date;
     private Date checkout_date;
@@ -35,7 +37,7 @@ public class Cart_item implements Parcelable {
 
     public Cart_item(){}
 
-    public Cart_item(int id, String name, String description, String type, String address, double price, double latitude, double longitude, byte[] image, Date checkin_date, Date checkout_date) {
+    public Cart_item(int id, String name, String description, String type, String address, double price, double latitude, double longitude, String image, Date checkin_date, Date checkout_date) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -48,6 +50,29 @@ public class Cart_item implements Parcelable {
         this.checkin_date = checkin_date;
         this.checkout_date = checkout_date;
         this.expanded=false;
+    }
+
+
+    @Override
+    public String toString() {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String checkinDateString = (checkin_date != null) ? dateFormat.format(checkin_date) : "null";
+        String checkoutDateString = (checkout_date != null) ? dateFormat.format(checkout_date) : "null";
+        return "Cart_item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", address='" + address + '\'' +
+                ", price=" + price +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", image=" + image+
+                ", checkin_date=" + checkinDateString +
+                ", checkout_date=" + checkoutDateString +
+                ", expanded=" + expanded +
+                '}';
     }
 
     public boolean isExpanded() {
@@ -67,7 +92,7 @@ public class Cart_item implements Parcelable {
         price = in.readDouble();
         latitude = in.readDouble();
         longitude = in.readDouble();
-        image = in.createByteArray();
+        image = in.readString();
         checkin_date=(java.util.Date) in.readSerializable();
         checkout_date=(java.util.Date) in.readSerializable();
     }
@@ -116,17 +141,18 @@ public class Cart_item implements Parcelable {
         return longitude;
     }
 
-    public Bitmap getImage() {
+    public String getImage() {
 
-        try
-        {
-            InputStream is = new ByteArrayInputStream(image);
-            return BitmapFactory.decodeStream(is);
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
+//        try
+//        {
+//            InputStream is = new ByteArrayInputStream(image);
+//            return BitmapFactory.decodeStream(is);
+//        }
+//        catch (Exception e)
+//        {
+//            return null;
+//        }.
+        return image;
     }
 
     public Date getCheckin_date() {
@@ -157,7 +183,7 @@ public class Cart_item implements Parcelable {
         dest.writeDouble(price);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
-        dest.writeByteArray(image);
+        dest.writeString(image);
         dest.writeSerializable(checkin_date);
         dest.writeSerializable(checkout_date);
     }

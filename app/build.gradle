@@ -55,7 +55,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.hbb20:ccp:2.5.1'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.8.1'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 
-
-
+    implementation 'com.github.1902shubh:SendMail:1.0.0'
 }

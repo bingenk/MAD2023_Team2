@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,7 +23,12 @@ import java.util.Date;
 import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DatabaseManager;
 import sg.edu.np.mad.mad2023_team2.ui.checkout.Checkout;
+import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
+import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
+import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_details;
+import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_sqllite;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +43,14 @@ public class checkout_cart_fragment extends Fragment {
     List<Cart_item> checkout_cart;
 
     Button proceed_to_checkout;
+
+
+    ArrayAdapter customerArrayAdapter;
+    DataBaseHelper dataBaseHelper;
+
+    Cart_item itemModel;
+
+    TextView total_price_calc_display;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,25 +101,12 @@ public class checkout_cart_fragment extends Fragment {
 //        mViewModel= ViewModelProviders.of(this).get(CartViewModel.class);
 
 
-        checkout_cart=generateHotels();
 
 
-        rv=v.findViewById(R.id.rv_checkout);
-
-        recyclerAdapter=new checkout_cart_recyclerAdapter(checkout_cart);
-
-        // you can also set the layout in the xml file using the layout manager attribute
-        rv.setLayoutManager(new LinearLayoutManager(v.getContext()));
+        dataBaseHelper = DatabaseManager.getDataBaseHelper(v.getContext());
+        ShowCustomersOnListView(dataBaseHelper,v);
 
 
-        rv.setAdapter(recyclerAdapter);
-
-//To add dividers to between the views
-        DividerItemDecoration dividerItemDecoration=new DividerItemDecoration(v.getContext(),DividerItemDecoration.VERTICAL
-        );
-
-        rv.addItemDecoration(dividerItemDecoration
-        );
 
 
         proceed_to_checkout=v.findViewById(R.id.btn_proced_to_checkout);
@@ -123,21 +126,7 @@ public class checkout_cart_fragment extends Fragment {
 
         return v;
     }
-    public ArrayList<Cart_item> generateHotels()
-    {
-        ArrayList<Cart_item> hotelList = new ArrayList<>();
-
-        for (int i=0; i<=10; i++)
-        {
-            hotelList.add(new Cart_item(i,"Holiday Inn","Nostra ligula, commodo hac metus scelerisque nullam luctus ultrices. Quam at et etiam purus lacinia placerat condimentum eros dapibus imperdiet in. Iaculis aliquam integer integer."
-                    , "5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad",234.00, 1.00, 1.00,null, new Date("10/12/2018"), new Date("10/12/2018")));
-        }
-
-        hotelList.add(new Cart_item(11,"Hotel Stay","Nostra ligula, commodo hac metus scelerisque nullam luctus ultrices. Quam at et etiam purus lacinia placerat condimentum eros dapibus imperdiet in. Iaculis aliquam integer integer."
-                , "5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad",234.00, 1.00, 1.00,null, new Date("10/12/2018"), new Date("10/12/2018")));
-
-        return hotelList;
-    }
+//
     public static Date parseDate(String date) {
         try {
             return new SimpleDateFormat("yyyy-MM-dd").parse(date);
@@ -146,4 +135,59 @@ public class checkout_cart_fragment extends Fragment {
         }
     }
 
+    private void ShowCustomersOnListView(DataBaseHelper dataBaseHelper,View v) {
+        checkout_cart_details details=this.dataBaseHelper.getEveryone();
+        rv=v.findViewById(R.id.rv_checkout);
+
+        double totalprice=details.getTotalprice();
+        total_price_calc_display=v.findViewById(R.id.tv_total_price_caluclated_display);
+
+        total_price_calc_display.setText(String.valueOf(totalprice));
+        recyclerAdapter=new checkout_cart_recyclerAdapter(details.getAllcartitems(),total_price_calc_display);
+
+        // you can also set the layout in the xml file using the layout manager attribute
+        rv.setLayoutManager(new LinearLayoutManager(v.getContext()));
+
+
+        rv.setAdapter(recyclerAdapter);
+
+//To add dividers to between the views
+        DividerItemDecoration dividerItemDecoration=new DividerItemDecoration(v.getContext(),DividerItemDecoration.VERTICAL
+        );
+
+        rv.addItemDecoration(dividerItemDecoration
+        );
+        v.findViewById(R.id.progressBar_checkout_cart).setVisibility(View.GONE);
+
+
+
+
+        ArrayList<Cart_item> cartitem1=details.getAllcartitems();
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(cartitem1.get(0).getImage(), 0, (cartitem1.get(0).getImage()).length);
+//        imageView.setImageBitmap(bitmap);
+        Toast.makeText(v.getContext(), (details.getTotalprice()).toString(), Toast.LENGTH_SHORT).show();
+    }
+
+
+
+
+
 }
+
+
+//////////////////extra code//////////////////////
+//public ArrayList<Cart_item> generateHotels()
+//    {
+//        ArrayList<Cart_item> hotelList = new ArrayList<>();
+//
+//        for (int i=0; i<=10; i++)
+//        {
+//            hotelList.add(new Cart_item(i,"Holiday Inn","Nostra ligula, commodo hac metus scelerisque nullam luctus ultrices. Quam at et etiam purus lacinia placerat condimentum eros dapibus imperdiet in. Iaculis aliquam integer integer."
+//                    , "5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad",234.00, 1.00, 1.00,null, new Date("10/12/2018"), new Date("10/12/2018")));
+//        }
+//
+//        hotelList.add(new Cart_item(11,"Hotel Stay","Nostra ligula, commodo hac metus scelerisque nullam luctus ultrices. Quam at et etiam purus lacinia placerat condimentum eros dapibus imperdiet in. Iaculis aliquam integer integer."
+//                , "5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad",234.00, 1.00, 1.00,null, new Date("10/12/2018"), new Date("10/12/2018")));
+//
+//        return hotelList;
+//    }
