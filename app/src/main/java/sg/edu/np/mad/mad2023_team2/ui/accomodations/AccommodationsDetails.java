@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import sg.edu.np.mad.mad2023_team2.R;
 
-
+// Showcases information of the accommodation the user has selected
 public class AccommodationsDetails extends AppCompatActivity {
     private TextView name, type, address, district, zip, price, config, rating, distance, cots, checkin, checkout;
     private ImageView photo;
@@ -34,8 +34,10 @@ public class AccommodationsDetails extends AppCompatActivity {
         setContentView(R.layout.activity_accommodations_details);
         getSupportActionBar().hide();
 
+        // Gets the accommodation object that the user clicked on
         accommodation = getIntent().getParcelableExtra("accommodation");
 
+        // Initiates all the view items
         name = findViewById(R.id.details_name);
         photo = findViewById(R.id.details_image);
         type = findViewById(R.id.details_type);
@@ -50,6 +52,7 @@ public class AccommodationsDetails extends AppCompatActivity {
         checkin = findViewById(R.id.details_checkin);
         checkout = findViewById(R.id.details_checkout);
 
+        // Shows the information from the accommodation object if it is there
         if (accommodation != null) {
             name.setText(accommodation.getName());
             type.setText(accommodation.getType());
@@ -69,7 +72,8 @@ public class AccommodationsDetails extends AppCompatActivity {
             checkin.setText("Check-In time: from "+accommodation.getCheckin());
             checkout.setText("Check-Out time: until "+accommodation.getCheckout());
         }
-        
+
+        // For use in the next stage
         FloatingActionButton map = findViewById(R.id.details_location);
         map.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +92,7 @@ public class AccommodationsDetails extends AppCompatActivity {
             }
         });
 
+        // Goes back to the previous activity
         FloatingActionButton back = findViewById(R.id.details_back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +102,7 @@ public class AccommodationsDetails extends AppCompatActivity {
         });
 
 
+        // Brings users to the page to book the items while sending the accommodation object too
         Button book = findViewById(R.id.details_book);
 
         book.setOnClickListener(new View.OnClickListener() {

@@ -100,11 +100,8 @@ public class Checkout extends AppCompatActivity {
 
 //        checkout_cart = generateHotels();
 
-
         dataBaseHelper = DatabaseManager.getDataBaseHelper(Checkout.this);
         ShowCustomersOnListView(dataBaseHelper);
-
-
 
 
         //STRIPE PAYMENT
@@ -181,9 +178,6 @@ public class Checkout extends AppCompatActivity {
             }
         });
 
-
-
-
         Phone_number_edit_text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -195,15 +189,6 @@ public class Checkout extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-
-
-
-
-
 
     private void onPaymentResult(PaymentSheetResult paymentSheetResult) {
         if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
