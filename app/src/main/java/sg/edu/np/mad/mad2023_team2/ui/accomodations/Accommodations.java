@@ -9,7 +9,11 @@ import androidx.annotation.NonNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Date;
 
+// Model class to store and manage hotel details
+
+// Uses parcelable interface to send accommodation objects through intents
 public class Accommodations implements Parcelable {
 
     private int id;
@@ -32,6 +36,7 @@ public class Accommodations implements Parcelable {
 
     public Accommodations(){}
 
+    // Constructor without image
     public Accommodations(int i, String n, String t, String a,double p, double lat, double lon, double r, String district, String z, String distance, String ci, String co, String con)
     {
         id = i;
@@ -53,6 +58,7 @@ public class Accommodations implements Parcelable {
     }
 
 
+    // Constructor with image
     public Accommodations(int i, String n, String t, String a,double p, double lat, double lon, double r, String district, String z, String distance, String ci, String co,String con, String img, String cots)
     {
         id = i;
@@ -73,6 +79,7 @@ public class Accommodations implements Parcelable {
         hasCots = cots;
     }
 
+    // Parcelable constructor
     protected Accommodations(Parcel in) {
         id = in.readInt();
         name = in.readString();
@@ -104,9 +111,7 @@ public class Accommodations implements Parcelable {
         }
     };
 
-
-
-
+    // Get properties methods
     public int getId(){
         return id;
     }

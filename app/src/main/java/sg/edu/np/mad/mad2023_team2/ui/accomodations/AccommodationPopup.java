@@ -30,13 +30,13 @@ import java.util.Date;
 
 import sg.edu.np.mad.mad2023_team2.R;
 
+
 public class AccommodationPopup{
 
     private View view;
     private int adults, rooms;
     private Date checkin,checkout;
     private boolean initial;
-
     public AccommodationPopup(View v, int a, int r, Date ci, Date co, boolean in, final PopupCallback callback)
     {
         view = v;
