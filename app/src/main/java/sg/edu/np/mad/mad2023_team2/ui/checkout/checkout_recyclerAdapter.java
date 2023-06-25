@@ -66,16 +66,16 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
         //holder.imageView.setImageDrawable(); ~ to set images
         boolean isExpanded=checkout_cart.get(position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
-        holder.details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
-                View dialogView=LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.custom_popup_cart_item,null);
-                builder.setView(dialogView);
-                builder.setCancelable(true);
-                builder.show();
-            }
-        });
+//        holder.details.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
+//                View dialogView=LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.custom_popup_cart_item,null);
+//                builder.setView(dialogView);
+//                builder.setCancelable(true);
+//                builder.show();
+//            }
+//        });
 
 
 
@@ -104,7 +104,7 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
 
         ImageView hotel_image;
         TextView hotel_name,hotel_type,hotel_address,tv_checkin_date_title,tv_checkin_date,tv_checkout_date_title,tv_checkout_date,tv_total_price,details;
-        ImageButton ib_delete_cart_item;
+//        ImageButton ib_delete_cart_item;
 
         LinearLayout clicktoexpand;
 
@@ -116,7 +116,7 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
             hotel_image=view.findViewById(R.id.hotel_image);
             hotel_name=view.findViewById(R.id.hotel_type);
             hotel_type=view.findViewById(R.id.hotel_name);
-            ib_delete_cart_item=view.findViewById(R.id.ib_delete_cart_item);
+//            ib_delete_cart_item=view.findViewById(R.id.ib_delete_cart_item);
             //hotel_address=view.findViewById(R.id.hotel_address);
             //tv_checkin_date_title=itemView.findViewById(R.id.tv_checkin_date_title);
             tv_checkin_date=view.findViewById(R.id.tv_checkin_date);
@@ -124,7 +124,7 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
             tv_checkout_date=view.findViewById(R.id.tv_checkout_date);
             expandableLayout=view.findViewById(R.id.cl_booking_details);
             clicktoexpand=view.findViewById(R.id.ll_cart_checkout_item_box);
-            details=view.findViewById(R.id.tv_more_details);
+//            details=view.findViewById(R.id.tv_more_details);
 
 
             // removes the view row on long click
@@ -143,24 +143,24 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
 //
 //            });
 
-            ib_delete_cart_item.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-
-
-                    DataBaseHelper dataBaseHelper = new DataBaseHelper(ib_delete_cart_item.getRootView().getContext());
-                    TextView total_charges=view.findViewById(R.id.tv_total_price_caluclated_display);
-                    boolean success = dataBaseHelper.deleteOne(checkout_cart.get(getAdapterPosition()));
-                    checkout_cart.remove(getAdapterPosition());
-                    double totalCharges = calculateTotalPrice();
-                    totalChargesTextView.setText(String.valueOf(totalCharges));;
-
-                    notifyDataSetChanged();
-
-
-                }
-            });
+//            ib_delete_cart_item.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//
+//
+//                    DataBaseHelper dataBaseHelper = new DataBaseHelper(ib_delete_cart_item.getRootView().getContext());
+//                    TextView total_charges=view.findViewById(R.id.tv_total_price_caluclated_display);
+//                    boolean success = dataBaseHelper.deleteOne(checkout_cart.get(getAdapterPosition()));
+//                    checkout_cart.remove(getAdapterPosition());
+//                    double totalCharges = calculateTotalPrice();
+//                    totalChargesTextView.setText(String.valueOf(totalCharges));;
+//
+//                    notifyDataSetChanged();
+//
+//
+//                }
+//            });
 
             clicktoexpand.setOnClickListener(new View.OnClickListener() {
                 @Override

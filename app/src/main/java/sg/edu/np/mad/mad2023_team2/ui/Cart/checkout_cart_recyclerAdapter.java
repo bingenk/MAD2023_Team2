@@ -80,8 +80,28 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
         holder.details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
                 View dialogView=LayoutInflater.from(v.getRootView().getContext()).inflate(R.layout.custom_popup_cart_item,null);
+                TextView name = dialogView.findViewById(R.id.booking_name);
+
+
+                ///////////pop up///////////////
+                TextView pop_up_name = dialogView.findViewById(R.id.booking_name);
+                TextView pop_up_desc = dialogView.findViewById(R.id.booking_config);
+
+                ImageView pop_up_image = dialogView.findViewById(R.id.booking_image);
+                TextView pop_up_price = dialogView.findViewById(R.id.booking_price);
+
+                Picasso.with(pop_up_image.getContext())
+                        .load(checkout_cart.get(Position).getImage())
+                        .into(pop_up_image);
+
+                pop_up_name.setText(checkout_cart.get(Position).getName());
+                pop_up_desc.setText(checkout_cart.get(Position).getDescription());
+                pop_up_price.setText("$ "+  String.format("%.2f", checkout_cart.get(Position).getPrice()));
                 builder.setView(dialogView);
                 builder.setCancelable(true);
                 builder.show();
@@ -129,6 +149,7 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
 
 
 
+
         public ViewHolder(@NonNull View view) {
 
             super(view);
@@ -145,6 +166,7 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
             expandableLayout=view.findViewById(R.id.cl_booking_details);
             clicktoexpand=view.findViewById(R.id.ll_cart_checkout_item_box);
             details=view.findViewById(R.id.tv_more_details);
+
 
 
 

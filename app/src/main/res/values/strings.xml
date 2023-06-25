@@ -40,4 +40,5 @@
     <string name="CustomerName">Customer Name</string>
     <string name="CustomerAge">Age</string>
     <string name="ActiveCustomer">Active Customer\n\n</string>
+    <string name="Rating">Rating</string>
 </resources>

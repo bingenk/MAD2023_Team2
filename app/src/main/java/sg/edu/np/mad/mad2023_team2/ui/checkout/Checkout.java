@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -38,7 +41,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import papaya.in.sendmail.SendMail;
+
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.ui.Cart.checkout_cart_recyclerAdapter;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
@@ -81,6 +84,7 @@ public class Checkout extends AppCompatActivity {
 
     DataBaseHelper dataBaseHelper;
     TextView total_price_calc_display;
+    String price;
 
 
 
@@ -132,11 +136,8 @@ public class Checkout extends AppCompatActivity {
 //                            editor.putString("total_price", "300");
 //                            editor.apply();
                            checkout_details checkout=new checkout_details(checkout_cart,300,First_name,Last_name,Email,residing_country,Phone_number,Guest_First_Name,Guest_Last_Name,Guest_residing_country);
-//                    SendMail mail = new SendMail(config.EMAIL, "14Q283362r04",
-//                            "pvss1427n@gmail.com",
-//                            "Testing Email Sending",
-//                            "Yes, it's working well\nI will use it always.");
-//                    mail.execute();
+
+
                     Toast.makeText(Checkout.this, checkout.toString(), Toast.LENGTH_LONG).show();
                     PaymentFlow();
                 }
@@ -291,14 +292,11 @@ public class Checkout extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
 //                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
 //                String myValue = sharedPreferences.getString("total_cost", "0");
-                dataBaseHelper = DatabaseManager.getDataBaseHelper(Checkout.this);
-                checkout_cart_details calculate_total_price_stripe=dataBaseHelper.getEveryone();
-                total_price_stripe =calculate_total_price_stripe.getTotalprice();
-                String ts = String.valueOf(total_price_stripe);
+                 price =gettotalprice()+"00";
 
                 Map<String, String> params = new HashMap<>();
                 params.put("customer", customerID);
-                params.put("amount",ts+ "00");
+                params.put("amount", price);
                 params.put("currency", "usd");
                 params.put("automatic_payment_methods[enabled]", "true");
 
@@ -314,6 +312,16 @@ public class Checkout extends AppCompatActivity {
     }
 
 
+
+    public String gettotalprice(){
+        dataBaseHelper = DatabaseManager.getDataBaseHelper(Checkout.this);
+                checkout_cart_details calculate_total_price_stripe=dataBaseHelper.getEveryone();
+                total_price_stripe =calculate_total_price_stripe.getTotalprice();
+                int ts1=(int)total_price_stripe;
+                String ts = String.format("%d", ts1);
+        Log.d("pricecheck", "gettotalprice: fefe"+ts);
+                return ts;
+    }
 
     private void PaymentFlow() {
         paymentSheet.presentWithPaymentIntent(
@@ -509,7 +517,7 @@ public class Checkout extends AppCompatActivity {
 
 
 
-        Toast.makeText(Checkout.this, (details.getTotalprice()).toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(Checkout.this, (details.getTotalprice()).toString(), Toast.LENGTH_SHORT).show();
     }
 
 
