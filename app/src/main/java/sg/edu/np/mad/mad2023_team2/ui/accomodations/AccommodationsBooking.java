@@ -33,7 +33,7 @@ import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_details;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_sqllite;
-
+// Displays the item info and allows the user to add the item to the cart
 public class AccommodationsBooking extends AppCompatActivity {
 
     private TextView name, config, adults, rooms, checkin, checkout, price;
@@ -55,12 +55,17 @@ public class AccommodationsBooking extends AppCompatActivity {
         setContentView(R.layout.activity_accommodations_booking);
         getSupportActionBar().hide();
 
+        // Get the accommodation object form the previous activity
         accommodation = getIntent().getParcelableExtra("accommodations");
+
+        // Get the user input data from the sharedpreferces storage
         SharedPreferences data = getSharedPreferences("Values", Context.MODE_PRIVATE);
         int numAdults = data.getInt("adults", 0);
         int numRooms = data.getInt("rooms", 0);
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+        // Initiates view items
         name = findViewById(R.id.booking_name);
         config = findViewById(R.id.booking_config);
         adults = findViewById(R.id.booking_adults);
@@ -71,6 +76,7 @@ public class AccommodationsBooking extends AppCompatActivity {
         price = findViewById(R.id.booking_price);
         book = findViewById(R.id.booking_cart);
 
+        // Set the items to the view from both the accommodation object and the shared preferences storage
         config.setText(accommodation.getConfiguration());
         Picasso.with(this).load(accommodation.getImage()).fit().centerCrop().into(image);
 
@@ -79,6 +85,7 @@ public class AccommodationsBooking extends AppCompatActivity {
         price.setText("$ "+  String.format("%.2f", accommodation.getPrice()));
         name.setText(accommodation.getName());
         try {
+            // Gets the date using the dateformat format
             checkIn = dateFormat.parse(data.getString("checkin", "2023-01-01"));
             checkOut = dateFormat.parse(data.getString("checkout", "2023-01-01"));
             checkin.setText(dateFormat.format(checkIn));
@@ -87,6 +94,7 @@ public class AccommodationsBooking extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
+        // Allow users to go back to the previous activity
         FloatingActionButton back = findViewById(R.id.booking_back);
 
         back.setOnClickListener(new View.OnClickListener() {

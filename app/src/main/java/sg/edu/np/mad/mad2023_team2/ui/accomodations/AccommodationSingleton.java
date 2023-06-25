@@ -9,6 +9,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
+// Create only a single instance of the volley requestqueue to prevent overload
 public class AccommodationSingleton {
     private static AccommodationSingleton instance;
     private RequestQueue requestQueue;

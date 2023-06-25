@@ -18,10 +18,14 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.MAD2023_Team2"
+        android:enableOnBackInvokedCallback="true"
         tools:targetApi="31">
-        <!--        <meta-data-->
-        <!--            android:name="com.google.android.geo.API_KEY"-->
-        <!--            android:value=""-->
+        <activity
+            android:name=".ui.accomodations.AccommodationsBooking"
+            android:exported="false" />
+        <activity
+            android:name=".ui.accomodations.AccommodationsDetails"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -33,6 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.checkout.Checkout"
             android:exported="true"
@@ -58,15 +63,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-<!--        //accomodation activty//-->
-        <activity
-            android:name=".ui.accomodations.AccommodationsBooking"
-            android:exported="false" />
-        <activity
-            android:name=".ui.accomodations.AccommodationsDetails"
-            android:exported="false" />
-
     </application>
-
 </manifest>
