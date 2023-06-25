@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.databinding.ActivityMainBinding;
 import sg.edu.np.mad.mad2023_team2.ui.LoginSignup.Login;
+import sg.edu.np.mad.mad2023_team2.ui.home.PrivacyPolicyActivity;
 import sg.edu.np.mad.mad2023_team2.ui.home.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,8 +52,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        if (id == R.id.action_privacy) {
+            // Open the desired activity here
+            Intent intent = new Intent(MainActivity.this, PrivacyPolicyActivity.class);
+            startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
