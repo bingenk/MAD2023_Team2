@@ -14,8 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
+//////////parcelable class to store the details of individual items in the cart/////////////
 public class Cart_item implements Parcelable {
-
+//////properties/////////
     private int id;
     private String name;
     private String description;
@@ -34,7 +35,7 @@ public class Cart_item implements Parcelable {
     private boolean expanded;
 
 
-
+/////////constructor///////////
     public Cart_item(){}
 
     public Cart_item(int id, String name, String description, String type, String address, double price, double latitude, double longitude, String image, Date checkin_date, Date checkout_date) {
@@ -52,7 +53,7 @@ public class Cart_item implements Parcelable {
         this.expanded=false;
     }
 
-
+//////////to string method//////////////
     @Override
     public String toString() {
 

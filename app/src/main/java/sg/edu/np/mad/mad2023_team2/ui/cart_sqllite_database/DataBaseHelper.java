@@ -23,10 +23,11 @@ import java.util.Locale;
 
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_details;
-
+//////This is the database helper for the sqllite ////
+//This contains the methods to create table , add items to table and delete items from table///////
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-
+//////// refactored value for multiple uses/////////////////
     public static final String CART_ITEM_TABLE = "CART_ITEM_TABLE";
     public static final String CART_ITEM_NAME = "CART_ITEM_NAME";
     public static final String CART_ITEM_DESCRIPTION = "CART_ITEM_DESCRIPTION";
@@ -48,7 +49,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         super(context, "cart_item.db", null, 1);
     }
 
-    //this is called the first time a database is accessed.There should be in here to create a new database.
+    //this is called the first time a database is accessed.There should be in here to create a new database.//
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -78,6 +79,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("drop table if exists "+CART_ITEM_TABLE);
     }
 
+    //////////this method gets back a Cart item and adds it to the database///////////////
     public boolean addOne(Cart_item cartItem){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         String dateString1 = dateFormat.format(cartItem.getCheckin_date());
@@ -104,7 +106,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-
+///////method is used to parse string date to Date type///////////
 
     public static Date parseDate(String date) {
         try {
@@ -114,7 +116,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
+//////method deletes the item in the cart frm the database///////////
     public boolean deleteOne(Cart_item itemModel){
         //find itemModel in the database . if it is found , delete it and return true.
         //if it not found ,return false
@@ -132,7 +134,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
 
-
+////////////////method is used to retrive all the information in the cart and return a checkout_cart_details item which has an arraylist and a double as parameters . the array list has all the cart items and the double stores the total price of all the items in the cart///////////////
     public checkout_cart_details getEveryone(){
         ArrayList<Cart_item> returnList =new ArrayList<>();
         double Total_price=0;

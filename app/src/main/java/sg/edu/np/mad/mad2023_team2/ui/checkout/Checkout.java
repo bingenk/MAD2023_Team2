@@ -48,7 +48,7 @@ import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DatabaseManager;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_details;
-
+//////////////Checkout class shows the checkout page with a recycle view and a scroll view for the user to insert all the customer information and then validates the input before processing payment with the onclick function on the payment button////////
 public class Checkout extends AppCompatActivity {
 
 
@@ -76,7 +76,7 @@ public class Checkout extends AppCompatActivity {
     Button paymentbutton;
 
 
-
+//////these are the keys for the payment api////////////
     String SECRET_KEY = "sk_test_51NL1IVArVetI75gXAaWfW0ZIEbRwNCbmDvI692u6W5EPaXtOkBRoK7OTwAc5xbcjawcfrKooy5j8hUMQC7qGT87s00XVfKw9F3";
     String PUBLISH_KEY = "pk_test_51NL1IVArVetI75gX1NpOAdurG9Ojti56zfKjGD3VBxFUEDkLZmijmiy0St2SYRPMHpE62mwYikY4tauIftaFsUno00TMiWl405";
 
@@ -115,12 +115,13 @@ public class Checkout extends AppCompatActivity {
             onPaymentResult(paymentSheetResult);
 
         });
-
+/////////////////// when the payment button is clicked the inputs are validated  and opens up the payment view for the customer to key in their payment details////
+        ///////////also stores the information input given by the customer in a checkout object to be displayed after successfull payment///////////
         paymentbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateeverything();
-                if ( validateeverything()){
+                if (validateeverything()){
                     ///customer details////
                            String First_name= First_name_input_edit_text.getText().toString();
                            String Last_name= Last_name_input_edit_text.getText().toString();
@@ -138,7 +139,7 @@ public class Checkout extends AppCompatActivity {
                            checkout_details checkout=new checkout_details(checkout_cart,300,First_name,Last_name,Email,residing_country,Phone_number,Guest_First_Name,Guest_Last_Name,Guest_residing_country);
 
 
-                    Toast.makeText(Checkout.this, checkout.toString(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(Checkout.this, checkout.toString(), Toast.LENGTH_LONG).show();
                     PaymentFlow();
                 }
             }
@@ -182,7 +183,7 @@ public class Checkout extends AppCompatActivity {
         });
 
 
-
+//////////////chages the hint from phonenumber to the example of country number chosen by the user///////////
 
         Phone_number_edit_text.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -221,8 +222,8 @@ public class Checkout extends AppCompatActivity {
                     JSONObject object = new JSONObject(response);
                     EphericalKey = object.getString("id");
 
-
-                    Toast.makeText(Checkout.this, EphericalKey, Toast.LENGTH_SHORT).show();
+//
+//                    Toast.makeText(Checkout.this, EphericalKey, Toast.LENGTH_SHORT).show();
                     getCientSecret(customerID, EphericalKey);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -267,7 +268,7 @@ public class Checkout extends AppCompatActivity {
                     JSONObject object = new JSONObject(response);
                     ClientSecret = object.getString("client_secret");
 
-                    Toast.makeText(Checkout.this, ClientSecret, Toast.LENGTH_SHORT).show();
+              //      Toast.makeText(Checkout.this, ClientSecret, Toast.LENGTH_SHORT).show();
 
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -311,7 +312,7 @@ public class Checkout extends AppCompatActivity {
 
     }
 
-
+////////////////gets the total price of all the items in the cart/////////////////
 
     public String gettotalprice(){
         dataBaseHelper = DatabaseManager.getDataBaseHelper(Checkout.this);
@@ -319,7 +320,7 @@ public class Checkout extends AppCompatActivity {
                 total_price_stripe =calculate_total_price_stripe.getTotalprice();
                 int ts1=(int)total_price_stripe;
                 String ts = String.format("%d", ts1);
-        Log.d("pricecheck", "gettotalprice: fefe"+ts);
+        //Log.d("pricecheck", "gettotalprice: fefe"+ts);
                 return ts;
     }
 
@@ -332,7 +333,7 @@ public class Checkout extends AppCompatActivity {
         );
     }
 
-
+///////////////////initialize  all the elements in the xml/////////////////
     private void  initalizeViews(){
         //recycler view//
         rv = findViewById(R.id.rv_checkout_items);
@@ -387,6 +388,8 @@ public class Checkout extends AppCompatActivity {
      country_code_picker.registerCarrierNumberEditText(Phone_number_edit_text);
     }
 
+    //////////////validation pattern for the email//////////
+
     private boolean isValidEmail(String email) {
         // Email validation regex pattern
         String emailPattern = "^[a-z0-9._-]+@[a-z]+\\.[a-z]+$";
@@ -395,6 +398,7 @@ public class Checkout extends AppCompatActivity {
     }
 
 
+    ///////////method to validate all the input by the///////////////////////////
     private boolean validateeverything(){
         String firstName =First_name_input_edit_text.getText().toString().trim();
         String lastName = Last_name_input_edit_text.getText().toString().trim();
@@ -493,7 +497,7 @@ public class Checkout extends AppCompatActivity {
         double totalprice=details.getTotalprice();
         total_price_calc_display=findViewById(R.id.total_price_input);
 
-        total_price_calc_display.setText(String.valueOf(totalprice));
+        total_price_calc_display.setText(String.format("%.2f", totalprice));
 
         total_price_stripe=totalprice;
         recyclerAdapter=new checkout_recyclerAdapter(details.getAllcartitems(),total_price_calc_display);

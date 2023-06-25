@@ -23,6 +23,8 @@ import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DatabaseManager;
 
+///////example class to test out the database/////////
+
 public class checkout_cart_sqllite extends AppCompatActivity {
 
 
@@ -60,8 +62,7 @@ public class checkout_cart_sqllite extends AppCompatActivity {
 
 
         btn_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            @Override            public void onClick(View v) {
 
                 String url ="https://cf.bstatic.com/xdata/images/hotel/max1280x900/297611078.jpg?k=e26cc333800386469e170cfec12cc5cc261812df76497422688608b41d30f7f3&o=";
 

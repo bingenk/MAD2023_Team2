@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+////////////////////URL TO BYTE ARRAY CONVERTER CLASS//////////////////
 public class URLToByteArrayConverter {
     public interface OnConversionCompleteListener {
         void onConversionComplete(byte[] byteArray);

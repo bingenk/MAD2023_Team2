@@ -41,4 +41,5 @@
     <string name="CustomerAge">Age</string>
     <string name="ActiveCustomer">Active Customer\n\n</string>
     <string name="Rating">Rating</string>
+    <string name="popup_address">Address\n</string>
 </resources>

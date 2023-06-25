@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 
-
+////////////////////////Contains all the details of the customers checkout to be sent as a receipt/email  //////////////////////
 public class checkout_details
 {
+
+    ////////PROPERTIES ////////////
     ArrayList<Cart_item> checkout_items = new ArrayList<>();
 
     double total_price;
@@ -20,6 +22,8 @@ public class checkout_details
     String guest_last_name;
     String guest_country_of_residence;
 
+
+    ///////////////Constructor/////////////
     public checkout_details(ArrayList<Cart_item> checkout_items, double total_price, String first_name, String last_name, String email_address, String country_of_residence,  String phone_number, String guest_first_name, String guest_last_name, String guest_country_of_residence) {
         this.checkout_items = checkout_items;
         this.total_price = total_price;
@@ -32,6 +36,11 @@ public class checkout_details
         this.guest_last_name = guest_last_name;
         this.guest_country_of_residence = guest_country_of_residence;
     }
+
+
+
+
+    /////////////Getters and Setters/////////////
 
 
     public ArrayList<Cart_item> getCheckout_items() {
@@ -114,6 +123,9 @@ public class checkout_details
     public void setGuest_country_of_residence(String guest_country_of_residence) {
         this.guest_country_of_residence = guest_country_of_residence;
     }
+
+
+    ////////To string method ///////////
 
     @Override
     public String toString() {

@@ -25,6 +25,8 @@ import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 
+
+////////CHECKOUT CART RECYCLE ADAPTER is for the recycle view in the checkout cart fragment/////////////
 public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout_cart_recyclerAdapter.ViewHolder> {
     public static final String CART_ITEM_TABLE = "CART_ITEM_TABLE";
 
@@ -33,6 +35,8 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
     Context context;
 
     private TextView totalChargesTextView;
+
+    ///////The checkout cart recyler has two paramters , the Text view is added so that the total price text view can be updated when an item from the cart is deleted///////
 
     public checkout_cart_recyclerAdapter(ArrayList<Cart_item> checkout_cart, TextView totalChargesTextView) {
         this.checkout_cart = checkout_cart;
@@ -73,8 +77,13 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
         holder.tv_checkin_date.setText(formatdate(checkout_cart.get(Position).getCheckin_date()));
         holder.tv_checkout_date.setText(formatdate(checkout_cart.get(Position).getCheckout_date()));
         //holder.imageView.setImageDrawable(); ~ to set images
+
+        ////// The two lines of code below checks if the contranit layout containing gthe date and price of the hotel is expanded and setting the visibilty according to onclick////////
         boolean isExpanded=checkout_cart.get(Position).isExpanded();
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+
+
+        ///////shows a popup containing the details of the hotel when the details textview is clicked/////////////
         holder.details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +98,7 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
                 ///////////pop up///////////////
                 TextView pop_up_name = dialogView.findViewById(R.id.booking_name);
                 TextView pop_up_desc = dialogView.findViewById(R.id.booking_config);
+                TextView pop_up_address=dialogView.findViewById(R.id.tv_address_input);
 
                 ImageView pop_up_image = dialogView.findViewById(R.id.booking_image);
                 TextView pop_up_price = dialogView.findViewById(R.id.booking_price);
@@ -99,6 +109,7 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
 
                 pop_up_name.setText(checkout_cart.get(Position).getName());
                 pop_up_desc.setText(checkout_cart.get(Position).getDescription());
+                pop_up_address.setText(checkout_cart.get(Position).getAddress());
                 pop_up_price.setText("$ "+  String.format("%.2f", checkout_cart.get(Position).getPrice()));
                 builder.setView(dialogView);
                 builder.setCancelable(true);
@@ -113,6 +124,9 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
 
 
     }
+
+
+    ///////// method helps to calculate the total price of the cart///////
     public double calculateTotalPrice() {
         double totalPrice = 0;
         for (Cart_item item : checkout_cart) {
@@ -121,13 +135,13 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
         return totalPrice;
     }
 
-
+//////////////method helps to format a Date variable to a string///////////////
     public String formatdate(Date y){
         SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
          String stringDate= DateFor.format(y);
          return stringDate;}
 
-    //Represents the number of rows in the recycler view
+    //Represents the number of rows in the recycler view///
     @Override
     public int getItemCount() {
 
@@ -151,6 +165,7 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
         public ViewHolder(@NonNull View view) {
 
             super(view);
+            ////////////initialise the views/////////////
 
             hotel_image=view.findViewById(R.id.hotel_image);
             hotel_name=view.findViewById(R.id.hotel_name);
@@ -193,6 +208,7 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
 //                }
 //            });
 
+            ///////////////deletes the cart item from the list and the sqllite database and updates the total price//////////////
            ib_delete_cart_item.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -200,11 +216,12 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
 
 
                     DataBaseHelper dataBaseHelper = new DataBaseHelper(ib_delete_cart_item.getRootView().getContext());
-                    TextView total_charges=view.findViewById(R.id.tv_total_price_caluclated_display);
+                    TextView total_charges=view.findViewById(R.id.textView2);
                     boolean success = dataBaseHelper.deleteOne(checkout_cart.get(getAdapterPosition()));
                     checkout_cart.remove(getAdapterPosition());
                     double totalCharges = calculateTotalPrice();
-                    totalChargesTextView.setText(String.valueOf(totalCharges));;
+
+                    totalChargesTextView.setText(String.format("%.2f", totalCharges));
 
                     notifyDataSetChanged();
 
@@ -213,7 +230,7 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
             });
 
 
-
+//////////////////expands the constrint layout in the cardview on click and displays the checkin,checkout dates and the price of the hotel//////////
             clicktoexpand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -259,8 +276,8 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
         //getadapter position helps to get the position of the specific item in the list
         @Override
         public void onClick(View v) {
-
-            Toast.makeText(v.getContext(), (CharSequence) checkout_cart.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+//
+//            Toast.makeText(v.getContext(), (CharSequence) checkout_cart.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -47,7 +47,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
                 android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
                 android:text="Accommodation Name"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
 
@@ -67,7 +69,8 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="20dp"
+                    android:gravity="start">
 
                     <TextView
                         android:id="@+id/textView6"
@@ -97,17 +100,17 @@
                     android:layout_marginBottom="20dp">
 
                     <TextView
-                        android:id="@+id/tv_rating_tag"
+                        android:id="@+id/tv_address_tag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
-                        android:text="@string/Rating"
+                        android:text="Address:"
                         android:textAlignment="textEnd"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_rating_input"
+                        android:id="@+id/tv_address_input"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"

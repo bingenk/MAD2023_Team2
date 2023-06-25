@@ -24,7 +24,7 @@ import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 
-
+//////////////This is the recycle adapter for the checkout recycle view////////////////////////
 public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recyclerAdapter.ViewHolder> {
 
 
@@ -58,7 +58,7 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
     //onbindviewholder is called for the total number of views unline the viewholder
     @Override
     public void onBindViewHolder(@NonNull checkout_recyclerAdapter.ViewHolder holder, int position) {
-
+///////picasso helps to convert url and set it to the imageview specified/////////////////
         Picasso.with(holder.hotel_image.getContext())
                 .load(checkout_cart.get(position).getImage())
                 .into(holder.hotel_image);
@@ -85,6 +85,9 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
 
 
     }
+
+
+    /////calculates the total price of the items in the cart///////////
     public double calculateTotalPrice() {
         double totalPrice = 0;
         for (Cart_item item : checkout_cart) {
@@ -92,6 +95,9 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
         }
         return totalPrice;
     }
+
+
+    ///////method formats a Date variable to a string///////////////
     public String formatdate(Date y){
         SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
         String stringDate= DateFor.format(y);
@@ -169,7 +175,7 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
 //
 //                }
 //            });
-
+///////////////////expands the cardview to display the dates and price////////////////
             clicktoexpand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -216,7 +222,7 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
         @Override
         public void onClick(View v) {
 
-            Toast.makeText(v.getContext(), (CharSequence) checkout_cart.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
+       //     Toast.makeText(v.getContext(), (CharSequence) checkout_cart.get(getAdapterPosition()), Toast.LENGTH_SHORT).show();
         }
     }
 }

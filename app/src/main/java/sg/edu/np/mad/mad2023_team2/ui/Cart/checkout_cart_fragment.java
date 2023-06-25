@@ -1,5 +1,7 @@
 package sg.edu.np.mad.mad2023_team2.ui.Cart;
 
+import static java.lang.Double.parseDouble;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -28,13 +30,15 @@ import sg.edu.np.mad.mad2023_team2.ui.checkout.Checkout;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_details;
-import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_sqllite;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link checkout_cart_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+
+/////the checkout cart fragment replaces the home view when the user click on the cart menu button//////
 public class checkout_cart_fragment extends Fragment {
 
     RecyclerView rv;
@@ -111,14 +115,32 @@ public class checkout_cart_fragment extends Fragment {
 
         proceed_to_checkout=v.findViewById(R.id.btn_proced_to_checkout);
 
+
+
+        ///button to proceed to the checkout page/////
         proceed_to_checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String ttpstring=total_price_calc_display.getText().toString();
+                double ttpdouble=0;
+                try {
+                    ttpdouble= parseDouble(ttpstring);
+                }catch(Exception e){
 
+
+                    Toast.makeText(v.getContext(), "There is no double value in price!!!!!", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+                if (ttpdouble>0){
                 Intent forwardtocheckout = new Intent(v.getContext(), Checkout.class);
 
-                startActivity(forwardtocheckout);
-
+                startActivity(forwardtocheckout);}
+                else {
+                    Toast.makeText(v.getContext(), "You have no items in your cart!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -127,22 +149,22 @@ public class checkout_cart_fragment extends Fragment {
         return v;
     }
 //
-    public static Date parseDate(String date) {
-        try {
-            return new SimpleDateFormat("yyyy-MM-dd").parse(date);
-        } catch (ParseException e) {
-            return null;
-        }
-    }
-
+//    public static Date parseDate(String date) {
+//        try {
+//            return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+//        } catch (ParseException e) {
+//            return null;
+//        }
+//    }
+////////the code below gets all the items in the cart and the total price of the carts///////////
     private void ShowCustomersOnListView(DataBaseHelper dataBaseHelper,View v) {
         checkout_cart_details details=this.dataBaseHelper.getEveryone();
         rv=v.findViewById(R.id.rv_checkout);
 
         double totalprice=details.getTotalprice();
-        total_price_calc_display=v.findViewById(R.id.tv_total_price_caluclated_display);
+        total_price_calc_display=v.findViewById(R.id.textView2);
 
-        total_price_calc_display.setText(String.valueOf(totalprice));
+        total_price_calc_display.setText(String.format("%.2f", totalprice));
         recyclerAdapter=new checkout_cart_recyclerAdapter(details.getAllcartitems(),total_price_calc_display);
 
         // you can also set the layout in the xml file using the layout manager attribute
@@ -162,10 +184,10 @@ public class checkout_cart_fragment extends Fragment {
 
 
 
-        ArrayList<Cart_item> cartitem1=details.getAllcartitems();
+//        ArrayList<Cart_item> cartitem1=details.getAllcartitems();
 //        Bitmap bitmap = BitmapFactory.decodeByteArray(cartitem1.get(0).getImage(), 0, (cartitem1.get(0).getImage()).length);
 //        imageView.setImageBitmap(bitmap);
-        Toast.makeText(v.getContext(), (details.getTotalprice()).toString(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(v.getContext(), (details.getTotalprice()).toString(), Toast.LENGTH_SHORT).show();
     }
 
 
