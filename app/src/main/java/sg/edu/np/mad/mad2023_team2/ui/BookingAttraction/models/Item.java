@@ -1,5 +1,10 @@
 package sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.models;
 
+
+//////////////////////////////////////////////////////////
+//        ITEMS CLASS stores (Trip)Object and Type      //
+//////////////////////////////////////////////////////////
+
 public class Item {
 
     private int type;

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
@@ -18,17 +20,28 @@ import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.models.Item;
 import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.models.Trip;
 
 public class TripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    ////////////////////////////////////////////
+    //        DEFINE Objects in class         //
+    ////////////////////////////////////////////
     private final RecyclerViewInterface recyclerViewInterface;
     private List<Item> items;
 
+    ///////////////////////////////
+    //        CONSTRUCTOR        //
+    ///////////////////////////////
     public TripAdapter(List<Item> items, RecyclerViewInterface recyclerViewInterface) {
         this.items = items;
         this.recyclerViewInterface = recyclerViewInterface;
     }
 
+    //////////////////////////////////////////////
+    //       OnCreateViewHolder Function        //
+    //////////////////////////////////////////////
+
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {      // ViewHolder Operator for RecyclerViewAdapter
 
         if (viewType == 0)
         {
@@ -43,23 +56,31 @@ public class TripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        
 
         if(getItemViewType(position) == 0){
             Trip trip = (Trip) items.get(position).getObject();
             ((TripViewHolder) holder).setTripDate(trip);
         }
+
     }
 
+    ////////////////////////////////////
+    //        OTHER OPERATORS         //
+    ////////////////////////////////////
+
     @Override
-    public int getItemCount() {
-        return items.size();
-    }
+    public int getItemCount() {return items.size();}
 
     @Override
     public int getItemViewType(int position) {
         return items.get(position).getType();
     }
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    //        SET VALUES in ARRAY to RecyclerViewContents via item_container_trip.xml         //
+    ////////////////////////////////////////////////////////////////////////////////////////////
     static class TripViewHolder extends RecyclerView.ViewHolder
     {
         private ImageView imageTrip;
@@ -91,7 +112,7 @@ public class TripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         void setTripDate(Trip trip)
         {
-            imageTrip.setImageResource(trip.getTripImage());
+            Picasso.get().load(trip.getTripImage()).into(imageTrip);   // Set Values via Picasso Library and setText()
             textTripTitle.setText(trip.getTripTitle());
             textTrip.setText(trip.getTrip());
         }
