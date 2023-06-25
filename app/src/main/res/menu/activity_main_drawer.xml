@@ -16,6 +16,10 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_accommodations"
+            android:icon="@drawable/ic_menu_hotel"
+            android:title="@string/menu_accommodations" />
 
         <item
             android:id="@+id/nav_checkout_cart"

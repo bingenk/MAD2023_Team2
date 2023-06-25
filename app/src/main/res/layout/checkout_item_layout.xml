@@ -137,13 +137,14 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tv_total_price"
+                        android:id="@+id/tv_total_price_checkout"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="$360"
+                        android:gravity="center"
                         android:textAlignment="center"
-                        android:textSize="34sp" />
+                        android:textSize="20sp" />
 
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

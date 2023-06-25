@@ -59,6 +59,14 @@
             </intent-filter>
         </activity>
 
+<!--        //accomodation activty//-->
+        <activity
+            android:name=".ui.accomodations.AccommodationsBooking"
+            android:exported="false" />
+        <activity
+            android:name=".ui.accomodations.AccommodationsDetails"
+            android:exported="false" />
+
     </application>
 
 </manifest>

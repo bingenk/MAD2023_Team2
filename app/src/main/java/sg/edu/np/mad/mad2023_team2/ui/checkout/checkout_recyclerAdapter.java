@@ -14,6 +14,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -57,7 +59,9 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
     @Override
     public void onBindViewHolder(@NonNull checkout_recyclerAdapter.ViewHolder holder, int position) {
 
-        holder.hotel_image.setImageDrawable(null);
+        Picasso.with(holder.hotel_image.getContext())
+                .load(checkout_cart.get(position).getImage())
+                .into(holder.hotel_image);
         holder.hotel_name.setText(checkout_cart.get(position).getName());
         holder.hotel_type.setText(checkout_cart.get(position).getType());
 //        holder.hotel_address.setText(checkout_cart.get(position).getAddress());
@@ -65,6 +69,7 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
         holder.tv_checkout_date.setText(formatdate(checkout_cart.get(position).getCheckout_date()));
         //holder.imageView.setImageDrawable(); ~ to set images
         boolean isExpanded=checkout_cart.get(position).isExpanded();
+        holder.tv_total_price.setText("$ "+  String.format("%.2f", checkout_cart.get(position).getPrice()));
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 //        holder.details.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -114,8 +119,9 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
             super(view);
 
             hotel_image=view.findViewById(R.id.hotel_image);
-            hotel_name=view.findViewById(R.id.hotel_type);
-            hotel_type=view.findViewById(R.id.hotel_name);
+            hotel_name=view.findViewById(R.id.hotel_name);
+            hotel_type=view.findViewById(R.id.hotel_type);
+
 //            ib_delete_cart_item=view.findViewById(R.id.ib_delete_cart_item);
             //hotel_address=view.findViewById(R.id.hotel_address);
             //tv_checkin_date_title=itemView.findViewById(R.id.tv_checkin_date_title);
@@ -123,8 +129,10 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
             //tv_checkout_date_title=itemView.findViewById(R.id.tv_checkout_date_title);
             tv_checkout_date=view.findViewById(R.id.tv_checkout_date);
             expandableLayout=view.findViewById(R.id.cl_booking_details);
+            tv_total_price=view.findViewById(R.id.tv_total_price_checkout);
             clicktoexpand=view.findViewById(R.id.ll_cart_checkout_item_box);
 //            details=view.findViewById(R.id.tv_more_details);
+
 
 
             // removes the view row on long click
@@ -165,13 +173,44 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
             clicktoexpand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Cart_item item = checkout_cart.get(getAdapterPosition());
-                    item.setExpanded(!item.isExpanded());
-                    notifyItemChanged(getAdapterPosition());
+                    int clickedPosition = getAdapterPosition();
+                    Cart_item clickedItem = checkout_cart.get(clickedPosition);
+
+                    // Check if the clicked item is already expanded
+                    if (clickedItem.isExpanded()) {
+                        // If it is already expanded, collapse it
+                        clickedItem.setExpanded(false);
+                        notifyItemChanged(clickedPosition);
+                    } else {
+                        // If it is not expanded, collapse the previously expanded item (if any)
+                        int previouslyExpandedPosition = getExpandedItemPosition();
+                        if (previouslyExpandedPosition != RecyclerView.NO_POSITION) {
+                            Cart_item previouslyExpandedItem = checkout_cart.get(previouslyExpandedPosition);
+                            previouslyExpandedItem.setExpanded(false);
+                            notifyItemChanged(previouslyExpandedPosition);
+                        }
+
+                        // Expand the clicked item
+                        clickedItem.setExpanded(true);
+                        notifyItemChanged(clickedPosition);
+                    }
                 }
             });
 
+
+
         }
+
+        // Method to get the position of the currently expanded item
+        private int getExpandedItemPosition() {
+            for (int i = 0; i < checkout_cart.size(); i++) {
+                if (checkout_cart.get(i).isExpanded()) {
+                    return i;
+                }
+            }
+            return RecyclerView.NO_POSITION;
+        }
+
 
         //getadapter position helps to get the position of the specific item in the list
         @Override

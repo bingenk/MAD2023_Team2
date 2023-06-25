@@ -1,8 +1,6 @@
 package sg.edu.np.mad.mad2023_team2.ui.Cart;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
@@ -71,6 +68,7 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
                 .into(holder.hotel_image);
         holder.hotel_name.setText(checkout_cart.get(Position).getName());
         holder.hotel_type.setText(checkout_cart.get(Position).getType());
+        holder.tv_total_price.setText("$ "+  String.format("%.2f", checkout_cart.get(Position).getPrice()));
 //        holder.hotel_address.setText(checkout_cart.get(Position).getAddress());
         holder.tv_checkin_date.setText(formatdate(checkout_cart.get(Position).getCheckin_date()));
         holder.tv_checkout_date.setText(formatdate(checkout_cart.get(Position).getCheckout_date()));
@@ -155,8 +153,8 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
             super(view);
 
             hotel_image=view.findViewById(R.id.hotel_image);
-            hotel_name=view.findViewById(R.id.hotel_type);
-            hotel_type=view.findViewById(R.id.hotel_name);
+            hotel_name=view.findViewById(R.id.hotel_name);
+            hotel_type=view.findViewById(R.id.hotel_type);
             ib_delete_cart_item=view.findViewById(R.id.ib_delete_cart_item);
 //            hotel_address=view.findViewById(R.id.hotel_address);
             //tv_checkin_date_title=itemView.findViewById(R.id.tv_checkin_date_title);
@@ -166,7 +164,7 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
             expandableLayout=view.findViewById(R.id.cl_booking_details);
             clicktoexpand=view.findViewById(R.id.ll_cart_checkout_item_box);
             details=view.findViewById(R.id.tv_more_details);
-
+            tv_total_price=view.findViewById(R.id.tv_total_price_cart);
 
 
 
