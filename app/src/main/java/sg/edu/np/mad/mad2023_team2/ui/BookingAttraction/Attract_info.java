@@ -39,7 +39,7 @@ public class Attract_info extends AppCompatActivity {
         descView.setMovementMethod(new ScrollingMovementMethod());
         addView.setText(address);
         titleView.setText(title);
-        Picasso.get().load(image).into(imageView);
+        Picasso.with(this).load(image).into(imageView);
 
 
 

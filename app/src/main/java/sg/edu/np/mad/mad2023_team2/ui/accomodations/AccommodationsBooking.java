@@ -53,7 +53,6 @@ public class AccommodationsBooking extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accommodations_booking);
-        getSupportActionBar().hide();
 
         // Get the accommodation object form the previous activity
         accommodation = getIntent().getParcelableExtra("accommodations");

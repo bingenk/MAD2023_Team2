@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -24,6 +25,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.databinding.ActivityMainBinding;
 import sg.edu.np.mad.mad2023_team2.ui.LoginSignup.Login;
+import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
+import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DatabaseManager;
+import sg.edu.np.mad.mad2023_team2.ui.checkout.Checkout;
 import sg.edu.np.mad.mad2023_team2.ui.home.PrivacyPolicyActivity;
 import sg.edu.np.mad.mad2023_team2.ui.home.SettingsActivity;
 
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView profileUsername;
     private TextView profileEmail;
     private FirebaseAuth mAuth;
+    DataBaseHelper dataBaseHelper;
 
 
     // For user to logout upon clicking logout button and return to login page3
@@ -41,6 +46,16 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signOut();
         Intent intent = new Intent(MainActivity.this, Login.class);
         startActivity(intent);
+
+        // Delete cart data upon user logout
+       dataBaseHelper = DatabaseManager.getDataBaseHelper(MainActivity .this);
+
+        int variable = dataBaseHelper.deleteAllData();
+        if (variable > 0) {
+            Toast.makeText(MainActivity.this,"Successfully logout, cart details is cleared.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this,"Successfully logout.", Toast.LENGTH_SHORT).show();
+        }
         finish();
     }
     @Override

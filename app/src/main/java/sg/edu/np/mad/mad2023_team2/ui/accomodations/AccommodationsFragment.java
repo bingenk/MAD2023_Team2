@@ -6,7 +6,6 @@ import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.os.Parcelable;
 
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +37,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -48,8 +45,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import sg.edu.np.mad.mad2023_team2.MainActivity;
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.MainActivity;
 
 // Showcases all the accommodations to book, with a search bar and to reset search
 public class AccommodationsFragment extends Fragment implements HotelListInterface {
@@ -250,7 +247,7 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
         String checkoutS = dateFormat.format(checkout);
 
         // Passes in the data from the user to the url using concatenation
-        String url= "https://booking-com.p.rapidapi.com/v1/hotels/search?checkin_date="+checkinS+"&dest_type=city&units=metric&checkout_date="+checkoutS+"&adults_number="+noAdults+ "&order_by=popularity&dest_id=-73635&filter_by_currency=SGD&locale=en-gb&room_number="+noRooms;
+        String url= "https://booking-com.p.rapidapi.com/v1/hotels/search?checkin_date="+checkinS+"&dest_type=city&units=metric&checkout_date="+checkoutS+"&adults_number="+noAdults+ "&order_by=popularity&dest_id=-73635&filter_by_currency=SGD&locale=en-gb&room_number="+noRooms+"&page_number="+pageNo;
 
         // Builds new alert dialog to show when there is an error
         AlertDialog.Builder errorAlert =  new AlertDialog.Builder(v.getContext());
