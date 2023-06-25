@@ -31,7 +31,8 @@ Travel & Local
 ### 4. Booking Attractions (Yu Haniel Bharwani)
 - Allow user to book their entertainment attraction.
 
-### 5. Checkout (Vetriselvan Praveen)
+### 5. Cart & Checkout (Vetriselvan Praveen)
+- Add to cart feature enables the customers to add the accomodations to the cart and checkout whenever they like.
 - Checkout feature streamlines the booking process, allowing users to seamlessly reserve accommodations and attractions within the app.
 
 
