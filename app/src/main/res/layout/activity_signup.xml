@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="70dp"
         android:text="SignUp"
         android:textColor="@color/purple_700"
         android:textSize="29dp"
@@ -88,6 +88,15 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/termsCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="25dp"
+        android:textSize="12dp"
+        android:text="I have read and agree to TravelWise's Terms of Services and Privacy Policy" />
+
 
     <Button
         android:id="@+id/Signupbutton"
@@ -131,14 +140,14 @@
             android:id="@+id/imageView3"
             android:layout_width="172dp"
             android:layout_height="159dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             app:srcCompat="@drawable/airplane_aircraft_cartoon_icon_vector_cartoon_flying_in_the_plane_png_4870ddcc45b6258916e2e18050387775" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="244dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="70dp"
             app:srcCompat="@drawable/cities_skylines_city_clip_art_cityscape_transparent_background_bced5ab8a06e9ecef5e6161cfe1e1aab" />
 
     </FrameLayout>

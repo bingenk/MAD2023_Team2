@@ -1,20 +1,19 @@
 package sg.edu.np.mad.mad2023_team2.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.ktx.Firebase;
 
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.databinding.ActivityMainBinding;
 import sg.edu.np.mad.mad2023_team2.ui.LoginSignup.Login;
+import sg.edu.np.mad.mad2023_team2.ui.home.PrivacyPolicyActivity;
+import sg.edu.np.mad.mad2023_team2.ui.home.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView profileEmail;
     private FirebaseAuth mAuth;
 
+
     // For user to logout upon clicking logout button and return to login page3
     private void logoutUser() {
         mAuth.signOut();
@@ -41,6 +43,24 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            // Open the desired activity here
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_privacy) {
+            // Open the desired activity here
+            Intent intent = new Intent(MainActivity.this, PrivacyPolicyActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +70,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
@@ -92,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_contact)
                 .setOpenableLayout(drawer)
@@ -99,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-    }
 
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

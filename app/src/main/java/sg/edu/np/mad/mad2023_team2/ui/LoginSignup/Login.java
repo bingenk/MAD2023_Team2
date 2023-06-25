@@ -173,7 +173,7 @@ public class Login extends AppCompatActivity {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        startActivity(new Intent(getApplicationContext(), Signup.class)); //Redirect user back to signup
+                        startActivity(new Intent(getApplicationContext(), Login.class)); //Redirect user back to Login
                     }
                 });
 
