@@ -106,6 +106,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="sans-serif"
+
                         android:text="Check-in date"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textSize="20sp"
@@ -168,7 +169,6 @@
                 android:id="@+id/filter_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/material_dynamic_neutral30"
                 android:text="Cancel" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -10,7 +10,35 @@
     <string name="menu_home">TravelWise</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_accommodations">Accommodations</string>
+    <string name="menu_accommodations">Menu accommodation</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empty_string">""</string>
+    <string name="checkin_date">CHECK IN DATE</string>
+    <string name="checkout_date">CHECK OUT DATE\n</string>
+    <string name="menu_checkout_cart">checkout_cart</string>
+    <string name="Customer_details">Customer Details</string>
+    <string name="Price_Details">Price Details</string>
+    <string name="Total_Price">Total Price :</string>
+    <string name="Contact_Details">Contact Details</string>
+    <string name="confirmation_describtion">This is where your confirmation will be sent</string>
+    <string name="First_Name">First Name</string>
+    <string name="Last_name">Last Name\n</string>
+    <string name="Email">Email\n</string>
+    <string name="Mobile_Number">Mobile Number\n</string>
+    <string name="Country_of_residence">Country of residence\n</string>
+    <string name="Phone_Number">Phone Number</string>
+    <string name="Guest_Information">Guest Information\n</string>
+    <string name="terms_and_conditions">By proceeding with this booking , I agree to Terms Of Use and Privacy Policy.</string>
+    <string name="Proceed_to_payment">Proceed to payment</string>
+    <string name="Proceed_to_cart">Proceed to cart</string>
+    <string name="proceed_to_checkout">Proceed to Checkout</string>
+    <string name="more_details">Details\n</string>
+
+    //checkout_cart_sqllite//
+
+    <string name="CustomerName">Customer Name</string>
+    <string name="CustomerAge">Age</string>
+    <string name="ActiveCustomer">Active Customer\n\n</string>
+    <string name="Rating">Rating</string>
 </resources>

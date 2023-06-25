@@ -1,11 +1,11 @@
 # MAD2023_Team2 : TravelWise :world_map:
 
 ## Team 2 Member:
-1. Koo Bing En (S10244655)
-2. Praveen (S10243638)
-3. Jun Qin (S10240058)
-4. Haniel (S10247873)
-5. Nicholas (S10244345)
+1. Koo Bing En (S10244655D)
+2. Vetriselvan Praveen (S10243638)
+3. Tan Jun Qin (S10240058J)
+4. Yu Haniel Bharwani (S10247873A)
+5. Nicholas Josiah Kam Yin Ting (S10244345H)
 
 ## Introduction :
 
@@ -17,16 +17,19 @@ Travel & Local
 
 ## Stage 1 Features :
 
-### 1. Login / Register 
+### 1. Login / Register (Koo Bing En)
 - Allow user to login to their account or resgister an account if they do not have one. 
 
-### 2. Contact Us 
+### 2. Contact Us (Nicholas Josiah Kam Yin Ting)
 - Provide customer service (e.g. FAQs) and help if they face any issues.
 
-### 3. Booking Accommodations / Attractions
-- Allow user to book their desired hotel & stay and attractions ticket.
+### 3. Booking Accommodations (Tan Jun Qin)
+- Allow user to book their desired hotel & stay.
 
-### 4. Checkout 
+### 4. Booking Attractions (Yu Haniel Bharwani)
+- Allow user to book their entertainment attraction.
+
+### 5. Checkout (Vetriselvan Praveen)
 - Checkout feature streamlines the booking process, allowing users to seamlessly reserve accommodations and attractions within the app.
 
 
