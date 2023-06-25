@@ -129,16 +129,9 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="172dp"
-            android:layout_height="159dp"
-            app:srcCompat="@drawable/airplane_aircraft_cartoon_icon_vector_cartoon_flying_in_the_plane_png_4870ddcc45b6258916e2e18050387775" />
-
-        <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="244dp"
-            android:layout_marginTop="60dp"
             app:srcCompat="@drawable/cities_skylines_city_clip_art_cityscape_transparent_background_bced5ab8a06e9ecef5e6161cfe1e1aab" />
 
     </FrameLayout>
