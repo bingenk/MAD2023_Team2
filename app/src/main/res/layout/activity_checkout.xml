@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".ui.checkout.Checkout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_checkout_items"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ScrollView
+            android:id="@+id/sv_booking_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:elevation="10dp"
+                    android:minHeight="50dp"
+                    android:padding="10dp"
+                    app:cardElevation="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/price_details_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/Price_Details" />
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/total_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/Total_Price" />
+
+                            <TextView
+                                android:id="@+id/total_price_input"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="300" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardElevation="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/Contact_Details_Header"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/Contact_Details"
+                            android:textSize="20sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="20"
+                            app:endIconMode="clear_text"
+                            app:helperText="Required*"
+                            app:helperTextTextColor="@color/Red"
+                            android:id="@+id/First_Name_Input_layout"
+
+                            >
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/First_Name_Input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/baseline_person_24"
+                                android:drawablePadding="8dp"
+                                android:hint="@string/First_Name"
+                                android:inputType="textPersonName"
+                                android:maxLength="20" />
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="20"
+                            app:endIconMode="clear_text"
+                            app:helperText="Required*"
+                            app:helperTextTextColor="@color/Red"
+                            android:id="@+id/Last_Name_Input_layout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/Last_Name_Input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/baseline_person_24"
+                                android:drawablePadding="8dp"
+                                android:hint="@string/Last_name"
+                                android:inputType="textPersonName"
+                                android:maxLength="20"
+                             />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="20"
+                            app:endIconMode="clear_text"
+                            app:helperText="Required*"
+                            app:helperTextTextColor="@color/Red"
+                            android:id="@+id/Email_Input_layout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/Email_Input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/baseline_email_24"
+                                android:drawablePadding="8dp"
+                                android:hint="@string/Email"
+                                android:inputType="textEmailAddress"
+                                android:maxLength="20" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/Country_of_residence_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Country of residence"
+                                android:textSize="20dp" />
+
+                            <com.hbb20.CountryCodePicker
+                                android:id="@+id/country_picker"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:ccp_rememberLastSelection="false"
+                                app:ccp_showFullName="true"
+                                app:ccp_showNameCode="false"
+                                app:ccp_showPhoneCode="false"
+                                />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.hbb20.CountryCodePicker
+                                android:id="@+id/country_code_picker"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                app:ccp_rememberLastSelection="false"
+                             >
+
+                            </com.hbb20.CountryCodePicker>
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                                android:id="@+id/til_country_code_selector"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:counterEnabled="true"
+                                app:counterMaxLength="20"
+                                app:endIconMode="clear_text"
+                                app:helperText="Required*"
+                                app:helperTextTextColor="@color/Red">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/Phone_Number_Input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:drawableLeft="@drawable/baseline_person_24"
+                                    android:drawablePadding="8dp"
+
+                                    android:gravity="center_vertical"
+                                    android:hint="@string/Phone_Number"
+                                    android:inputType="number|phone"
+                                    android:maxLength="20" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:elevation="10dp"
+                    android:minHeight="50dp"
+                    android:padding="10dp"
+                    app:cardElevation="20dp">
+
+                    <LinearLayout
+                        android:id="@+id/ll_Guest_Information"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/guest_information_header"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/Guest_Information"
+                            android:textSize="20sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="20"
+                            app:endIconMode="clear_text"
+                            app:helperText="Required*"
+                            app:helperTextTextColor="@color/Red"
+                            android:id="@+id/Guest_Information_First_Name_layout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/Guest_Information_First_Name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:drawableLeft="@drawable/baseline_person_24"
+                                android:drawablePadding="8dp"
+                                android:hint="@string/First_Name"
+                                android:inputType="textPersonName"
+                                android:maxLength="20" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="20"
+                            app:endIconMode="clear_text"
+                            app:helperText="Required*"
+                            app:helperTextTextColor="@color/Red"
+                            android:id="@+id/Guest_Information_Last_Name_layout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/Guest_Information_Last_Name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:drawableLeft="@drawable/baseline_person_24"
+                                android:drawablePadding="8dp"
+                                android:hint="@string/Last_name"
+                                android:inputType="textPersonName"
+                                android:maxLength="20" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/Guest_Information_Country_of_residence_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Country/region of residence"
+                                android:textSize="20dp" />
+
+                            <com.hbb20.CountryCodePicker
+                                android:id="@+id/Guest_information_country_picker"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:ccp_showFullName="true"
+                                app:ccp_showNameCode="false"
+                                app:ccp_showPhoneCode="false" />
+
+                        </LinearLayout>
+
+
+
+
+
+
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_continue_to_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_terms_condition"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/terms_and_conditions" />
+
+                        <Button
+                            android:id="@+id/btn_proceed_to_payment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/custom_button"
+                            android:gravity="center"
+                            android:text="@string/Proceed_to_payment"
+                            android:textAllCaps="false"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

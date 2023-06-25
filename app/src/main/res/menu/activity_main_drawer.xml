@@ -6,9 +6,8 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/baseline_home_24"
-            android:title="Home" />
-
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_contact"
             android:icon="@android:drawable/ic_dialog_email"
@@ -20,6 +19,15 @@
             android:icon="@drawable/baseline_attractions_24"
             android:title="Booking Attraction"
             />
+        <item
+            android:id="@+id/nav_accommodations"
+            android:icon="@drawable/ic_menu_hotel"
+            android:title="@string/menu_accommodations" />
+
+        <item
+            android:id="@+id/nav_checkout_cart"
+            android:icon="@drawable/baseline_shopping_cart_24"
+            android:title="Cart" />
     </group>
 
     <item
