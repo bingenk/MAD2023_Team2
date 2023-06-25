@@ -7,10 +7,10 @@
     android:backgroundTint="#4CAF50">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:elevation="8dp"
+        android:elevation="30dp"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,12 +26,10 @@
                 android:id="@+id/hotel_image"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="@drawable/hotel_search_outline"
                 android:backgroundTint="#4CAF50"
                 android:contentDescription="TODO"
-                app:srcCompat="@drawable/ic_menu_gallery"
-                tools:ignore="ContentDescription,HardcodedText"
-                tools:srcCompat="@drawable/ic_menu_gallery" />
+                android:scaleType="fitCenter"
+                tools:ignore="ContentDescription,HardcodedText,ImageContrastCheck" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -42,23 +40,38 @@
                     android:id="@+id/hotel_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:fontFamily="sans-serif-smallcaps"
-                    android:text="Accommodation Name"
+                    android:text="Accomodation Name"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth="match_constraint"
                     tools:ignore="HardcodedText" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/hotel_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.80" />
 
                 <TextView
                     android:id="@+id/hotel_type"
@@ -77,11 +90,13 @@
                     android:id="@+id/hotel_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:fontFamily="sans-serif"
                     android:text="Accomodation Location"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/hotel_type"
                     tools:ignore="HardcodedText" />

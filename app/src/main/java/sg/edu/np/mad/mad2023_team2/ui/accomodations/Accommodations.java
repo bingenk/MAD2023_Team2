@@ -27,7 +27,7 @@ public class Accommodations implements Parcelable {
     private String checkin;
     private String checkout;
     private String configuration;
-    private byte[] image;
+    private String image;
 
 
     public Accommodations(){}
@@ -52,27 +52,8 @@ public class Accommodations implements Parcelable {
         hasCots = null;
     }
 
-    public Accommodations(int i, String n, String t, String a,double p, double lat, double lon, double r, String district, String z, String distance, String ci, String co,String cots , String con)
-    {
-        id = i;
-        name = n;
-        type = t;
-        address = a;
-        price = p;
-        latitude = lat;
-        longitude = lon;
-        image = null;
-        rating = r;
-        this.district = district;
-        zip = z;
-        this.distance = distance;
-        hasCots = cots;
-        checkin = ci;
-        checkout = co;
-        configuration = con;
-    }
 
-    public Accommodations(int i, String n, String t, String a,double p, double lat, double lon, double r, String district, String z, String distance, String ci, String co , String con, byte[] img)
+    public Accommodations(int i, String n, String t, String a,double p, double lat, double lon, double r, String district, String z, String distance, String ci, String co,String con, String img, String cots)
     {
         id = i;
         name = n;
@@ -89,26 +70,6 @@ public class Accommodations implements Parcelable {
         checkout = co;
         configuration = con;
         image = img;
-        hasCots = null;
-    }
-
-    public Accommodations(int i, String n, String t, String a,double p, double lat, double lon, double r, String district, String z, String distance, String ci, String co,String con, byte[] bytes, String cots)
-    {
-        id = i;
-        name = n;
-        type = t;
-        address = a;
-        price = p;
-        latitude = lat;
-        longitude = lon;
-        rating = r;
-        this.district = district;
-        zip = z;
-        this.distance = distance;
-        checkin = ci;
-        checkout = co;
-        configuration = con;
-        image = bytes;
         hasCots = cots;
     }
 
@@ -127,7 +88,7 @@ public class Accommodations implements Parcelable {
         checkin = in.readString();
         checkout = in.readString();
         configuration = in.readString();
-        image = in.createByteArray();
+        image = in.readString();
         hasCots = in.readString();
     }
 
@@ -142,6 +103,9 @@ public class Accommodations implements Parcelable {
             return new Accommodations[size];
         }
     };
+
+
+
 
     public int getId(){
         return id;
@@ -171,17 +135,8 @@ public class Accommodations implements Parcelable {
         return longitude;
     }
 
-    public Bitmap getImage() {
-
-        try
-        {
-            InputStream is = new ByteArrayInputStream(image);
-            return BitmapFactory.decodeStream(is);
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
+    public String getImage() {
+        return image;
     }
 
     public double getRating() {
@@ -237,7 +192,7 @@ public class Accommodations implements Parcelable {
         dest.writeString(checkin);
         dest.writeString(checkout);
         dest.writeString(configuration);
-        dest.writeByteArray(image);
+        dest.writeString(image);
         dest.writeString(hasCots);
     }
 }

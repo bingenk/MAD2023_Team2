@@ -10,17 +10,19 @@
         android:id="@+id/details_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:clickable="true"
+        android:paddingTop="10dp"
         android:src="@drawable/baseline_arrow_back_24"
-        tools:ignore="ContentDescription,KeyboardInaccessibleWidget,MissingConstraints,SpeakableTextPresentCheck"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="4dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/details_image"
+        tools:ignore="ContentDescription,KeyboardInaccessibleWidget,MissingConstraints,SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/details_image"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +113,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:focusable="true"
         android:foregroundTint="#FFFFFF"
         android:tint="#FFFFFF"
         app:backgroundTint="#3F51B5"
@@ -121,8 +124,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:rippleColor="#FFFFFF"
         app:srcCompat="@drawable/baseline_location_on_24"
-        tools:ignore="ContentDescription,SpeakableTextPresentCheck"
-        android:focusable="true" />
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/details_rating"
@@ -133,7 +135,7 @@
         android:text="Rating: 4.8"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/details_config" />
 
     <TextView
         android:id="@+id/details_price"
@@ -160,7 +162,7 @@
         app:layout_constraintTop_toBottomOf="@+id/details_rating" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/details_cots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -171,7 +173,7 @@
         app:layout_constraintTop_toBottomOf="@+id/details_distance" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/details_checkin"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginStart="16dp"
@@ -179,10 +181,10 @@
         android:text="Check-In: from 14:00"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/details_cots" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/details_config"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginStart="16dp"
@@ -193,13 +195,13 @@
         app:layout_constraintTop_toBottomOf="@+id/details_zip" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/details_checkout"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginStart="24dp"
         android:text="Check-out: until 00:00"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintTop_toTopOf="@+id/textView16" />
+        app:layout_constraintStart_toEndOf="@+id/details_checkin"
+        app:layout_constraintTop_toTopOf="@+id/details_checkin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

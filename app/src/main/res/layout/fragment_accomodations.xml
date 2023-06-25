@@ -10,11 +10,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <TableRow
             android:layout_width="match_parent"
@@ -33,11 +29,13 @@
 
             <ImageButton
                 android:id="@+id/hotel_filter"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="end"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/hotel_outline"
-                android:backgroundTint="@color/material_dynamic_primary60"
+                android:backgroundTint="@android:color/holo_blue_light"
+                android:padding="50dp"
                 android:src="@drawable/baseline_filter_alt_24"
                 tools:ignore="SpeakableTextPresentCheck" />
 
@@ -47,15 +45,57 @@
             android:id="@+id/hotel_pb"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/accommodations_list"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/accommodations_layout">
+            android:fillViewport="true">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/accommodations_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/accommodations_layout">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <Button
+                    android:id="@+id/hotel_load"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/hotel_outline"
+                    android:backgroundTintMode="multiply"
+                    android:text="Load more"
+                    android:textAlignment="gravity"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:icon="@drawable/baseline_add_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="2dp"
+                    tools:ignore="HardcodedText" />
+
+                <ProgressBar
+                    android:id="@+id/hotel_loadpb"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
 
     </LinearLayout>
 

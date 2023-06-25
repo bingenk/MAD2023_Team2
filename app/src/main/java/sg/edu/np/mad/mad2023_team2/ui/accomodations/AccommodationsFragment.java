@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,8 +22,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.ImageButton;
 
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 
@@ -36,6 +39,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -52,28 +56,17 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-//    private int id;
-//    private String hotelName;
-//    private String hotelAddr;
-//    private String hotelType;
-//    private String hotelDesc;
-//    private double hotelPrice;
-//    private double hotelLat;
-//    private double hotelLon;
-
     private AccommodationsAdapter adapter;
-    public ArrayList<Accommodations> hotelList = new ArrayList<>();
-    private ArrayList<Accommodations> searchList = new ArrayList<>();
-    private final AccommodationPopup popup = new AccommodationPopup();
-    private int noAdults;
-    private int noRooms;
-    private int noChildren;
-    private int noNights;
-    private Date checkin;
-    private Date checkout;
-    private String mParam1;
-    private String mParam2;
+    public ArrayList<Accommodations> hotelList = new ArrayList<>(),searchList = new ArrayList<>();
+    private int noAdults,noRooms;
+    private Date checkIn,checkOut;
+    private int pageNo;
+    private RecyclerView rv;
+    private ProgressBar progressBar;
+    private ProgressBar loadPb;
+    private ImageButton filter;
+    private Button loadMore;
+    private String mParam1,mParam2;
 
     public AccommodationsFragment() {
         // Required empty public constructor
@@ -106,28 +99,24 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_accomodations, container, false);
+        rv = v.findViewById(R.id.accommodations_list);
         noAdults = 2;
         noRooms = 1;
-        noChildren = 0;
-        noNights = 1;
-        checkin = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
-        checkout =  new Date(checkin.getTime() + (24 * 60 * 60 * 1000));
-        retrieveHotels(v, noAdults,noRooms,checkin,checkout, new hotelCallback() {
+        progressBar = v.findViewById(R.id.hotel_pb);
+        loadPb = v.findViewById(R.id.hotel_loadpb);
+        pageNo = 0;
+        new AccommodationPopup(v, noAdults, noRooms, checkIn, checkOut, true, new AccommodationPopup.PopupCallback() {
             @Override
-            public void onRetrieved(ArrayList<Accommodations> hotels) {
-                hotelList = hotels;
-                RecyclerView rv = (RecyclerView) v.findViewById(R.id.accommodations_list);
-                adapter = new AccommodationsAdapter(hotelList, getinterface());
-                LinearLayoutManager lm = new LinearLayoutManager(requireContext());
-                rv.setHasFixedSize(true);
-                rv.setLayoutManager(lm);
-                rv.setItemAnimator(new DefaultItemAnimator());
-                rv.setAdapter(adapter);
-                v.findViewById(R.id.hotel_pb).setVisibility(View.GONE);
+            public void getValues(View v,int adults, int rooms, Date checkin, Date checkout) {
+                noAdults = adults;
+                noRooms = rooms;
+                checkIn = checkin;
+                checkOut = checkout;
+                retrieveHotels(v,noAdults,noRooms,checkIn,checkOut,pageNo);
             }
         });
 
-        SearchView search = (SearchView) v.findViewById(R.id.hotel_search);
+        SearchView search = v.findViewById(R.id.hotel_search);
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -141,11 +130,31 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
             }
         });
 
-        ImageButton filter = (ImageButton) v.findViewById(R.id.hotel_filter);
+        filter = v.findViewById(R.id.hotel_filter);
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popup.ShowPopup(v);
+                new AccommodationPopup(v, noAdults, noRooms, checkIn, checkOut, false, new AccommodationPopup.PopupCallback() {
+                    @Override
+                    public void getValues(View v,int adults, int rooms, Date checkin, Date checkout) {
+                        noAdults = adults;
+                        noRooms = rooms;
+                        checkIn = checkin;
+                        checkOut = checkout;
+                        pageNo = 0;
+                        hotelList.clear();
+                        retrieveHotels(v,noAdults,noRooms,checkIn,checkOut,pageNo);
+                    }
+                });
+            }
+        });
+
+        loadMore = v.findViewById(R.id.hotel_load);
+        loadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    pageNo+=1;
+                    retrieveHotels(v,noAdults,noRooms,checkIn,checkOut,pageNo);
             }
         });
 
@@ -164,21 +173,21 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
             }
         }
         searchList = searchData;
-        adapter.setSearch(searchList);
-    }
-
-    public ArrayList<Accommodations> generateHotels()
-    {
-        ArrayList<Accommodations> hotelList = new ArrayList<>();
-        for (int i=0; i<=10; i++)
+        if (adapter!=null)
         {
-            hotelList.add(new Accommodations(i,"Holiday Inn","5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad",234.00, 1.00, 1.00, 4.8, "Bedok","123456", "1km from city centre", "15:00", "00:00","Hotel room: 2 beds"));
+            adapter.setUpdatedList(searchList);
         }
-
-        hotelList.add(new Accommodations(11,"Hotel Stay", "5-Star Hotel", "Himenaeos aliquet sem ac fusce diam et viverra ad",234.00, 1.00, 1.00, 4.8, "Bedok","123456", "1km from city centre", "15:00", "00:00", "Hotel room, 3 beds"));
-
-        return hotelList;
+        else
+        {
+            adapter = new AccommodationsAdapter(hotelList, getinterface(), getView().getContext());
+            RecyclerView rv = getView().findViewById(R.id.accommodations_list);
+            LinearLayoutManager lm = new LinearLayoutManager(requireContext());
+            rv.setLayoutManager(lm);
+            rv.setItemAnimator(new DefaultItemAnimator());
+            rv.setAdapter(adapter);
+        }
     }
+
 
     @Override
     public void onClick(int pos) {
@@ -197,40 +206,36 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
         startActivity(intent);
     }
 
-    private void retrieveHotels(View v, int noAdults,int noRooms, Date checkin, Date checkout,  final hotelCallback callback) {
-
-        String url= "https://booking-com.p.rapidapi.com/v1/hotels/search";
-        JSONObject params = new JSONObject();
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String checkinS= dateFormat.format(checkin);
-            String checkoutS = dateFormat.format(checkout);
-            params.put("checkin_date", checkinS);
-            params.put("checkout_date", checkoutS);
-            params.put("dest_type", "city");
-            params.put("units", "metric");
-            params.put("adults_number", String.valueOf(noAdults));
-            params.put("order_by", "popularity");
-            params.put("dest_id", "-73635");
-            params.put("filter_by_currency", "SGD");
-            params.put("locale", "en-gb");
-            params.put("room_number", String.valueOf(noRooms));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    protected void retrieveHotels(View v, int noAdults,int noRooms, Date checkin, Date checkout,int pageNo) {
+        if (pageNo==0)
+        {
+            progressBar.setVisibility(View.VISIBLE);
         }
+        else{
+            loadPb.setVisibility(View.VISIBLE);
+        }
+        loadMore.setVisibility(View.GONE);
+        filter.setEnabled(false);
+
+        if (hotelList.isEmpty())
+        {
+            rv.setVisibility(View.GONE);
+        }
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String checkinS = dateFormat.format(checkin);
+        String checkoutS = dateFormat.format(checkout);
+
+        String url= "https://booking-com.p.rapidapi.com/v1/hotels/search?checkin_date="+checkinS+"&dest_type=city&units=metric&checkout_date="+checkoutS+"&adults_number="+noAdults+ "&order_by=popularity&dest_id=-73635&filter_by_currency=SGD&locale=en-gb&room_number="+noRooms;
 
         AlertDialog.Builder errorAlert =  new AlertDialog.Builder(v.getContext());
         errorAlert.setTitle("Error occurred when fetching request \n:(");
         errorAlert.setMessage("Do you want to try again?");
+
         errorAlert.setPositiveButton("Reload", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                retrieveHotels(v, noAdults,noRooms,checkin,checkout, new hotelCallback() {
-                    @Override
-                    public void onRetrieved(ArrayList<Accommodations> hotels) {
-                        hotelList = hotels;
-                    }
-                });
+                retrieveHotels(v, noAdults,noRooms,checkin,checkout,pageNo);
             }
         });
 
@@ -242,7 +247,7 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
             }
         });
 
-        JsonObjectRequest hotelRequest = new JsonObjectRequest(Request.Method.GET, url, params,
+        JsonObjectRequest hotelRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -250,60 +255,55 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
                         try {
                             JSONArray hotelArray = response.getJSONArray("result");
                             Log.d("Json", response.toString());
-
                             for (int i = 0; i< hotelArray.length() ; i++)
                             {
                                 JSONObject hotel = hotelArray.getJSONObject(i);
                                 JSONArray distances = hotel.getJSONArray("distances");
-                                if (distances.length() == 1)
+                                hotelList.add(
+                                        new Accommodations(
+                                                hotel.getInt("hotel_id"),
+                                                hotel.getString("hotel_name"),
+                                                hotel.getString("accommodation_type_name"),
+                                                hotel.getString("address"),
+                                                hotel.getDouble("min_total_price"),
+                                                hotel.getDouble("latitude"),
+                                                hotel.getDouble("longitude"),
+                                                hotel.getDouble("review_score"),
+                                                hotel.getString("district"),
+                                                hotel.getString("zip"),
+                                                distances.getJSONObject(0).getString("text"),
+                                                hotel.getJSONObject("checkin").getString("from"),
+                                                hotel.getJSONObject("checkout").getString("until"),
+                                                Html.fromHtml(hotel.getString("unit_configuration_label")).toString(),
+                                                hotel.getString("max_1440_photo_url"),
+                                                distances.length()==1?"":distances.getJSONObject(1).getString("text")
+                                        ));
+                                if (adapter==null)
                                 {
-                                    temp.add(
-                                            new Accommodations(
-                                                    hotel.getInt("hotel_id"),
-                                                    hotel.getString("hotel_name"),
-                                                    hotel.getString("accommodation_type_name"),
-                                                    hotel.getString("address"),
-                                                    hotel.getDouble("min_total_price"),
-                                                    hotel.getDouble("latitude"),
-                                                    hotel.getDouble("longitude"),
-                                                    hotel.getDouble("review_score"),
-                                                    hotel.getString("district"),
-                                                    hotel.getString("zip"),
-                                                    distances.getJSONObject(0).getString("text"),
-                                                    hotel.getJSONObject("checkin").getString("from"),
-                                                    hotel.getJSONObject("checkout").getString("until"),
-                                                    Html.fromHtml(hotel.getString("unit_configuration_label")).toString()
-                                            ));
+                                    adapter = new AccommodationsAdapter(hotelList, getinterface(), v.getContext());
+                                    LinearLayoutManager lm = new LinearLayoutManager(requireContext());
+                                    rv.setLayoutManager(lm);
+                                    rv.setItemAnimator(new DefaultItemAnimator());
+                                    rv.setAdapter(adapter);
                                 }
-                                else if (distances.length() == 2)
+                                else
                                 {
-                                    temp.add(
-                                            new Accommodations(
-                                                    hotel.getInt("hotel_id"),
-                                                    hotel.getString("hotel_name"),
-                                                    hotel.getString("accommodation_type_name"),
-                                                    hotel.getString("address"),
-                                                    hotel.getDouble("min_total_price"),
-                                                    hotel.getDouble("latitude"),
-                                                    hotel.getDouble("longitude"),
-                                                    hotel.getDouble("review_score"),
-                                                    hotel.getString("district"),
-                                                    hotel.getString("zip"),
-                                                    distances.getJSONObject(0).getString("text"),
-                                                    hotel.getJSONObject("checkin").getString("from"),
-                                                    hotel.getJSONObject("checkout").getString("until"),
-                                                    Html.fromHtml(hotel.getString("unit_configuration_label")).toString(),
-                                                    distances.getJSONObject(1).getString("text")
-                                            ));
+                                    adapter.setUpdatedList(hotelList);
                                 }
-                            }
-                            callback.onRetrieved(temp);
-                            for(Accommodations a : hotelList)
-                            {
-                                Log.d("Names in response", a.getName());
+                                if (pageNo==0)
+                                {
+                                    rv.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                                else
+                                {
+                                    loadPb.setVisibility(View.GONE);
+                                }
+                                loadMore.setVisibility(View.VISIBLE);
+                                filter.setEnabled(true);
                             }
                         } catch (Exception e) {
-                            throw new RuntimeException(e);
+                            errorAlert.show();
                         }
                     }
                 },
@@ -323,12 +323,6 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
             }
         };
         AccommodationSingleton.getInstance(v.getContext()).addToRequestQueue(hotelRequest);
-        for(Accommodations a : hotelList)
-        {
-            Log.d("Names", a.getName());
-        }
     }
-    interface hotelCallback {
-        void onRetrieved(ArrayList<Accommodations> hotels);
-    }
+
 }

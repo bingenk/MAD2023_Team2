@@ -1,5 +1,6 @@
 package sg.edu.np.mad.mad2023_team2.ui.accomodations;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -20,8 +23,9 @@ public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAd
 
     private HotelListInterface listInterface;
     private ArrayList<Accommodations> data;
+    private Context context;
 
-    public AccommodationsAdapter(ArrayList<Accommodations> d, HotelListInterface listInterface)
+    public AccommodationsAdapter(ArrayList<Accommodations> d, HotelListInterface listInterface, Context context)
     {
         if (d == null) {
             data = new ArrayList<>();
@@ -29,11 +33,12 @@ public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAd
             data = d;
         }
         this.listInterface = listInterface;
+        this.context = context;
     }
 
-    public void setSearch(ArrayList<Accommodations> searchList)
+    public void setUpdatedList(ArrayList<Accommodations> newList)
     {
-        this.data = searchList;
+        this.data = newList;
         notifyDataSetChanged();
     }
 
@@ -50,10 +55,8 @@ public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAd
         holder.hotelName.setText(hotel.getName());
         holder.hotelAddress.setText(hotel.getAddress());
         holder.hotelRating.setText(hotel.getType());
-        if (hotel.getImage() != null)
-        {
-            holder.hotelPhoto.setImageBitmap(hotel.getImage());
-        }
+        holder.hotelPrice.setText("$ "+  String.format("%.2f", hotel.getPrice()));
+        Picasso.with(context).load(hotel.getImage()).fit().centerCrop().into(holder.hotelPhoto);
     }
     @Override
     public int getItemCount() {
@@ -63,7 +66,7 @@ public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAd
 
     class AccommodationsHolder extends RecyclerView.ViewHolder {
         ImageView hotelPhoto;
-        TextView hotelName,hotelRating,hotelAddress;
+        TextView hotelName,hotelRating,hotelAddress,hotelPrice;
         AccommodationsHolder(View view)
         {
             super(view);
@@ -71,6 +74,7 @@ public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAd
             hotelName = view.findViewById(R.id.hotel_name);
             hotelRating = view.findViewById(R.id.hotel_type);
             hotelAddress = view.findViewById(R.id.hotel_address);
+            hotelPrice = view.findViewById(R.id.hotel_price);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
