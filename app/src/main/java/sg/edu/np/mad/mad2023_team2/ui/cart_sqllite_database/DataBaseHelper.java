@@ -132,6 +132,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public int deleteAllData() {
+        SQLiteDatabase db =this.getWritableDatabase();
+        return db.delete(CART_ITEM_TABLE,null,null);
+    }
+
 
 
 ////////////////method is used to retrive all the information in the cart and return a checkout_cart_details item which has an arraylist and a double as parameters . the array list has all the cart items and the double stores the total price of all the items in the cart///////////////

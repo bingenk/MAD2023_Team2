@@ -1,6 +1,7 @@
 package sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.adapter;
 
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ public class TripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ////////////////////////////////////////////
     private final RecyclerViewInterface recyclerViewInterface;
     private List<Item> items;
+
+    Context context;
 
     ///////////////////////////////
     //        CONSTRUCTOR        //
@@ -112,7 +115,7 @@ public class TripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         void setTripDate(Trip trip)
         {
-            Picasso.get().load(trip.getTripImage()).into(imageTrip);   // Set Values via Picasso Library and setText()
+            Picasso.with(imageTrip.getContext()).load(trip.getTripImage()).into(imageTrip);   // Set Values via Picasso Library and setText()
             textTripTitle.setText(trip.getTripTitle());
             textTrip.setText(trip.getTrip());
         }

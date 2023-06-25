@@ -32,7 +32,7 @@ public class AccommodationsDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accommodations_details);
-        getSupportActionBar().hide();
+
 
         // Gets the accommodation object that the user clicked on
         accommodation = getIntent().getParcelableExtra("accommodation");
