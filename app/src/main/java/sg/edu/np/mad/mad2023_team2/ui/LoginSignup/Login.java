@@ -33,13 +33,13 @@ import sg.edu.np.mad.mad2023_team2.R;
 
 public class Login extends AppCompatActivity {
 
-    //Create Variables
+    // Create Variables
     TextInputEditText loginUsername, loginPassword;
     Button loginButton;
     TextView signupRedirectText, forgetPassword;
     CheckBox rememberMe;
-    SharedPreferences sharedPreferences;
-    PreferenceManager PreferenceManager;
+    SharedPreferences sharedPreferences; // Used for storing user preferences
+    PreferenceManager PreferenceManager; // Manages preferences
 
 
     @Override
@@ -47,65 +47,74 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Initialize variables by finding views in the layout
         loginUsername = findViewById(R.id.login_username);
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.Loginbutton);
         signupRedirectText = findViewById(R.id.RedirectSignup);
         rememberMe = findViewById(R.id.rememberMe);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this); // obtain an instance of the SharedPreferences interface.
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this); // Obtain an instance of the SharedPreferences interface
         forgetPassword = findViewById(R.id.forgetpassword);
 
 
+        // Set click listener for the login button
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!validateUsername() || !validatePassword()){
-
+                if (!validateUsername() || !validatePassword()) {
+                    // Username or password validation failed
                 } else {
                     checkUser();
                 }
             }
         });
 
+        // Set click listener for the forget password text
         forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Redirect to the ForgetPassword activity
                 Intent intent = new Intent(Login.this, ForgetPassword.class);
                 startActivity(intent);
             }
         });
 
+        // Set click listener for the signup redirect text
         signupRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Redirect to the Signup activity
                 Intent intent = new Intent(Login.this, Signup.class);
                 startActivity(intent);
             }
         });
     }
 
+    // Validate the username field
     public Boolean validateUsername() {
         String val = loginUsername.getText().toString();
-        if (val.isEmpty()){
+        if (val.isEmpty()) {
             loginUsername.setError("Username cannot be empty");
             return false;
-        }else {
+        } else {
             loginUsername.setError(null);
             return true;
         }
     }
 
+    // Validate the password field
     public Boolean validatePassword() {
         String val = loginPassword.getText().toString();
-        if (val.isEmpty()){
+        if (val.isEmpty()) {
             loginPassword.setError("Password cannot be empty");
             return false;
-        }else {
+        } else {
             loginPassword.setError(null);
             return true;
         }
     }
 
+    // Check the user's credentials in the Firebase database
     public void checkUser() {
         String userUsername = loginUsername.getText().toString().trim();
         String userPassword = loginPassword.getText().toString().trim();
@@ -118,19 +127,19 @@ public class Login extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 // Check Internet Connection
-                if(!isConnected(Login.this)){
+                if (!isConnected(Login.this)) {
                     showCustomDialog();
                 }
 
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     loginUsername.setError(null);
                     String passwordFromDB = snapshot.child(userUsername).child("password").getValue(String.class);
 
-                    if (!Objects.equals(passwordFromDB, userPassword)){
+                    if (!Objects.equals(passwordFromDB, userPassword)) {
                         loginUsername.setError(null);
                         loginPassword.setError("Invalid Credentials!");
                         loginPassword.requestFocus();
-                    }else {
+                    } else {
                         // Login successful, show a toast message
                         Toast.makeText(Login.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
 
@@ -144,7 +153,7 @@ public class Login extends AppCompatActivity {
                         intent.putExtra("email", userEmailFromDB);
                         startActivity(intent);
                     }
-                }else {
+                } else {
                     loginUsername.setError("User does not exist");
                     loginUsername.requestFocus();
                 }
@@ -158,7 +167,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    // Method for checking internet connection
+    // Method for showing a custom dialog for internet connection
     private void showCustomDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
@@ -173,7 +182,7 @@ public class Login extends AppCompatActivity {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        startActivity(new Intent(getApplicationContext(), Login.class)); //Redirect user back to Login
+                        startActivity(new Intent(getApplicationContext(), Login.class)); // Redirect user back to Login
                     }
                 });
 
@@ -184,18 +193,19 @@ public class Login extends AppCompatActivity {
 
     // Method for checking internet connection
     private boolean isConnected(Login login) {
-        ConnectivityManager connectivityManager =  (ConnectivityManager) login.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) login.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
-        if((wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected())){
+        if ((wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected())) {
             return true;
         } else {
             return false;
         }
     }
 
+    // Remember the user's credentials based on the "remember me" checkbox
     private void rememberUser(String username, String password) {
         boolean shouldRemember = rememberMe.isChecked();
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -209,5 +219,4 @@ public class Login extends AppCompatActivity {
         }
         editor.apply();
     }
-
 }
