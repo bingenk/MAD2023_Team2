@@ -10,8 +10,6 @@
     <string name="menu_home">TravelWise</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="contact_us">Contact Us</string>
-    <string name="travel_wise_faq_gmail_com">travel.wise.faq@gmail.com</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
@@ -30,5 +28,4 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
     <string name="select">Select Item</string>
-
 </resources>
