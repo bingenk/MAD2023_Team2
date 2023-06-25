@@ -1,20 +1,23 @@
 package sg.edu.np.mad.mad2023_team2.ui.BookingAttraction;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,115 +29,152 @@ import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.adapter.TripAdapter;
 import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.models.Item;
 import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.models.Trip;
 
-public class BookAttractActivity extends AppCompatActivity implements RecyclerViewInterface{
-    List<Item> items = new ArrayList<>();
+
+public class BookAttractActivity extends AppCompatActivity {
+
+    //////////////////////////////////////
+    //        INITIALISE VALUES         //
+    //////////////////////////////////////
+
+    List<Item> items1 = new ArrayList<>();
+
+    //////////////////////////////////////
+    //        onCreate Function         //
+    //////////////////////////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_attract);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-//        AndroidNetworking.initialize(getApplicationContext());
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);  // Assign recyclerView to xml RecyclerView
+        ArrayList<Item> itemList;
+        itemList = retrieveAttract(new VolleyCallBack() {    // CALL: GET Request API for Retrieving Data
 
 
-        // CALL: GET API to retrieve attractions
-
-//        AndroidNetworking.get("https://api.opentripmap.com/0.1/en/places/radius")
-////                .addQueryParameter("apikey", "5ae2e3f221c38a28845f05b61de3e1c96cc4be1e55e26b5e8166170a")
-////                .addQueryParameter("radius", "1000")
-////                .addQueryParameter("limit", "5")
-////                .addQueryParameter("offset", "0")
-////                .addQueryParameter("lon", "103.85007")
-////                .addQueryParameter("lat", "1.28967")
-////                .addQueryParameter("rate", "3")
-////                .addQueryParameter("format", "json")
-////                .addQueryParameter("kinds", "tourist_object%2Cinteresting_places%2Chistoric_architecture%2Carchitecture")
-////                .addHeaders("Referer", "https://opentripmap.io/")
-//                .setPriority(Priority.LOW)
-//                .build()
-//                .getAsJSONArray(new JSONArrayRequestListener() {
-//                    @Override
-//                    public void onResponse(JSONArray response) {
-//                        // do anything with response
-//                        Log.d("CREATION", response.toString());
-//                    }
-//                    @Override
-//                    public void onError(ANError error) {
-//                        // handle error
-//                        Log.e("STATE", error.toString());
-//                    }
-//                });
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://api.opentripmap.com/0.1/en/places/radius?apikey=5ae2e3f221c38a28845f05b61de3e1c96cc4be1e55e26b5e8166170a&radius=1000&limit=5&offset=0&lon=103.85007&lat=1.28967&rate=3&format=json&kinds=tourist_object%2Chistoric_architecture%2Carchitecture";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.d("RESPONSE", "RESPONSES");
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("ERROR", error.toString());
-                    }
-                })
-            {
+            //////////////////////////////////////
+            //        OnItemClick Function      //
+            //////////////////////////////////////
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Accept", "*/*");
-                headers.put("Origin", "https://opentripmap.io");
-                headers.put("Referer", "https://opentripmap.io/");
-                return headers;
+            public void onItemClick(int position) {          // ONCLICK Function for RecyclerView ItemView
+                Intent intent = new Intent(BookAttractActivity.this, Attract_info.class);
+                Item item = items1.get(position);
+                Trip trip = (Trip) item.getObject();
+                String title = trip.getTripTitle();
+                String imageUrl = trip.getTripImage();
+                String desc = trip.getDesc();
+                String address = trip.getTrip();
+
+                intent.putExtra("Image", imageUrl);    // Transfer Data from API to Attract_Info Activity and Change Activity
+                intent.putExtra("Title", title);
+                intent.putExtra("Address", address);
+                intent.putExtra("Description", desc);
+                startActivity(intent);
             }
 
-            };
+            /////////////////////////////////////////////////
+            //        VolleyCallBack onSuccess Function    //
+            /////////////////////////////////////////////////
 
+            @Override
+            public ArrayList<Item> onSuccess(ArrayList<Item> items) {
 
-        queue.add(stringRequest);
+                // Once Callback is successful, Send API data to RecyclerView Adapter
+                TripAdapter mAdapter = new TripAdapter(items, this);
+                recyclerView.setAdapter(mAdapter);
+                items1 = items;
+                return items;
+            }
 
-
-
-
-
-        Trip trip1 = new Trip(R.drawable.image7, "ArtScience Museum", "Adult: $$  Child: $$","1" );
-        items.add(new Item(0, trip1));
-        Trip trip2 = new Trip(R.drawable.image8, "Flower Dome @Gardens", "Adult: $$  Child: $$","1");
-        items.add(new Item(0, trip2));
-        Trip trip3 = new Trip(R.drawable.image3, "The Singapore Flyer", "Adult: $$  Child: $$","1");
-        items.add(new Item(0, trip3));
-        Trip trip4 = new Trip(R.drawable.image4, "Universal Studios Singapore", "Adult: $$  Child: $$","1");
-        items.add(new Item(0, trip4));
-        Trip trip5 = new Trip(R.drawable.image5, "The Singapore Zoo", "Adult: $$  Child: $$","1");
-        items.add(new Item(0, trip5));
-
-
-        recyclerView.setAdapter(new TripAdapter(items, this));
-
-
-
-
-    }
-
-    @Override
-    public void onItemClick(int position) {
-        Intent intent = new Intent(BookAttractActivity.this, Attract_info.class);
-
-        Item item = items.get(position);
-        Trip trip = (Trip) item.getObject();
-        String title = trip.getTripTitle();
-        int image = trip.getTripImage();
-        String desc = trip.getDesc();
-
-        intent.putExtra("Image",image);
-        intent.putExtra("Title",title);
-        intent.putExtra("Description",desc);
-        startActivity(intent);
-
+        });
     }
 
 
+
+    /////////////////////////////////////////////////////
+    //        GET API Function Using VolleyRequest     //
+    /////////////////////////////////////////////////////
+    public ArrayList<Item> retrieveAttract(final VolleyCallBack callBack) {
+
+        // GET REQUEST:
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://travel-advisor.p.rapidapi.com/attractions/list?location_id=294265&currency=SGD&lang=en_US&lunit=km&limit=30&sort=recommended";
+        ArrayList<Item> items = new ArrayList<>();
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        // Response with API request Successful, retrieve JSONObjects to put in RecyclerView Array for Adapter
+
+                        try {
+                            JSONArray attractArray = response.getJSONArray("data");
+                            for (int i = 0; i < attractArray.length(); i++) {
+
+                                JSONObject attract = attractArray.getJSONObject(i);
+
+                                while (attract.has("name") && attract.has("address") && attract.has("description") && attract.has("photo")) {
+
+                                    String imageurl = attract.getJSONObject("photo").getJSONObject("images").getJSONObject("original").getString("url");
+                                    String name = attract.getString("name");
+                                    Log.d("String", name);
+                                    String address = attract.getString("address");
+                                    String description = attract.getString("description");
+
+                                    // Validate that JSONObjects are not empty before putting it in the array
+
+                                    if(!name.isEmpty() && !address.isEmpty() && !description.isEmpty() && !imageurl.isEmpty()) {
+                                        Trip trip = new Trip(imageurl, name, address, description);
+                                        items.add(new Item(0, trip));    // Add JSONObjects / Strings to RecyclerViewArray
+                                    }
+                                    break;
+                                }
+
+                            }
+                            // CallBack onSuccess
+                            callBack.onSuccess(items);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+
+                    }
+
+                }, new Response.ErrorListener() {        // ERROR RESPONSE
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("ERROR", error.toString());
+            }
+
+        }) {
+            @Override        // INIIALISE Headers for API request
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("X-RapidAPI-Key", "ebfc51dbe5msh7bb78c35f36b70cp1abf38jsn287c523483c9");
+                headers.put("X-RapidAPI-Host", "travel-advisor.p.rapidapi.com");
+                return headers;
+            }
+        };
+        queue.add(jsonRequest);
+        return items;
+    }
+
+
+    ////////////////////////////////////////////////////
+    //        VolleyCallBack Function for GET API     //
+    ////////////////////////////////////////////////////
+
+    public interface VolleyCallBack extends RecyclerViewInterface {
+        ArrayList<Item> onSuccess(ArrayList<Item> items);
+    }
 
 
 }
+
+
+
+
+
+
+
+
