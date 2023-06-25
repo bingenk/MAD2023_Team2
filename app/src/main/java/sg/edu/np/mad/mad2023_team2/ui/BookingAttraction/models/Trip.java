@@ -1,4 +1,4 @@
-package sg.edu.np.mad.mad2023_team2.models;
+package sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.models;
 
 public class Trip {
 

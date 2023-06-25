@@ -1,4 +1,4 @@
-package sg.edu.np.mad.mad2023_team2;
+package sg.edu.np.mad.mad2023_team2.ui.BookingAttraction;
 
 import android.graphics.Bitmap;
 import android.os.Parcel;
@@ -6,8 +6,6 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import android.graphics.BitmapFactory;
 
-
-import org.w3c.dom.Attr;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

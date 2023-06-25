@@ -1,4 +1,4 @@
-package sg.edu.np.mad.mad2023_team2;
+package sg.edu.np.mad.mad2023_team2.ui.BookingAttraction;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -22,9 +21,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import sg.edu.np.mad.mad2023_team2.adapter.TripAdapter;
-import sg.edu.np.mad.mad2023_team2.models.Item;
-import sg.edu.np.mad.mad2023_team2.models.Trip;
+import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.adapter.TripAdapter;
+import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.models.Item;
+import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.models.Trip;
 
 public class BookAttractActivity extends AppCompatActivity implements RecyclerViewInterface{
     List<Item> items = new ArrayList<>();

@@ -1,7 +1,6 @@
-package sg.edu.np.mad.mad2023_team2.adapter;
+package sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.adapter;
 
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
-import sg.edu.np.mad.mad2023_team2.RecyclerViewInterface;
-import sg.edu.np.mad.mad2023_team2.models.Item;
-import sg.edu.np.mad.mad2023_team2.models.Trip;
+import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.RecyclerViewInterface;
+import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.models.Item;
+import sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.models.Trip;
 
 public class TripAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;

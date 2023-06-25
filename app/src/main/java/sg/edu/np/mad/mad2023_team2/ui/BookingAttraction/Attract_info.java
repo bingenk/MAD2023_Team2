@@ -1,4 +1,4 @@
-package sg.edu.np.mad.mad2023_team2;
+package sg.edu.np.mad.mad2023_team2.ui.BookingAttraction;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import sg.edu.np.mad.mad2023_team2.R;
 
 public class Attract_info extends AppCompatActivity {
 
