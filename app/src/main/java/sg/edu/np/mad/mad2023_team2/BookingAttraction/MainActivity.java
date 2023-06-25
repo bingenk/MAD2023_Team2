@@ -1,4 +1,4 @@
-package sg.edu.np.mad.mad2023_team2;
+package sg.edu.np.mad.mad2023_team2.BookingAttraction;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
