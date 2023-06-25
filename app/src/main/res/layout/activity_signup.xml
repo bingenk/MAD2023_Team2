@@ -88,6 +88,15 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/termsCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="25dp"
+        android:textSize="12dp"
+        android:text="I have read and agree to TravelWise's Terms of Services and Privacy Policy" />
+
 
     <Button
         android:id="@+id/Signupbutton"

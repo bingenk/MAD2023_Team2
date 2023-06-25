@@ -3,9 +3,15 @@ package sg.edu.np.mad.mad2023_team2.ui.LoginSignup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,6 +36,8 @@ public class Signup extends AppCompatActivity {
     private DatabaseReference databaseReference;
     TextView loginRedirectText;
     private FirebaseAuth firebaseAuth;
+
+    private CheckBox termsCheckbox;
 
     //Validation for email format
     private boolean isValidEmail(String email) {
@@ -102,6 +110,8 @@ public class Signup extends AppCompatActivity {
         passwordEditText = findViewById(R.id.signup_password);
         signupButton = findViewById(R.id.Signupbutton);
         loginRedirectText = findViewById(R.id.RedirectLogin);
+        termsCheckbox = findViewById(R.id.termsCheckbox);
+
 
         // Set click listener for the signup button
         signupButton.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +131,7 @@ public class Signup extends AppCompatActivity {
                             emailEditText.setError("Email has already registered!");
                             emailEditText.requestFocus();
                         } else {
+
                             // Check if there are unfilled columns
                             if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
                                 Toast.makeText(Signup.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
@@ -155,6 +166,12 @@ public class Signup extends AppCompatActivity {
                                 usernameEditText.requestFocus();
                                 return;
                             }
+
+                            if (!termsCheckbox.isChecked()) {
+                                Toast.makeText(Signup.this, "Please accept the terms and conditions.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
 
                             // Create a new HelperClass instance with the user input
                             HelperClass user = new HelperClass(email, username, password);
@@ -201,6 +218,44 @@ public class Signup extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // add link for the word in checkbox
+        CheckBox termsCheckbox = findViewById(R.id.termsCheckbox);
+        String checkboxText = termsCheckbox.getText().toString();
+
+        int startTerms = checkboxText.indexOf("Terms of Services");
+        int endTerms = startTerms + "Terms of Services".length();
+        int startPrivacy = checkboxText.indexOf("Privacy Policy");
+        int endPrivacy = startPrivacy + "Privacy Policy".length();
+
+        SpannableString spannableString = new SpannableString(checkboxText);
+
+        ClickableSpan termsClickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                // Handle the click action for "Terms of Services"
+                String url = "https://doc-hosting.flycricket.io/travelwise-terms-of-use/4ac1fc21-e1ab-40b6-931d-04a7a13fd4a4/terms";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        };
+
+        ClickableSpan privacyClickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                // Handle the click action for "Privacy Policy"
+                String url = "https://doc-hosting.flycricket.io/travelwise-privacy-policy/61b76b67-fc7a-4c95-8163-5b8453d30ca8/privacy";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        };
+
+        spannableString.setSpan(termsClickableSpan, startTerms, endTerms, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(privacyClickableSpan, startPrivacy, endPrivacy, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        termsCheckbox.setText(spannableString);
+        termsCheckbox.setMovementMethod(LinkMovementMethod.getInstance());
+
     }
 }
 
