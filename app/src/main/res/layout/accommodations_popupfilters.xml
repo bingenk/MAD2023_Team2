@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_on_surface_disabled"
-    android:foregroundTint="#AB232323">
+    android:background="@color/material_on_background_disabled">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -30,10 +29,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center_horizontal"
-                android:text="Filters"
+                android:text="Search"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textStyle="bold"
-                tools:text="Filters" />
+                android:textStyle="bold" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -46,25 +44,55 @@
                     android:layout_marginBottom="20dp">
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/filter_textppl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="sans-serif"
                         android:foregroundTint="@color/material_dynamic_neutral50"
-                        android:text="Sort-by price:"
+                        android:text="No. of People:"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textSize="20sp"
-                        android:typeface="normal"
-                        tools:text="Sort-by price: " />
+                        android:typeface="normal" />
 
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/filter_ppl"
+                        android:layout_width="100dp"
                         android:layout_height="48dp"
-                        android:foreground="@drawable/hotel_outline"
-                        android:spinnerMode="dropdown" />
+                        android:ems="10"
+                        android:hint="1-29"
+                        android:inputType="number"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:id="@+id/filter_textrooms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="sans-serif"
+                        android:foregroundTint="@color/material_dynamic_neutral50"
+                        android:text="No. of Rooms:"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="20sp"
+                        android:typeface="normal" />
+
+                    <EditText
+                        android:id="@+id/filter_rooms"
+                        android:layout_width="150dp"
+                        android:layout_height="48dp"
+                        android:ems="10"
+                        android:hint="1-29"
+                        android:inputType="number"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
                 </TableRow>
 
@@ -88,7 +116,7 @@
                         tools:text="Check-In date:" />
 
                     <EditText
-                        android:id="@+id/editTextDate"
+                        android:id="@+id/filters_checkin"
                         style="@style/Widget.AppCompat.AutoCompleteTextView"
                         android:layout_width="150dp"
                         android:layout_height="48dp"
@@ -120,7 +148,7 @@
                         tools:text="Check-Out date:" />
 
                     <EditText
-                        android:id="@+id/editTextDate2"
+                        android:id="@+id/filters_checkout"
                         android:layout_width="150dp"
                         android:layout_height="48dp"
                         android:ems="10"
@@ -134,7 +162,7 @@
             </TableLayout>
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/filter_apply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/teal_700"
