@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="sg.edu.np.mad.mad2023_team2.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_contact"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.contact.ContactFragment"
+        android:label="Contact"
+        tools:layout="@layout/fragment_contact" />
 
     <fragment
         android:id="@+id/nav_slideshow"
@@ -32,4 +32,9 @@
         android:name="sg.edu.np.mad.mad2023_team2.ui.Cart.checkout_cart_fragment"
         android:label="@string/menu_checkout_cart"
         tools:layout="@layout/fragment_checkout_cart_fragment" />
+    <activity
+        android:id="@+id/nav_bookAttract"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.BookAttractActivity"
+        android:label="Booking Attractions"
+        tools:layout="@layout/activity_book_attract" />
 </navigation>

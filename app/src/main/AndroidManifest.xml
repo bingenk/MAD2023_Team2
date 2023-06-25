@@ -63,5 +63,46 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.home.PrivacyPolicyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".ui.LoginSignup.ForgetPassword"
+            android:exported="false" />
+        <activity
+            android:name=".ui.LoginSignup.Login"
+            android:exported="true" />
+        <activity
+            android:name=".ui.LoginSignup.Signup"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.BookingAttraction.BookAttractActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.BookingAttraction.Attract_info"
+            android:exported="true" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MAD2023_Team2.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
+
 </manifest>
