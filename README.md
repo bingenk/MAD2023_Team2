@@ -53,6 +53,10 @@ Travel & Local
 ### 5. Language Translator (Nicholas Josiah Kam Yin Ting)
 - Enable users to translate text or phrases from one language to another, helping them overcome language barriers during their travels. 
 
+## [TravelWise App](https://play.google.com/store/apps/details?id=sg.edu.np.mad.mad2023_team2&hl=en-US&ah=Rqox_d2oq1SH3v148oglQduaSXU) on Google Play Store :
+![image](https://github.com/bingenk/MAD2023_Team2/assets/115916417/df016edf-0786-4d39-b356-858d30810859)
+
+
 ## Screenshots / User Gudes :
 <img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/004edd33-ee45-431c-a341-56eca7229ecc" width="290" height="550"> 
 <img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/10d8f347-6077-4e70-9c2b-65af2daf00b6" width="290" height="550">
