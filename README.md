@@ -58,11 +58,11 @@ Travel & Local
 
 
 ## Screenshots / User Gudes :
-<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/004edd33-ee45-431c-a341-56eca7229ecc" width="290" height="550"> 
-<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/10d8f347-6077-4e70-9c2b-65af2daf00b6" width="290" height="550">
-<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/712b0781-a02a-4416-a7fa-2f7fc4b40311" width="290" height="550">
-<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/efdcd43e-7412-40cd-9ad7-fe423a6cd03f" width="290" height="550">
-<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/69f2d38e-2467-4b27-8afd-a6c4b0c82a9c" width="290" height="550">
+<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/004edd33-ee45-431c-a341-56eca7229ecc" width="190" height="350"> 
+<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/10d8f347-6077-4e70-9c2b-65af2daf00b6" width="190" height="350">
+<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/712b0781-a02a-4416-a7fa-2f7fc4b40311" width="190" height="350">
+<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/efdcd43e-7412-40cd-9ad7-fe423a6cd03f" width="190" height="350">
+<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/69f2d38e-2467-4b27-8afd-a6c4b0c82a9c" width="190" height="350">
 
 
 
