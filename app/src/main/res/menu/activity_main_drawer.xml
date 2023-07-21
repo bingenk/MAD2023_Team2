@@ -10,16 +10,26 @@
             android:title="Home" />
 
         <item
+            android:id="@+id/nav_accommodations"
+            android:icon="@drawable/ic_menu_hotel"
+            android:title="@string/menu_accommodations" />
+
+        <item
+            android:id="@+id/nav_bookAttract"
+            android:icon="@drawable/baseline_attractions_24"
+            android:title="Attractions"
+            />
+        <item
+            android:id="@+id/nav_checkout_cart"
+            android:icon="@drawable/baseline_shopping_cart_24"
+            android:title="Cart" />
+
+        <item
             android:id="@+id/nav_contact"
             android:icon="@android:drawable/ic_dialog_email"
             android:title="Contact Us"
             />
 
-        <item
-            android:id="@+id/nav_bookAttract"
-            android:icon="@drawable/baseline_attractions_24"
-            android:title="Booking Attraction"
-            />
     </group>
 
     <item

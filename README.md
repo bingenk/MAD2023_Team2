@@ -31,7 +31,8 @@ Travel & Local
 ### 4. Booking Attractions (Yu Haniel Bharwani)
 - Allow user to book their entertainment attraction.
 
-### 5. Checkout (Vetriselvan Praveen)
+### 5. Cart & Checkout (Vetriselvan Praveen)
+- Add to cart feature enables the customers to add the accomodations to the cart and checkout whenever they like.
 - Checkout feature streamlines the booking process, allowing users to seamlessly reserve accommodations and attractions within the app.
 
 
@@ -51,3 +52,21 @@ Travel & Local
 
 ### 5. Language Translator (Nicholas Josiah Kam Yin Ting)
 - Enable users to translate text or phrases from one language to another, helping them overcome language barriers during their travels. 
+
+## [TravelWise App](https://play.google.com/store/apps/details?id=sg.edu.np.mad.mad2023_team2&hl=en-US&ah=Rqox_d2oq1SH3v148oglQduaSXU) on Google Play Store :
+![image](https://github.com/bingenk/MAD2023_Team2/assets/115916417/df016edf-0786-4d39-b356-858d30810859)
+
+
+## Screenshots / User Gudes :
+<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/004edd33-ee45-431c-a341-56eca7229ecc" width="190" height="350"> 
+<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/10d8f347-6077-4e70-9c2b-65af2daf00b6" width="190" height="350">
+<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/712b0781-a02a-4416-a7fa-2f7fc4b40311" width="190" height="350">
+<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/efdcd43e-7412-40cd-9ad7-fe423a6cd03f" width="190" height="350">
+<img src="https://github.com/bingenk/MAD2023_Team2/assets/115916417/69f2d38e-2467-4b27-8afd-a6c4b0c82a9c" width="190" height="350">
+
+
+
+
+
+
+

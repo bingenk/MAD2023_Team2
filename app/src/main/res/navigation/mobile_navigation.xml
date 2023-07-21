@@ -17,6 +17,21 @@
         android:label="Contact"
         tools:layout="@layout/fragment_contact" />
 
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_accommodations"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.accomodations.AccommodationsFragment"
+        android:label="@string/menu_accommodations"
+        tools:layout="@layout/fragment_accomodations" />
+    <fragment
+        android:id="@+id/nav_checkout_cart"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.Cart.checkout_cart_fragment"
+        android:label="@string/menu_checkout_cart"
+        tools:layout="@layout/fragment_checkout_cart_fragment" />
     <activity
         android:id="@+id/nav_bookAttract"
         android:name="sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.BookAttractActivity"
