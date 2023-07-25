@@ -19,6 +19,13 @@
             android:icon="@drawable/baseline_attractions_24"
             android:title="Attractions"
             />
+
+        <item
+            android:id="@+id/nav_direction"
+            android:icon="@drawable/baseline_place_24"
+            android:title="Direction"
+            />
+
         <item
             android:id="@+id/nav_checkout_cart"
             android:icon="@drawable/baseline_shopping_cart_24"
