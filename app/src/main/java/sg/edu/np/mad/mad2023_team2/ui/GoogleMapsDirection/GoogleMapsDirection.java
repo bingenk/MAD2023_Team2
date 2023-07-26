@@ -2,6 +2,8 @@ package sg.edu.np.mad.mad2023_team2.ui.GoogleMapsDirection;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -10,6 +12,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -23,6 +27,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+
+import java.io.IOException;
+import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
 
@@ -40,10 +47,46 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback 
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
+        SearchView mapSearchView = view.findViewById(R.id.mapSearch); // Initialize SearchView
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        mapSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                String location = mapSearchView.getQuery().toString();
+                List<Address> addressList = null;
+
+                if (!location.isEmpty()) {
+                    Geocoder geocoder = new Geocoder(requireActivity());
+                    try {
+                        addressList = geocoder.getFromLocationName(location, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (addressList != null && !addressList.isEmpty()) {
+                        Address address = addressList.get(0);
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        myMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                        myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                    } else {
+                        Toast.makeText(requireActivity(), "No Location Found!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         return view;
     }
+
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
