@@ -99,6 +99,13 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback 
         } else {
             getLocationAndUpdateMap();
         }
+
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        googleMap.getUiSettings().setCompassEnabled(true);
+        googleMap.getUiSettings().setZoomGesturesEnabled(true);
+        googleMap.getUiSettings().setScrollGesturesEnabled(true);
+        googleMap.getUiSettings().setRotateGesturesEnabled(false);
+        googleMap.setMyLocationEnabled(true);
     }
 
     @Override
@@ -120,7 +127,7 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback 
                     if (location != null) {
                         LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                         myMap.addMarker(new MarkerOptions().position(userLocation).title("You Are Here"));
-                        myMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                        myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
                     }
                 }
             });
