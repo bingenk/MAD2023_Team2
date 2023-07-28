@@ -27,17 +27,24 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+
+
 
 import java.io.IOException;
 import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
 
-public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback {
+public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback, PopupMenu.OnMenuItemClickListener {
 
     private GoogleMap myMap;
     private FusedLocationProviderClient fusedLocationClient;
     private static final int LOCATION_REQUEST_CODE = 100;
+
+    private ImageButton mapOptionsMenuButton; // to be used for map options
 
 
     @Nullable
@@ -48,6 +55,7 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
         SearchView mapSearchView = view.findViewById(R.id.mapSearch); // Initialize SearchView
+        mapOptionsMenuButton = view.findViewById(R.id.mapOptionsMenu); // Initialize ImageButton
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -81,6 +89,13 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback 
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        mapOptionsMenuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenu(v);
             }
         });
 
@@ -131,6 +146,34 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback 
                     }
                 }
             });
+        }
+    }
+
+    // PopupMenu for map types
+    public void showPopupMenu(View v) {
+        PopupMenu popupMenu = new PopupMenu(requireActivity(), v);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.inflate(R.menu.map_options);
+        popupMenu.show();
+    }
+
+    // Handle click events on popupMenu items
+    public boolean onMenuItemClick(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.normal_map) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            return true;
+        } else if (id == R.id.hybrid_map) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            return true;
+        } else if (id == R.id.satellite_map) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            return true;
+        } else if (id == R.id.terrain_map) {
+            myMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+            return true;
+        } else {
+            return false;
         }
     }
 }
