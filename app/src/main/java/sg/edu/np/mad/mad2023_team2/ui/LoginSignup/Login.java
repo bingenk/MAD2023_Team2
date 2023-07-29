@@ -141,6 +141,8 @@ public class Login extends AppCompatActivity {
                         loginPassword.requestFocus();
                     } else {
                         // Login successful, show a toast message
+
+
                         Toast.makeText(Login.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
 
                         // For showing user profile
@@ -151,6 +153,13 @@ public class Login extends AppCompatActivity {
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         intent.putExtra("username", userUsername);
                         intent.putExtra("email", userEmailFromDB);
+
+                        //saving the username so i can use it for the cart /praveen/
+                        SharedPreferences sharedPreferences = getSharedPreferences("CartFb", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("username", userUsername);
+                        editor.apply();
+
                         startActivity(intent);
                     }
                 } else {
