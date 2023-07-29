@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.view.View;
@@ -20,6 +22,7 @@ import com.squareup.picasso.Picasso;
 
 
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Get_Currency_Of_App;
 
 // Showcases information of the accommodation the user has selected
 public class AccommodationsDetails extends AppCompatActivity {
@@ -27,11 +30,20 @@ public class AccommodationsDetails extends AppCompatActivity {
     private ImageView photo;
     private Accommodations accommodation;
 
+    //PRAVEEN CODE
+    private String Currency_Code;
+
+    private double conversion_Rate;
+    //
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accommodations_details);
-
+    //Currency_conversion_praveen
+        Currency_Code = Get_Currency_Of_App.getcountrycodesharedprefs(this);
+        conversion_Rate= Get_Currency_Of_App.getconversionratesharedprefs(this);
+        //
 
         // Gets the accommodation object that the user clicked on
         accommodation = getIntent().getParcelableExtra("accommodation");
@@ -59,7 +71,9 @@ public class AccommodationsDetails extends AppCompatActivity {
             Picasso.with(this).load(accommodation.getImage()).fit().centerCrop().into(photo);
             district.setText(accommodation.getDistrict());
             zip.setText(accommodation.getZip());
-            price.setText("$ "+  String.format("%.2f", accommodation.getPrice()));
+            //PRAVEEN CODE
+            price.setText(Currency_Code+" "+ String.format("%.2f", accommodation.getPrice()*conversion_Rate));
+            //
             config.setText(accommodation.getConfiguration());
             rating.setText("Rating: " + accommodation.getRating());
             distance.setText(accommodation.getDistance());

@@ -34,7 +34,7 @@
                     android:id="@+id/hotel_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/flag_japan"
+                    android:background="@drawable/gradient_1"
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop" />
 

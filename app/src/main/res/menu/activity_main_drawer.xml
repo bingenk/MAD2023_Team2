@@ -28,6 +28,17 @@
             android:id="@+id/nav_checkout_cart"
             android:icon="@drawable/baseline_shopping_cart_24"
             android:title="Cart" />
+        <item
+            android:id="@+id/nav_currency_converter"
+            android:icon="@drawable/baseline_currency_exchange_24"
+            android:title="Currency Converter"
+            />
+
+        <item
+            android:id="@+id/nav_expense_planner"
+            android:icon="@drawable/baseline_currency_exchange_24"
+            android:title="Expense Planner"
+            />
 
         <item
             android:id="@+id/nav_contact"

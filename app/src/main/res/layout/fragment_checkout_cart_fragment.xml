@@ -58,6 +58,17 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:gravity="right"
+                        android:text="TextView"
+                        android:textColor="@color/white"
+                        android:textSize="21dp"
+                        android:textStyle="bold" />
+
+                    <TextView
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
