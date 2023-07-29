@@ -49,12 +49,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.ui.MainActivity;
-import sg.edu.np.mad.mad2023_team2.ui.OnClickInterface;
-import sg.edu.np.mad.mad2023_team2.ui.VolleySingleton;
 
 public class RecommendationsFragment extends Fragment implements OnClickInterface {
     private ToggleButton restaurantToggle, attractionToggle;

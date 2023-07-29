@@ -17,8 +17,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad2023_team2.R;
-import sg.edu.np.mad.mad2023_team2.ui.OnClickInterface;
-import sg.edu.np.mad.mad2023_team2.ui.accomodations.Accommodations;
 
 public class ReccomendationsAdapter extends RecyclerView.Adapter<ReccomendationsAdapter.ReccomendationsHolder> {
 
