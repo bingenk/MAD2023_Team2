@@ -3,14 +3,11 @@ package sg.edu.np.mad.mad2023_team2.ui.checkout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +18,6 @@ import java.util.Date;
 import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
-import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 
 //////////////This is the recycle adapter for the checkout recycle view////////////////////////
@@ -126,7 +122,7 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
 
             hotel_image=view.findViewById(R.id.hotel_image);
             hotel_name=view.findViewById(R.id.hotel_name);
-            hotel_type=view.findViewById(R.id.hotel_type);
+            hotel_type=view.findViewById(R.id.hotel_rating);
 
 //            ib_delete_cart_item=view.findViewById(R.id.ib_delete_cart_item);
             //hotel_address=view.findViewById(R.id.hotel_address);

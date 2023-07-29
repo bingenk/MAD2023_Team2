@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.os.Build;
 import android.os.Bundle;
 
 import android.view.View;
@@ -74,7 +73,7 @@ public class AccommodationsDetails extends AppCompatActivity {
         }
 
         // For use in the next stage
-        FloatingActionButton map = findViewById(R.id.details_location);
+        FloatingActionButton map = findViewById(R.id.recco_details_findLocation);
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

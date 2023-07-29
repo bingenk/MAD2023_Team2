@@ -12,20 +12,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/hotel_search_outline">
+            android:background="@drawable/hotel_search_outline"
+            android:orientation="horizontal">
 
             <SearchView
                 android:id="@+id/hotel_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:foreground="@drawable/hotel_outline"
                 android:foregroundTint="@color/material_on_surface_stroke"
                 android:iconifiedByDefault="false"
                 android:queryBackground="@android:color/transparent"
-                android:queryHint="Search Accomodations..." />
+                android:queryHint="Search Name..." />
 
             <ImageButton
                 android:id="@+id/hotel_filter"
@@ -33,13 +35,15 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:layout_marginStart="8dp"
+                android:layout_weight="4"
                 android:background="@drawable/hotel_outline"
                 android:backgroundTint="@android:color/holo_blue_light"
-                android:padding="50dp"
+                android:maxWidth="60dp"
+                android:padding="60dp"
                 android:src="@drawable/baseline_filter_alt_24"
                 tools:ignore="SpeakableTextPresentCheck" />
 
-        </TableRow>
+        </LinearLayout>
 
         <ProgressBar
             android:id="@+id/hotel_pb"

@@ -42,6 +42,11 @@
         android:label="@string/menu_attractions"
         tools:layout="@layout/activity_book_attract" />
     <fragment
+        android:id="@+id/nav_recommendations"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.Recommendations.RecommendationsFragment"
+        android:label="Recommendations"
+        tools:layout="@layout/fragment_recommendations" />
+    <fragment
         android:id="@+id/nav_direction"
         android:name="sg.edu.np.mad.mad2023_team2.ui.GoogleMapsDirection.GoogleMapsDirection"
         android:label="Google Maps Direction"
