@@ -15,8 +15,12 @@
         android:id="@+id/nav_contact"
         android:name="sg.edu.np.mad.mad2023_team2.ui.contact.ContactFragment"
         android:label="Contact"
-        tools:layout="@layout/fragment_contact"/>
-
+        tools:layout="@layout/fragment_contact" />
+    <fragment
+        android:id="@+id/nav_translate"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.translate.TranslateFragment"
+        android:label="Translate"
+        tools:layout="@layout/fragment_translate" />
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="sg.edu.np.mad.mad2023_team2.ui.slideshow.SlideshowFragment"
@@ -37,4 +41,9 @@
         android:name="sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.BookAttractActivity"
         android:label="@string/menu_attractions"
         tools:layout="@layout/activity_book_attract" />
+    <fragment
+        android:id="@+id/nav_direction"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.GoogleMapsDirection.GoogleMapsDirection"
+        android:label="Google Maps Direction"
+        tools:layout="@layout/fragment_direction" />
 </navigation>
