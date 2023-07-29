@@ -59,13 +59,14 @@
             android:id="@+id/addExpense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+           android:textSize="23dp"
+            android:textColor="@color/black"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="15dp"
-            android:text="Add expense"
+            android:text="Add Expense"
             android:textAlignment="center" />
 
     </LinearLayout>

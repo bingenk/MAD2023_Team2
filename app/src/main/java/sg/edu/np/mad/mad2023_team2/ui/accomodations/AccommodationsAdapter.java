@@ -22,7 +22,7 @@ import sg.edu.np.mad.mad2023_team2.ui.Recommendations.OnClickInterface;
 // A Adapter to fit the data into the recyclerview in the AccommodationsFragment activity
 public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAdapter.AccommodationsHolder>{
 
-    private HotelListInterface listInterface;
+    private OnClickInterface listInterface;
     private ArrayList<Accommodations> data;
 
     //PRAVEEN CODE
@@ -34,7 +34,7 @@ public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAd
 
     // Constructor of adapter
     // Needs the interface to allow the onclick of the recyclerview item
-    public AccommodationsAdapter(ArrayList<Accommodations> d, HotelListInterface listInterface, Context context)
+    public AccommodationsAdapter(ArrayList<Accommodations> d, OnClickInterface listInterface, Context context)
     {
         if (d == null) {
             data = new ArrayList<>();
@@ -95,7 +95,7 @@ public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAd
             super(view);
             hotelPhoto = view.findViewById(R.id.hotel_image);
             hotelName = view.findViewById(R.id.hotel_name);
-            hotelRating = view.findViewById(R.id.hotel_type);
+            hotelRating = view.findViewById(R.id.hotel_rating);
             hotelAddress = view.findViewById(R.id.hotel_address);
             hotelPrice = view.findViewById(R.id.hotel_price);
 
