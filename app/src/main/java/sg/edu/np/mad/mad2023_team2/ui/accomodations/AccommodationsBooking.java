@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -28,8 +31,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.Cart.Cart;
 import sg.edu.np.mad.mad2023_team2.ui.Cart.checkout_cart_recyclerAdapter;
+import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Get_Currency_Of_App;
+import sg.edu.np.mad.mad2023_team2.ui.MainActivity;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
+import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DatabaseManager;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_details;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_sqllite;
@@ -49,10 +56,25 @@ public class AccommodationsBooking extends AppCompatActivity {
 
     private Cart_item itemModel;
 
+    private String Currency_Code;
+
+    private double conversion_Rate;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accommodations_booking);
+
+
+        //Currency settings
+
+
+        Currency_Code = Get_Currency_Of_App.getcountrycodesharedprefs(this);
+        conversion_Rate=Get_Currency_Of_App.getconversionratesharedprefs(this);
+
+
 
         // Get the accommodation object form the previous activity
         accommodation = getIntent().getParcelableExtra("accommodations");
@@ -81,7 +103,7 @@ public class AccommodationsBooking extends AppCompatActivity {
 
         adults.setText(String.valueOf(numAdults));
         rooms.setText(String.valueOf(numRooms));
-        price.setText("$ "+  String.format("%.2f", accommodation.getPrice()));
+        price.setText(Currency_Code+" "+String.format("%.2f", (accommodation.getPrice())*conversion_Rate));
         name.setText(accommodation.getName());
         try {
             // Gets the date using the dateformat format
@@ -134,6 +156,24 @@ public class AccommodationsBooking extends AppCompatActivity {
                 }
                 dataBaseHelper = new DataBaseHelper(AccommodationsBooking.this);
                 boolean success = dataBaseHelper.addOne(itemModel);
+                // Delete cart data upon user logout
+                dataBaseHelper = DatabaseManager.getDataBaseHelper(AccommodationsBooking.this);
+                // get username from shared prefs to use in firebase
+                SharedPreferences sharedPreferences = getSharedPreferences("CartFb", MODE_PRIVATE);
+                String username = sharedPreferences.getString("username", ""); // The second argument is the default value if the key is not found
+                Log.d("wassup", "ShowCustomersOnListView: firebase cart mfker");
+                Log.d("wassup", username);
+
+                checkout_cart_details details=dataBaseHelper.getEveryone();
+                addCartToUser(username,details.getAllcartitems());
+
+
+
+
+
+
+
+
                 new AlertDialog.Builder(AccommodationsBooking.this)
                         .setTitle("Successfully added to cart!")
                         .setIcon(R.drawable.baseline_add_shopping_cart_24)
@@ -148,4 +188,45 @@ public class AccommodationsBooking extends AppCompatActivity {
                 Toast.makeText(AccommodationsBooking.this, "success"+success, Toast.LENGTH_SHORT).show();
             }
         });
-}}
+
+
+
+
+}
+
+
+
+    public void addCartToUser(String userId, ArrayList<Cart_item> cartItems) {
+//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//        String userId;
+
+//        if (currentUser != null) {
+//            // User is authenticated, get the user ID
+//            userId = currentUser.getUid();
+//            Log.d("wassup", "addCartToUser: User ID: " + userId);
+//        } else {
+//            // User is not authenticated, use a default value for the user ID (you can change this as needed)
+//            userId = "default_user";
+//            Log.d("wassup", "addCartToUser: User is not authenticated.");
+//        }
+
+        DatabaseReference userCartRef = FirebaseDatabase.getInstance().getReference("users").child(userId).child("cart");
+        Cart cart = new Cart(cartItems);
+        userCartRef.setValue(cart)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("wassup", "addCartToUser: Cart added to the user successfully.");
+                        // Cart added to the user successfully.
+                        // You can show a success message if needed.
+                    } else {
+                        Log.d("wassup", "addCartToUser: Cart addition failed: " + task.getException());
+                        // Cart addition failed.
+                        // You can handle the error accordingly.
+                    }
+                })
+                .addOnSuccessListener(aVoid -> Log.d("wassup", "addCartToUser: Database write was successful."))
+                .addOnFailureListener(e -> Log.d("wassup", "addCartToUser: Database write failed: " + e.getMessage()));
+    }
+
+
+}

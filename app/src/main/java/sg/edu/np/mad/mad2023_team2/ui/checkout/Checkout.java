@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hbb20.CountryCodePicker;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
@@ -41,13 +45,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Context;
+import android.content.Intent;
+
+
 
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.Cart.Cart;
 import sg.edu.np.mad.mad2023_team2.ui.Cart.checkout_cart_recyclerAdapter;
+import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Get_Currency_Of_App;
+import sg.edu.np.mad.mad2023_team2.ui.MainActivity;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DatabaseManager;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_details;
+import sg.edu.np.mad.mad2023_team2.ui.home.HomeFragment;
+
 //////////////Checkout class shows the checkout page with a recycle view and a scroll view for the user to insert all the customer information and then validates the input before processing payment with the onclick function on the payment button////////
 public class Checkout extends AppCompatActivity {
 
@@ -86,6 +99,16 @@ public class Checkout extends AppCompatActivity {
     TextView total_price_calc_display;
     String price;
 
+    Context context;
+
+    private String Currency_Code;
+
+
+    private double conversion_Rate;
+
+
+
+
 
 
     @Override
@@ -94,6 +117,12 @@ public class Checkout extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
         initalizeViews();
 
+        // Initialize Firebase
+        FirebaseApp.initializeApp(this);
+
+       //get the currency details to be set
+        Currency_Code=Get_Currency_Of_App.getcountrycodesharedprefs(this);
+        conversion_Rate=Get_Currency_Of_App.getconversionratesharedprefs(this);
 
 
         //RECYCLER VIEW
@@ -208,9 +237,58 @@ public class Checkout extends AppCompatActivity {
 
     private void onPaymentResult(PaymentSheetResult paymentSheetResult) {
         if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
-            Toast.makeText(this, "payment success", Toast.LENGTH_SHORT).show();
+            Log.d("hi1234", "doInBackground: qdq434wrgggdq");
+            String mEmail = Email_input_edit_text.getText().toString();
+            String mSubject = "TravelWise Booking";
+
+            // Create the message content using HTML for table formatting
+            StringBuilder messageBuilder = new StringBuilder();
+            messageBuilder.append("<html><body><h2>Dear Customer, you have made a booking.</h2>");
+            messageBuilder.append("<table border=\"1\" style=\"border-collapse: collapse;\">");
+            messageBuilder.append("<tr><th>Name</th><th>Description</th><th>Type</th><th>Address</th><th>Price</th><th>Check-in Date</th><th>Check-out Date</th></tr>");
+
+            for (Cart_item item : checkout_cart) {
+                messageBuilder.append("<tr>");
+                messageBuilder.append("<td>").append(item.getName()).append("</td>");
+                messageBuilder.append("<td>").append(item.getDescription()).append("</td>");
+                messageBuilder.append("<td>").append(item.getType()).append("</td>");
+                messageBuilder.append("<td>").append(item.getAddress()).append("</td>");
+                messageBuilder.append("<td>").append(item.getPrice()).append("</td>");
+                messageBuilder.append("<td>").append(item.getCheckin_date()).append("</td>");
+                messageBuilder.append("<td>").append(item.getCheckout_date()).append("</td>");
+                messageBuilder.append("</tr>");
+            }
+
+            messageBuilder.append("</table></body></html>");
+
+            String message = messageBuilder.toString();
+
+            Log.d("hi1234", "doInBackground: qdq434wrgggdqfcdcfda");
+            JavaMailApi javaMailApi = new JavaMailApi(this, mEmail, mSubject, message);
+            javaMailApi.execute();
+            Toast.makeText(this, "Payment successful. Booking details sent to your email.", Toast.LENGTH_SHORT).show();
+            // Delay the execution of clearing the database and navigating to the HomeFragment
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Clear the database
+                    dataBaseHelper.deleteAllData();
+                    SharedPreferences sharedPreferences = getSharedPreferences("CartFb", MODE_PRIVATE);
+                    String username = sharedPreferences.getString("username", ""); // The second argument is the default value if the key is not found
+                    Log.d("wassup", "ShowCustomersOnListView: firebase cart mfkerlesgo");
+                    Log.d("wassup", username);
+                    clearCartItems(username);
+
+//                     Navigate to the HomeFragment or any other desired destination
+                    Intent intent = new Intent(Checkout.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            }, 1000); // Delay of 3000 milliseconds (3 seconds) before executing the code inside run()
         }
-    }
+
+        }
+
+
 
     private void getEphericalKey(String customerID) {
 
@@ -295,10 +373,11 @@ public class Checkout extends AppCompatActivity {
 //                String myValue = sharedPreferences.getString("total_cost", "0");
                  price =gettotalprice()+"00";
 
+
                 Map<String, String> params = new HashMap<>();
                 params.put("customer", customerID);
                 params.put("amount", price);
-                params.put("currency", "usd");
+                params.put("currency", Currency_Code);
                 params.put("automatic_payment_methods[enabled]", "true");
 
 
@@ -317,8 +396,13 @@ public class Checkout extends AppCompatActivity {
     public String gettotalprice(){
         dataBaseHelper = DatabaseManager.getDataBaseHelper(Checkout.this);
                 checkout_cart_details calculate_total_price_stripe=dataBaseHelper.getEveryone();
-                total_price_stripe =calculate_total_price_stripe.getTotalprice();
-                int ts1=(int)total_price_stripe;
+
+
+            total_price_stripe =calculate_total_price_stripe.getTotalprice();
+
+
+
+                int ts1=(int)(total_price_stripe*conversion_Rate);
                 String ts = String.format("%d", ts1);
         //Log.d("pricecheck", "gettotalprice: fefe"+ts);
                 return ts;
@@ -492,15 +576,20 @@ public class Checkout extends AppCompatActivity {
     }
     private void ShowCustomersOnListView(DataBaseHelper dataBaseHelper) {
         checkout_cart_details details=this.dataBaseHelper.getEveryone();
+        checkout_cart = this.dataBaseHelper.getEveryone().getAllcartitems();
         rv=findViewById(R.id.rv_checkout_items);
 
         double totalprice=details.getTotalprice();
         total_price_calc_display=findViewById(R.id.total_price_input);
 
-        total_price_calc_display.setText(String.format("%.2f", totalprice));
+
+        Currency_Code = Get_Currency_Of_App.getcountrycodesharedprefs(this);
+        conversion_Rate=Get_Currency_Of_App.getconversionratesharedprefs(this);
+
+        total_price_calc_display.setText(String.format("%.2f", totalprice*conversion_Rate));
 
         total_price_stripe=totalprice;
-        recyclerAdapter=new checkout_recyclerAdapter(details.getAllcartitems(),total_price_calc_display);
+        recyclerAdapter=new checkout_recyclerAdapter(details.getAllcartitems(),total_price_calc_display,this);
 
         // you can also set the layout in the xml file using the layout manager attribute
         rv.setLayoutManager(new LinearLayoutManager(Checkout.this));
@@ -523,6 +612,62 @@ public class Checkout extends AppCompatActivity {
 
 //        Toast.makeText(Checkout.this, (details.getTotalprice()).toString(), Toast.LENGTH_SHORT).show();
     }
+
+//
+//    public void addCartToUser(String userId, ArrayList<Cart_item> cartItems) {
+////        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+////        String userId;
+//
+////        if (currentUser != null) {
+////            // User is authenticated, get the user ID
+////            userId = currentUser.getUid();
+////            Log.d("wassup", "addCartToUser: User ID: " + userId);
+////        } else {
+////            // User is not authenticated, use a default value for the user ID (you can change this as needed)
+////            userId = "default_user";
+////            Log.d("wassup", "addCartToUser: User is not authenticated.");
+////        }
+//
+//        DatabaseReference userCartRef = FirebaseDatabase.getInstance().getReference("users").child(userId).child("cart");
+//        Cart cart = new Cart(cartItems);
+//        userCartRef.setValue(cart)
+//                .addOnCompleteListener(task -> {
+//                    if (task.isSuccessful()) {
+//                        Log.d("wassup", "addCartToUser: Cart added to the user successfully.");
+//                        // Cart added to the user successfully.
+//                        // You can show a success message if needed.
+//                    } else {
+//                        Log.d("wassup", "addCartToUser: Cart addition failed: " + task.getException());
+//                        // Cart addition failed.
+//                        // You can handle the error accordingly.
+//                    }
+//                })
+//                .addOnSuccessListener(aVoid -> Log.d("wassup", "addCartToUser: Database write was successful."))
+//                .addOnFailureListener(e -> Log.d("wassup", "addCartToUser: Database write failed: " + e.getMessage()));
+//    }
+//
+
+
+    public static void clearCartItems(String userId) {
+        DatabaseReference cartItemsRef = FirebaseDatabase.getInstance().getReference("users")
+                .child(userId)
+                .child("cart")
+                .child("cartItems")
+                ;
+
+        cartItemsRef.removeValue()
+                .addOnSuccessListener(aVoid -> {
+                    // Data has been cleared successfully
+                    Log.d("wassup", "Cart items data cleared successfully.");
+                })
+                .addOnFailureListener(e -> {
+                    // Failed to clear data
+                    Log.d("wassup", "Failed to clear cart items data: " + e.getMessage());
+                });
+    }
+
+
+
 
 
 

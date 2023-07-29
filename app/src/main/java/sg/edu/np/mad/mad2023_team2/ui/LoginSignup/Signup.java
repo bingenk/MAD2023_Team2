@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -103,8 +104,11 @@ public class Signup extends AppCompatActivity {
         // Initialize Firebase Database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
+
         // Initialize Firebase Authentication
         firebaseAuth = FirebaseAuth.getInstance();
+
+
 
         // Get references to the EditText fields and signup button
         emailEditText = findViewById(R.id.signup_email);

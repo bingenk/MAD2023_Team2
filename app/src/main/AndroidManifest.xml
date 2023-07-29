@@ -2,44 +2,45 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
+        android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.MAD2023_Team2"
-        android:enableOnBackInvokedCallback="true"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.Transactions.AddExpenseActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.Transactions.Transaction_Activity"
+            android:exported="true" />
         <activity
             android:name=".ui.accomodations.AccommodationsBooking"
             android:exported="false" />
         <activity
             android:name=".ui.accomodations.AccommodationsDetails"
             android:exported="false" />
-
         <activity
             android:name=".ui.checkout.Checkout"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MAD2023_Team2.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/Theme.MAD2023_Team2.NoActionBar" />
         <activity
             android:name=".ui.checkout_cart_sqllite.checkout_cart_sqllite"
             android:exported="true"
             android:label="@string/app_name"
-
-            android:theme="@style/Theme.MAD2023_Team2.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.MAD2023_Team2.NoActionBar" />
         <activity
             android:name=".ui.home.PrivacyPolicyActivity"
             android:exported="false" />
@@ -64,8 +65,7 @@
         </activity>
         <activity
             android:name=".ui.LoginSignup.Signup"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".ui.BookingAttraction.BookAttractActivity"
             android:exported="true" />
@@ -73,10 +73,16 @@
             android:name=".ui.BookingAttraction.Attract_info"
             android:exported="true" />
         <activity
+            android:name=".ui.Currency_Converter.Currency_Converter_Fragment"
+            android:exported="true" />
+        <activity
             android:name=".ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MAD2023_Team2.NoActionBar" />
+
+
+
 
         <meta-data
             android:name="preloaded_fonts"

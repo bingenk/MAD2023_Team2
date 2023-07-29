@@ -1,5 +1,9 @@
 package sg.edu.np.mad.mad2023_team2.ui.checkout;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Get_Currency_Of_App;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 
@@ -33,11 +38,17 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
     List<Cart_item> checkout_cart;
     private TextView totalChargesTextView;
 
-    public checkout_recyclerAdapter(List<Cart_item> checkout_cart,TextView totalChargesTextView) {
+    private String Currency_Code;
 
+    private Context context;
+    private double conversion_Rate;
+
+    public checkout_recyclerAdapter(List<Cart_item> checkout_cart, TextView totalChargesTextView, Context context) {
         this.checkout_cart = checkout_cart;
         this.totalChargesTextView = totalChargesTextView;
+        this.context = context; // Assign the context here
     }
+
 
     //create individual rows necessary to display the items in recycler view
     //oncreateviewholder is only called as many views that can fit on the screen
@@ -58,6 +69,11 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
     //onbindviewholder is called for the total number of views unline the viewholder
     @Override
     public void onBindViewHolder(@NonNull checkout_recyclerAdapter.ViewHolder holder, int position) {
+
+        //Currency_conversion_praveen
+        Currency_Code = Get_Currency_Of_App.getcountrycodesharedprefs(context);
+        conversion_Rate=Get_Currency_Of_App.getconversionratesharedprefs(context);
+
 ///////picasso helps to convert url and set it to the imageview specified/////////////////
         Picasso.with(holder.hotel_image.getContext())
                 .load(checkout_cart.get(position).getImage())
@@ -69,7 +85,7 @@ public class checkout_recyclerAdapter extends RecyclerView.Adapter<checkout_recy
         holder.tv_checkout_date.setText(formatdate(checkout_cart.get(position).getCheckout_date()));
         //holder.imageView.setImageDrawable(); ~ to set images
         boolean isExpanded=checkout_cart.get(position).isExpanded();
-        holder.tv_total_price.setText("$ "+  String.format("%.2f", checkout_cart.get(position).getPrice()));
+        holder.tv_total_price.setText(Currency_Code+" "+ String.format("%.2f", checkout_cart.get(position).getPrice()*conversion_Rate));
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 //        holder.details.setOnClickListener(new View.OnClickListener() {
 //            @Override

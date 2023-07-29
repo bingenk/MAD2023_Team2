@@ -54,12 +54,21 @@
                         android:text="@string/Total_Price" />
 
                     <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:gravity="right"
+                        android:text="TextView" />
+
+                    <TextView
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="$100" />
+
                 </LinearLayout>
 
                 <Button
