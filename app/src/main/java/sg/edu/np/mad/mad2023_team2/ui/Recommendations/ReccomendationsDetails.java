@@ -2,9 +2,11 @@ package sg.edu.np.mad.mad2023_team2.ui.Recommendations;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -20,8 +22,11 @@ public class ReccomendationsDetails extends AppCompatActivity {
 
     private ImageView reccoDetailsImage;
     private FloatingActionButton reccoDetailsBack;
+    private ImageButton reccoDetailsWeb;
     private RatingBar reccoDetailsRatingBar;
     private TextView reccoDetailsPrice,reccoDetailsName,reccoDetailsRatingNum,reccoDetailsAddress,reccoDetailsType,reccoDetailsStatus,reccoDetailsDistance,reccoDetailsLocation,reccoDetailsAwards,reccoDetailsDesc,reccoDetailsDietary;
+
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class ReccomendationsDetails extends AppCompatActivity {
         reccoDetailsImage = findViewById(R.id.recco_details_image);
         reccoDetailsBack = findViewById(R.id.recco_details_back);
         reccoDetailsRatingBar = findViewById(R.id.recco_details_ratingBar);
+        reccoDetailsWeb = findViewById(R.id.recco_details_web);
 
         if (getIntent().getParcelableExtra("reccomendation") instanceof Restaurant)
         {
@@ -73,6 +79,8 @@ public class ReccomendationsDetails extends AppCompatActivity {
             checkAndSetList(reccoDetailsAwards, restaurant.getAwards(), "\uD83C\uDFC6 Awards:");
             checkAndSetList(reccoDetailsDietary, restaurant.getDietaryRestrictions(), "\uD83C\uDF7D ");
             Picasso.with(this).load(restaurant.getImage()).fit().centerCrop().into(reccoDetailsImage);
+
+            url = restaurant.getUrl();
         }
 
         else
@@ -93,7 +101,20 @@ public class ReccomendationsDetails extends AppCompatActivity {
             checkAndSetRating(reccoDetailsRatingNum, reccoDetailsRatingBar, attraction.getRating());
             checkAndSetList(reccoDetailsAwards, attraction.getAwards(), "\uD83C\uDFC6 Awards:");
             Picasso.with(this).load(attraction.getImage()).fit().centerCrop().into(reccoDetailsImage);
+
+            url = attraction.getUrl();
         }
+
+        reccoDetailsWeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (url != null) {
+                    Intent intent = new Intent(ReccomendationsDetails.this, RecommendationsWeb.class);
+                    intent.putExtra("url", url);
+                    startActivity(intent);
+                }
+            }
+        });
 
         reccoDetailsBack.setOnClickListener(new View.OnClickListener() {
             @Override

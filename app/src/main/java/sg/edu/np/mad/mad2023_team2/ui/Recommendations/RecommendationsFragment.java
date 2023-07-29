@@ -235,6 +235,7 @@ public class RecommendationsFragment extends Fragment implements OnClickInterfac
                                                 Double.parseDouble(item.getString("longitude")),
                                                 item.has("rating") ? Double.parseDouble(item.getString("rating")) : 0,
                                                 awards,
+                                                item.getString("web_url"),
                                                 item.has("photo") ? item.getJSONObject("photo").getJSONObject("images").getJSONObject("original").getString("url") : "https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
                                         ));
                                     } else if (item.has("name") && Integer.parseInt(item.getString("location_id"))!= 0) {
@@ -261,6 +262,7 @@ public class RecommendationsFragment extends Fragment implements OnClickInterfac
                                                 Double.parseDouble(item.getString("longitude")),
                                                 item.has("rating") ? Double.parseDouble(item.getString("rating")) : 0,
                                                 awards,
+                                                item.getString("web_url"),
                                                 item.has("photo") ? item.getJSONObject("photo").getJSONObject("images").getJSONObject("original").getString("url") : "https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
                                         ));
                                     }

@@ -23,26 +23,22 @@ public class Restaurant implements Parcelable {
     private double longitude;
     private double rating;
     private ArrayList<String> awards;
+    private String url;
     private String image;
 
-    public Restaurant(int id, String name, String desc, ArrayList<String> cuisine, ArrayList<String> dietaryRestrictions, String status, String location, String address, String distanceAway, String priceLevel, String priceRange, double latitude, double longitude, double rating, ArrayList<String> awards, String image) {
+
+    public Restaurant(int id, String name, ArrayList<String> cuisine, String status, String address, String distanceAway, String priceLevel, double rating, String image) {
         this.id = id;
         this.name = name;
-        this.desc = desc;
         this.cuisine = cuisine;
-        this.dietaryRestrictions = dietaryRestrictions;
         this.status = status;
-        this.location = location;
         this.address = address;
         this.distanceAway = distanceAway;
         this.priceLevel = priceLevel;
-        this.priceRange = priceRange;
-        this.latitude = latitude;
-        this.longitude = longitude;
         this.rating = rating;
-        this.awards = awards;
         this.image = image;
     }
+
 
     protected Restaurant(Parcel in) {
         id = in.readInt();
@@ -60,7 +56,54 @@ public class Restaurant implements Parcelable {
         longitude = in.readDouble();
         rating = in.readDouble();
         awards = in.createStringArrayList();
+        url = in.readString();
         image = in.readString();
+    }
+
+    public Restaurant(int id, String name, String desc, ArrayList<String> cuisine, ArrayList<String> dietaryRestrictions, String status, String location, String address, String distanceAway, String priceLevel, String priceRange, double latitude, double longitude, double rating, ArrayList<String> awards, String url, String image) {
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.cuisine = cuisine;
+        this.dietaryRestrictions = dietaryRestrictions;
+        this.status = status;
+        this.location = location;
+        this.address = address;
+        this.distanceAway = distanceAway;
+        this.priceLevel = priceLevel;
+        this.priceRange = priceRange;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.rating = rating;
+        this.awards = awards;
+        this.url = url;
+        this.image = image;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(desc);
+        dest.writeStringList(cuisine);
+        dest.writeStringList(dietaryRestrictions);
+        dest.writeString(status);
+        dest.writeString(location);
+        dest.writeString(address);
+        dest.writeString(distanceAway);
+        dest.writeString(priceLevel);
+        dest.writeString(priceRange);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeDouble(rating);
+        dest.writeStringList(awards);
+        dest.writeString(url);
+        dest.writeString(image);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
@@ -74,20 +117,6 @@ public class Restaurant implements Parcelable {
             return new Restaurant[size];
         }
     };
-
-    public Restaurant(int id, String name, ArrayList<String> cuisine, String status, String address, String distanceAway, String priceLevel, double rating, String image) {
-        this.id = id;
-        this.name = name;
-        this.cuisine = cuisine;
-        this.status = status;
-        this.address = address;
-        this.distanceAway = distanceAway;
-        this.priceLevel = priceLevel;
-        this.rating = rating;
-        this.image = image;
-    }
-
-
 
     public int getId() {
         return id;
@@ -153,28 +182,7 @@ public class Restaurant implements Parcelable {
         return image;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeString(desc);
-        dest.writeStringList(cuisine);
-        dest.writeStringList(dietaryRestrictions);
-        dest.writeString(status);
-        dest.writeString(location);
-        dest.writeString(address);
-        dest.writeString(distanceAway);
-        dest.writeString(priceLevel);
-        dest.writeString(priceRange);
-        dest.writeDouble(latitude);
-        dest.writeDouble(longitude);
-        dest.writeDouble(rating);
-        dest.writeStringList(awards);
-        dest.writeString(image);
+    public String getUrl() {
+        return url;
     }
 }
