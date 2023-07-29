@@ -39,7 +39,7 @@
                     android:scaleType="centerCrop" />
 
                 <TextView
-                    android:id="@+id/hotel_type"
+                    android:id="@+id/hotel_rating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -66,7 +66,7 @@
                     android:textColor="@color/white"
                     android:textSize="28sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/hotel_type"/>
+                    app:layout_constraintBottom_toTopOf="@id/hotel_rating"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

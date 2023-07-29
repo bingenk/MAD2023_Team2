@@ -1,5 +1,6 @@
 package sg.edu.np.mad.mad2023_team2.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -51,13 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private TextView profileUsername;
-    private TextView profileEmail;
+    private TextView profileUsername, profileEmail, profileUsername_Home;
     private FirebaseAuth mAuth;
     DataBaseHelper dataBaseHelper;
 
 
-    // For user to logout upon clicking logout button and return to login page3
+    // For user to logout upon clicking logout button and return to login page
     private void logoutUser() {
         mAuth.signOut();
         Intent intent = new Intent(MainActivity.this, Login.class);
@@ -137,8 +138,10 @@ public class MainActivity extends AppCompatActivity {
         // Show user profile upon when user login
         // Get references to the profileUsername and profileEmail TextViews
         View headerView = navigationView.getHeaderView(0);
+        TextView myTextView = (TextView) findViewById(R.id.home_username);
         profileUsername = headerView.findViewById(R.id.profileUsername);
         profileEmail = headerView.findViewById(R.id.profileEmail);
+        profileUsername_Home = myTextView.findViewById(R.id.home_username);
 
         // Retrieve the user profile information from the intent
         Intent intent = getIntent();
@@ -148,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Set the user profile information to the TextViews
             profileUsername.setText(username);
+            profileUsername_Home.setText(username);
             profileEmail.setText(email);
         }
 
@@ -168,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_contact, R.id.nav_bookAttract)
+                R.id.nav_home, R.id.nav_contact, R.id.nav_bookAttract, R.id.nav_translate)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);

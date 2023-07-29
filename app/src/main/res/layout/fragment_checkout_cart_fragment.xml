@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/cart_background"
     tools:context=".ui.Cart.checkout_cart_fragment">
 
     <LinearLayout
@@ -30,8 +31,8 @@
             android:id="@+id/cv_checkout_cart"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-
-            android:layout_weight="1">
+            android:layout_weight="1"
+            app:cardBackgroundColor="#80FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,7 +52,10 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@string/Total_Price" />
+                        android:text="@string/Total_Price"
+                        android:textColor="@color/white"
+                        android:textSize="21dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView8"
@@ -67,8 +71,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="$100" />
-
+                        android:text="$100"
+                        android:textColor="@color/white"
+                        android:textSize="21dp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <Button
@@ -78,7 +84,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="@string/proceed_to_checkout"
-                    app:cornerRadius="20dp" />
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
 
             </LinearLayout>
 

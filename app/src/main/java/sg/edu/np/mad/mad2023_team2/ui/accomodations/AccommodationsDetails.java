@@ -87,7 +87,7 @@ public class AccommodationsDetails extends AppCompatActivity {
         }
 
         // For use in the next stage
-        FloatingActionButton map = findViewById(R.id.details_location);
+        FloatingActionButton map = findViewById(R.id.recco_details_findLocation);
         map.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

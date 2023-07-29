@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -191,7 +190,7 @@ public class checkout_cart_recyclerAdapter extends RecyclerView.Adapter<checkout
 
             hotel_image=view.findViewById(R.id.hotel_image);
             hotel_name=view.findViewById(R.id.hotel_name);
-            hotel_type=view.findViewById(R.id.hotel_type);
+            hotel_type=view.findViewById(R.id.hotel_rating);
             ib_delete_cart_item=view.findViewById(R.id.ib_delete_cart_item);
 //            hotel_address=view.findViewById(R.id.hotel_address);
             //tv_checkin_date_title=itemView.findViewById(R.id.tv_checkin_date_title);

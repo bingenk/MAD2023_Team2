@@ -13,5 +13,12 @@
     <color name="colorCategory3">#EEBA1B</color>
     <color name="colorCategory4">#FD5082FF</color>
     <color name="colorCategory5">#DD50EC</color>
+    <color name="Navy">#2B325A</color>
+    <color name="blueGreen">#003B40</color>
+    <color name="Yellow">#BCB63F</color>
+    <color name="grey">#96979A</color>
+    <color name="purple_300">#4D95C5</color>
+    <color name="teal_900">#21AC5C</color>
+
 
 </resources>

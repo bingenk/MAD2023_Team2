@@ -1,14 +1,9 @@
 package sg.edu.np.mad.mad2023_team2.ui.accomodations;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Get_Currency_Of_App;
+
+import sg.edu.np.mad.mad2023_team2.ui.Recommendations.OnClickInterface;
 
 // A Adapter to fit the data into the recyclerview in the AccommodationsFragment activity
 public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAdapter.AccommodationsHolder>{
