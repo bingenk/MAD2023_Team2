@@ -3,15 +3,17 @@ package sg.edu.np.mad.mad2023_team2.ui.BookingAttraction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -41,14 +43,15 @@ public class BookAttractActivity extends AppCompatActivity {
     //////////////////////////////////////
     //        onCreate Function         //
     //////////////////////////////////////
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_attract);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);  // Assign recyclerView to xml RecyclerView
-        ArrayList<Item> itemList;
-        itemList = retrieveAttract(new VolleyCallBack() {    // CALL: GET Request API for Retrieving Data
+        Toolbar toolbar = findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+
+        retrieveAttract(new VolleyCallBack() {    // CALL: GET Request API for Retrieving Data
 
 
             //////////////////////////////////////
@@ -59,15 +62,20 @@ public class BookAttractActivity extends AppCompatActivity {
                 Intent intent = new Intent(BookAttractActivity.this, Attract_info.class);
                 Item item = items1.get(position);
                 Trip trip = (Trip) item.getObject();
+
                 String title = trip.getTripTitle();
                 String imageUrl = trip.getTripImage();
                 String desc = trip.getDesc();
                 String address = trip.getTrip();
+                String latitude = trip.getLatitude();
+                String longitude = trip.getLongitude();
 
                 intent.putExtra("Image", imageUrl);    // Transfer Data from API to Attract_Info Activity and Change Activity
                 intent.putExtra("Title", title);
                 intent.putExtra("Address", address);
                 intent.putExtra("Description", desc);
+                intent.putExtra("Latitude", latitude);
+                intent.putExtra("Longitude", longitude);
                 startActivity(intent);
             }
 
@@ -88,18 +96,19 @@ public class BookAttractActivity extends AppCompatActivity {
         });
     }
 
-
-
     /////////////////////////////////////////////////////
     //        GET API Function Using VolleyRequest     //
     /////////////////////////////////////////////////////
+
     public ArrayList<Item> retrieveAttract(final VolleyCallBack callBack) {
 
         // GET REQUEST:
-
+        ProgressBar progressBar = findViewById(R.id.attract_pb);
+        progressBar.setVisibility(View.VISIBLE);
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://travel-advisor.p.rapidapi.com/attractions/list?location_id=294265&currency=SGD&lang=en_US&lunit=km&limit=30&sort=recommended";
+        String url = "https://travel-advisor.p.rapidapi.com/attractions/list?location_id=294265&currency=SGD&lang=en_US&lunit=km&limit=50&sort=recommended";
         ArrayList<Item> items = new ArrayList<>();
+        // ERROR RESPONSE
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -113,18 +122,21 @@ public class BookAttractActivity extends AppCompatActivity {
 
                                 JSONObject attract = attractArray.getJSONObject(i);
 
-                                while (attract.has("name") && attract.has("address") && attract.has("description") && attract.has("photo")) {
+                                while (attract.has("name") && attract.has("address") && attract.has("description") && attract.has("photo") && attract.has("latitude") && attract.has("longitude")) {
 
                                     String imageurl = attract.getJSONObject("photo").getJSONObject("images").getJSONObject("original").getString("url");
                                     String name = attract.getString("name");
-                                    Log.d("String", name);
                                     String address = attract.getString("address");
                                     String description = attract.getString("description");
+                                    String latitude = attract.getString("latitude");
+                                    String longitude = attract.getString("longitude");
+
+
 
                                     // Validate that JSONObjects are not empty before putting it in the array
 
-                                    if(!name.isEmpty() && !address.isEmpty() && !description.isEmpty() && !imageurl.isEmpty()) {
-                                        Trip trip = new Trip(imageurl, name, address, description);
+                                    if(!name.isEmpty() && !address.isEmpty() && !description.isEmpty() && !imageurl.isEmpty() && !latitude.isEmpty() && !longitude.isEmpty()) {
+                                        Trip trip = new Trip(imageurl, name, address, description, latitude, longitude);
                                         items.add(new Item(0, trip));    // Add JSONObjects / Strings to RecyclerViewArray
                                     }
                                     break;
@@ -132,6 +144,7 @@ public class BookAttractActivity extends AppCompatActivity {
 
                             }
                             // CallBack onSuccess
+                            progressBar.setVisibility(View.GONE);
                             callBack.onSuccess(items);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
@@ -140,16 +153,10 @@ public class BookAttractActivity extends AppCompatActivity {
 
                     }
 
-                }, new Response.ErrorListener() {        // ERROR RESPONSE
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("ERROR", error.toString());
-            }
-
-        }) {
-            @Override        // INIIALISE Headers for API request
+                }, error -> Log.d("ERROR", error.toString())) {
+            @Override        // INITIALISE Headers for API request
             public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
+                HashMap<String, String> headers = new HashMap<>();
                 headers.put("X-RapidAPI-Key", "ebfc51dbe5msh7bb78c35f36b70cp1abf38jsn287c523483c9");
                 headers.put("X-RapidAPI-Host", "travel-advisor.p.rapidapi.com");
                 return headers;
@@ -158,7 +165,6 @@ public class BookAttractActivity extends AppCompatActivity {
         queue.add(jsonRequest);
         return items;
     }
-
 
     ////////////////////////////////////////////////////
     //        VolleyCallBack Function for GET API     //
