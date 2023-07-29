@@ -8,5 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="Red">#FF0000</color>
+    <color name="Navy">#2B325A</color>
+    <color name="blueGreen">#003B40</color>
+    <color name="Yellow">#BCB63F</color>
+    <color name="grey">#96979A</color>
+    <color name="purple_300">#4D95C5</color>
+    <color name="teal_900">#21AC5C</color>
+
 
 </resources>

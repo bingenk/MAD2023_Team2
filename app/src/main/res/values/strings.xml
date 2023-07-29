@@ -10,6 +10,8 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_accommodations">Accommodation</string>
+    <string name="menu_attractions">Browse Attractions</string>
+    <string name="carpark_availability">Carpark Availability</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="empty_string">""</string>
