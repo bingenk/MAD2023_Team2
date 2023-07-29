@@ -1,15 +1,20 @@
 package sg.edu.np.mad.mad2023_team2.ui.Cart;
 
+import static android.content.Context.MODE_PRIVATE;
 import static java.lang.Double.parseDouble;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +23,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +39,7 @@ import java.util.Date;
 import java.util.List;
 
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Get_Currency_Of_App;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DatabaseManager;
 import sg.edu.np.mad.mad2023_team2.ui.checkout.Checkout;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
@@ -53,8 +68,16 @@ public class checkout_cart_fragment extends Fragment {
     DataBaseHelper dataBaseHelper;
 
     Cart_item itemModel;
+    FirebaseUser currentUser;
 
-    TextView total_price_calc_display;
+    TextView total_price_calc_display, total_price_currency_code;
+
+    private String Currency_Code;
+
+    private Context context;
+    private double conversion_Rate;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,13 +122,23 @@ public class checkout_cart_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("onCreateView", "onCreateView method called");
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_checkout_cart_fragment, container, false);
 
 //        mViewModel= ViewModelProviders.of(this).get(CartViewModel.class);
 
+        FirebaseApp.initializeApp(v.getContext());
 
-
+        //to authenticate the user so they can update the cart
+//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//        currentUser = firebaseAuth.getCurrentUser();
+//        if (currentUser != null) {
+//            Log.d("Authentication", "User is authenticated. User ID: " + currentUser.getUid());
+//        } else {
+//            Log.d("Authentication", "User is not authenticated.");
+//        }
+        context = v.getContext();
 
         dataBaseHelper = DatabaseManager.getDataBaseHelper(v.getContext());
         ShowCustomersOnListView(dataBaseHelper,v);
@@ -159,13 +192,26 @@ public class checkout_cart_fragment extends Fragment {
 ////////the code below gets all the items in the cart and the total price of the carts///////////
     private void ShowCustomersOnListView(DataBaseHelper dataBaseHelper,View v) {
         checkout_cart_details details=this.dataBaseHelper.getEveryone();
+        SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("CartFb", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", ""); // The second argument is the default value if the key is not found
+        Log.d("wassup", "ShowCustomersOnListView: firebase cart mfker");
+        Log.d("wassup", username);
+
+
+//        Currency_conversion_praveen
+
+        Currency_Code = Get_Currency_Of_App.getcountrycodesharedprefs(context);
+        conversion_Rate=Get_Currency_Of_App.getconversionratesharedprefs(context);
+//
+//        Log.d("wassup",Currency_Code);
         rv=v.findViewById(R.id.rv_checkout);
 
         double totalprice=details.getTotalprice();
         total_price_calc_display=v.findViewById(R.id.textView2);
-
-        total_price_calc_display.setText(String.format("%.2f", totalprice));
-        recyclerAdapter=new checkout_cart_recyclerAdapter(details.getAllcartitems(),total_price_calc_display);
+        total_price_currency_code=v.findViewById(R.id.textView8);
+        total_price_currency_code.setText(Currency_Code);
+        total_price_calc_display.setText(String.format("%.2f", totalprice*conversion_Rate));
+        recyclerAdapter=new checkout_cart_recyclerAdapter(context,details.getAllcartitems(),total_price_calc_display);
 
         // you can also set the layout in the xml file using the layout manager attribute
         rv.setLayoutManager(new LinearLayoutManager(v.getContext()));
@@ -189,7 +235,6 @@ public class checkout_cart_fragment extends Fragment {
 //        imageView.setImageBitmap(bitmap);
 //        Toast.makeText(v.getContext(), (details.getTotalprice()).toString(), Toast.LENGTH_SHORT).show();
     }
-
 
 
 

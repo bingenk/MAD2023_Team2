@@ -34,7 +34,7 @@
                     android:id="@+id/hotel_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/flag_japan"
+                    android:background="@drawable/gradient_1"
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop" />
 
@@ -72,7 +72,7 @@
                     android:id="@+id/ib_delete_cart_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#FFFFFF"
+                    android:background="@drawable/flag_transparent"
                     android:minWidth="48dp"
                     android:minHeight="48dp"
                     app:layout_constraintEnd_toEndOf="parent"

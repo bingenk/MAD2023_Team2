@@ -51,4 +51,16 @@
         android:name="sg.edu.np.mad.mad2023_team2.ui.GoogleMapsDirection.GoogleMapsDirection"
         android:label="Google Maps Direction"
         tools:layout="@layout/fragment_direction" />
+
+    <fragment
+        android:id="@+id/nav_currency_converter"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Currency_Converter_Fragment"
+        android:label="Currency Converter"
+        tools:layout="@layout/fragment_currency__converter_" />
+
+    <activity
+        android:id="@+id/nav_expense_planner"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.Transactions.Transaction_Activity"
+        android:label="Booking Attractions"
+        tools:layout="@layout/activity_transaction" />
 </navigation>
