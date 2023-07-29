@@ -43,7 +43,6 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback,
     private GoogleMap myMap;
     private FusedLocationProviderClient fusedLocationClient;
     private static final int LOCATION_REQUEST_CODE = 100;
-
     private ImageButton mapOptionsMenuButton; // to be used for map options
 
 
