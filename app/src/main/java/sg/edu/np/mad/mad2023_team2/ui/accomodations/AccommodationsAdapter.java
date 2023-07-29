@@ -1,6 +1,9 @@
 package sg.edu.np.mad.mad2023_team2.ui.accomodations;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +21,20 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Get_Currency_Of_App;
+
 // A Adapter to fit the data into the recyclerview in the AccommodationsFragment activity
 public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAdapter.AccommodationsHolder>{
 
     private HotelListInterface listInterface;
     private ArrayList<Accommodations> data;
+
+    //PRAVEEN CODE
     private Context context;
+
+    private String Currency_Code;
+
+    private double conversion_Rate;
 
     // Constructor of adapter
     // Needs the interface to allow the onclick of the recyclerview item
@@ -56,11 +67,20 @@ public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAd
     // Binds the data to the view holder
     @Override
     public void onBindViewHolder(@NonNull AccommodationsHolder holder, int position) {
+
+        //PRAVEEN CODE
+        Currency_Code = Get_Currency_Of_App.getcountrycodesharedprefs(context);
+        conversion_Rate=Get_Currency_Of_App.getconversionratesharedprefs(context);
+
+        //
         Accommodations hotel = data.get(position);
         holder.hotelName.setText(hotel.getName());
         holder.hotelAddress.setText(hotel.getAddress());
         holder.hotelRating.setText(hotel.getType());
-        holder.hotelPrice.setText("$ "+  String.format("%.2f", hotel.getPrice()));
+
+        //PRAVEEN CODE
+        holder.hotelPrice.setText(Currency_Code+" "+  String.format("%.2f", hotel.getPrice()*conversion_Rate));
+        //
         Picasso.with(context).load(hotel.getImage()).fit().centerCrop().into(holder.hotelPhoto);
     }
 

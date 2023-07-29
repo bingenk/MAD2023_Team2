@@ -1,0 +1,11 @@
+<!-- res/drawable/edittext_bottom_line.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Set the background color for the EditText (you can adjust the color as needed) -->
+    <item android:drawable="@android:color/transparent" />
+    <item android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <!-- Set the color of the line (you can adjust the color as needed) -->
+            <solid android:color="#000000" />
+        </shape>
+    </item>
+</layer-list>
