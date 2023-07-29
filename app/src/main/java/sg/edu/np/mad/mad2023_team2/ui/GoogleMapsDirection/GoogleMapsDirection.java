@@ -78,7 +78,7 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback,
                         Address address = addressList.get(0);
                         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
                         myMap.addMarker(new MarkerOptions().position(latLng).title(location));
-                        myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                        myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
                     } else {
                         Toast.makeText(requireActivity(), "No Location Found!", Toast.LENGTH_SHORT).show();
                     }
@@ -112,15 +112,15 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback,
             // request permission
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_REQUEST_CODE);
         } else {
+            // Permission already granted, enable the "My Location" feature
+            myMap.setMyLocationEnabled(true);
             getLocationAndUpdateMap();
         }
 
         googleMap.getUiSettings().setZoomControlsEnabled(true);
-        googleMap.getUiSettings().setCompassEnabled(true);
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
         googleMap.getUiSettings().setScrollGesturesEnabled(true);
         googleMap.getUiSettings().setRotateGesturesEnabled(false);
-        googleMap.setMyLocationEnabled(true);
     }
 
     @Override
