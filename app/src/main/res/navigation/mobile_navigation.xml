@@ -41,4 +41,9 @@
         android:name="sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.BookAttractActivity"
         android:label="Booking Attractions"
         tools:layout="@layout/activity_book_attract" />
+    <fragment
+        android:id="@+id/nav_direction"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.GoogleMapsDirection.GoogleMapsDirection"
+        android:label="Google Maps Direction"
+        tools:layout="@layout/fragment_direction" />
 </navigation>
