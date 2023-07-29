@@ -47,8 +47,8 @@ import java.util.Map;
 
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.ui.MainActivity;
-import sg.edu.np.mad.mad2023_team2.ui.OnClickInterface;
-import sg.edu.np.mad.mad2023_team2.ui.VolleySingleton;
+import sg.edu.np.mad.mad2023_team2.ui.Recommendations.OnClickInterface;
+import sg.edu.np.mad.mad2023_team2.ui.Recommendations.VolleySingleton;
 
 // Showcases all the accommodations to book, with a search bar and to reset search
 public class AccommodationsFragment extends Fragment implements OnClickInterface {

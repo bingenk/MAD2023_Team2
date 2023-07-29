@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad2023_team2.R;
-import sg.edu.np.mad.mad2023_team2.ui.OnClickInterface;
+import sg.edu.np.mad.mad2023_team2.ui.Recommendations.OnClickInterface;
 
 // A Adapter to fit the data into the recyclerview in the AccommodationsFragment activity
 public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAdapter.AccommodationsHolder>{
