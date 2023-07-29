@@ -6,11 +6,12 @@
     <string name="nav_header_subtitle">TravelWise@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <string name="menu_home">TravelWise</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_accommodations">Accommodation</string>
+    <string name="menu_attractions">Browse Attractions</string>
+    <string name="carpark_availability">Carpark Availability</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="empty_string">""</string>
@@ -62,5 +63,5 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
     <string name="select">Select Item</string>
-
+    <string name="my_map_api_key">AIzaSyAJ16Z0HmlLb_rQxb6yc6jc_XWm9KUDHuQ</string>
 </resources>

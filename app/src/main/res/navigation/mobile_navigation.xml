@@ -16,30 +16,39 @@
         android:name="sg.edu.np.mad.mad2023_team2.ui.contact.ContactFragment"
         android:label="Contact"
         tools:layout="@layout/fragment_contact" />
-
+    <fragment
+        android:id="@+id/nav_translate"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.translate.TranslateFragment"
+        android:label="Translate"
+        tools:layout="@layout/fragment_translate" />
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="sg.edu.np.mad.mad2023_team2.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_slideshow"/>
     <fragment
         android:id="@+id/nav_accommodations"
         android:name="sg.edu.np.mad.mad2023_team2.ui.accomodations.AccommodationsFragment"
         android:label="@string/menu_accommodations"
-        tools:layout="@layout/fragment_accomodations" />
+        tools:layout="@layout/fragment_accomodations"/>
     <fragment
         android:id="@+id/nav_checkout_cart"
         android:name="sg.edu.np.mad.mad2023_team2.ui.Cart.checkout_cart_fragment"
         android:label="@string/menu_checkout_cart"
-        tools:layout="@layout/fragment_checkout_cart_fragment" />
+        tools:layout="@layout/fragment_checkout_cart_fragment"/>
     <activity
         android:id="@+id/nav_bookAttract"
         android:name="sg.edu.np.mad.mad2023_team2.ui.BookingAttraction.BookAttractActivity"
-        android:label="Booking Attractions"
+        android:label="@string/menu_attractions"
         tools:layout="@layout/activity_book_attract" />
     <fragment
         android:id="@+id/nav_recommendations"
         android:name="sg.edu.np.mad.mad2023_team2.ui.Recommendations.RecommendationsFragment"
         android:label="Recommendations"
         tools:layout="@layout/fragment_recommendations" />
+    <fragment
+        android:id="@+id/nav_direction"
+        android:name="sg.edu.np.mad.mad2023_team2.ui.GoogleMapsDirection.GoogleMapsDirection"
+        android:label="Google Maps Direction"
+        tools:layout="@layout/fragment_direction" />
 </navigation>
