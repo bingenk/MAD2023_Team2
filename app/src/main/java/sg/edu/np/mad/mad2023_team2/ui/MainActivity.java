@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private TextView profileUsername;
-    private TextView profileEmail;
+    private TextView profileUsername, profileEmail, profileUsername_Home;
     private FirebaseAuth mAuth;
     DataBaseHelper dataBaseHelper;
 
@@ -107,8 +106,10 @@ public class MainActivity extends AppCompatActivity {
         // Show user profile upon when user login
         // Get references to the profileUsername and profileEmail TextViews
         View headerView = navigationView.getHeaderView(0);
+        TextView myTextView = (TextView) findViewById(R.id.home_username);
         profileUsername = headerView.findViewById(R.id.profileUsername);
         profileEmail = headerView.findViewById(R.id.profileEmail);
+        profileUsername_Home = myTextView.findViewById(R.id.home_username);
 
         // Retrieve the user profile information from the intent
         Intent intent = getIntent();
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Set the user profile information to the TextViews
             profileUsername.setText(username);
+            profileUsername_Home.setText(username);
             profileEmail.setText(email);
         }
 
