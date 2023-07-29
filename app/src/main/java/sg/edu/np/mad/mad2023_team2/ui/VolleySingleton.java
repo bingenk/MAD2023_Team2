@@ -1,8 +1,6 @@
-package sg.edu.np.mad.mad2023_team2.ui.accomodations;
+package sg.edu.np.mad.mad2023_team2.ui;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.LruCache;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -10,20 +8,20 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
 // Create only a single instance of the volley requestqueue to prevent overload
-public class AccommodationSingleton {
-    private static AccommodationSingleton instance;
+public class VolleySingleton {
+    private static VolleySingleton instance;
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
     private static Context ctx;
 
-    private AccommodationSingleton(Context context) {
+    private VolleySingleton(Context context) {
         ctx = context;
         requestQueue = getRequestQueue();
     }
 
-    public static synchronized AccommodationSingleton getInstance(Context context) {
+    public static synchronized VolleySingleton getInstance(Context context) {
         if (instance == null) {
-            instance = new AccommodationSingleton(context);
+            instance = new VolleySingleton(context);
         }
         return instance;
     }

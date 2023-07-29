@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,20 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.OnClickInterface;
+
 // A Adapter to fit the data into the recyclerview in the AccommodationsFragment activity
 public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAdapter.AccommodationsHolder>{
 
-    private HotelListInterface listInterface;
+    private OnClickInterface listInterface;
     private ArrayList<Accommodations> data;
     private Context context;
 
     // Constructor of adapter
     // Needs the interface to allow the onclick of the recyclerview item
-    public AccommodationsAdapter(ArrayList<Accommodations> d, HotelListInterface listInterface, Context context)
+    public AccommodationsAdapter(ArrayList<Accommodations> d, OnClickInterface listInterface, Context context)
     {
         if (d == null) {
             data = new ArrayList<>();
@@ -79,7 +78,7 @@ public class AccommodationsAdapter extends RecyclerView.Adapter<AccommodationsAd
             super(view);
             hotelPhoto = view.findViewById(R.id.hotel_image);
             hotelName = view.findViewById(R.id.hotel_name);
-            hotelRating = view.findViewById(R.id.hotel_type);
+            hotelRating = view.findViewById(R.id.hotel_rating);
             hotelAddress = view.findViewById(R.id.hotel_address);
             hotelPrice = view.findViewById(R.id.hotel_price);
 

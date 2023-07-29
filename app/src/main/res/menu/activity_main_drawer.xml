@@ -8,12 +8,10 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/baseline_home_24"
             android:title="Home" />
-
         <item
             android:id="@+id/nav_accommodations"
             android:icon="@drawable/ic_menu_hotel"
             android:title="@string/menu_accommodations" />
-
         <item
             android:id="@+id/nav_bookAttract"
             android:icon="@drawable/baseline_attractions_24"
@@ -29,6 +27,10 @@
             android:icon="@android:drawable/ic_dialog_email"
             android:title="Contact Us"
             />
+        <item
+            android:id="@+id/nav_recommendations"
+            android:icon="@drawable/baseline_near_me_24"
+            android:title="Recommendations" />
 
     </group>
 

@@ -47,9 +47,11 @@ import java.util.Map;
 
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.ui.MainActivity;
+import sg.edu.np.mad.mad2023_team2.ui.OnClickInterface;
+import sg.edu.np.mad.mad2023_team2.ui.VolleySingleton;
 
 // Showcases all the accommodations to book, with a search bar and to reset search
-public class AccommodationsFragment extends Fragment implements HotelListInterface {
+public class AccommodationsFragment extends Fragment implements OnClickInterface {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -70,7 +72,7 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
     }
 
     // A method to return the interface of the class
-    public HotelListInterface getinterface()
+    public OnClickInterface getinterface()
     {
         return this;
     }
@@ -223,7 +225,7 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
     }
 
     // Calls the api and populates the recyclerview with the api data
-    protected void retrieveHotels(View v, int noAdults,int noRooms, Date checkin, Date checkout,int pageNo) {
+    private void retrieveHotels(View v, int noAdults,int noRooms, Date checkin, Date checkout,int pageNo) {
         // Shows the progress bar while hiding the load more button and disabling the filter button
         if (pageNo==0)
         {
@@ -356,7 +358,6 @@ public class AccommodationsFragment extends Fragment implements HotelListInterfa
                 return headers;
             }
         };
-        AccommodationSingleton.getInstance(v.getContext()).addToRequestQueue(hotelRequest);
+        VolleySingleton.getInstance(v.getContext()).addToRequestQueue(hotelRequest);
     }
-
 }
