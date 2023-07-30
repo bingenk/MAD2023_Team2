@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad2023_team2.R;
-import sg.edu.np.mad.mad2023_team2.ui.Favorites.FavoritesManager;
+import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Favorites.FavoritesManager;
 
 public class ReccomendationsDetails extends AppCompatActivity {
 

@@ -1,10 +1,8 @@
 package sg.edu.np.mad.mad2023_team2.ui.accomodations;
 
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -21,7 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Get_Currency_Of_App;
-import sg.edu.np.mad.mad2023_team2.ui.Favorites.FavoritesManager;
+import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Favorites.FavoritesManager;
 
 // Showcases information of the accommodation the user has selected
 public class AccommodationsDetails extends AppCompatActivity {

@@ -1,17 +1,9 @@
 package sg.edu.np.mad.mad2023_team2.ui.accomodations;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.Date;
-
-import sg.edu.np.mad.mad2023_team2.ui.Favorites.Favourites;
+import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Favorites.Favourites;
 
 // Model class to store and manage hotel details
 

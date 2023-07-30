@@ -3,11 +3,9 @@ package sg.edu.np.mad.mad2023_team2.ui.Recommendations;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 
-import sg.edu.np.mad.mad2023_team2.ui.Favorites.Favourites;
+import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Favorites.Favourites;
 
 public class Restaurant implements Parcelable, Favourites {
     private int id;
