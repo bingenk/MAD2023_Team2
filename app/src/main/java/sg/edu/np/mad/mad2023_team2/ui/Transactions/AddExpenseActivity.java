@@ -120,6 +120,12 @@ public class AddExpenseActivity extends AppCompatActivity {
             // Handle the case when the intent is null (if needed)
         }
 
+        binding.floatingActionButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
 
