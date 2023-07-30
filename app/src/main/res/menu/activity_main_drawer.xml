@@ -12,6 +12,7 @@
             android:id="@+id/nav_accommodations"
             android:icon="@drawable/ic_menu_hotel"
             android:title="@string/menu_accommodations" />
+
         <item
             android:id="@+id/nav_bookAttract"
             android:icon="@drawable/baseline_attractions_24"
@@ -25,10 +26,6 @@
             />
 
         <item
-            android:id="@+id/nav_checkout_cart"
-            android:icon="@drawable/baseline_shopping_cart_24"
-            android:title="Cart" />
-        <item
             android:id="@+id/nav_currency_converter"
             android:icon="@drawable/baseline_currency_exchange_24"
             android:title="Currency Converter"
@@ -41,14 +38,10 @@
             />
 
         <item
-            android:id="@+id/nav_contact"
-            android:icon="@android:drawable/ic_dialog_email"
-            android:title="Contact Us"
-            />
-        <item
             android:id="@+id/nav_recommendations"
             android:icon="@drawable/baseline_near_me_24"
             android:title="Recommendations" />
+
         <item
             android:id="@+id/nav_translate"
             android:icon="@drawable/baseline_translate_24"
@@ -58,6 +51,17 @@
             android:id="@+id/nav_favourites"
             android:icon="@drawable/baseline_favorite_24"
             android:title="Favourites" />
+
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@android:drawable/ic_dialog_email"
+            android:title="Contact Us"
+            />
+
+        <item
+            android:id="@+id/nav_checkout_cart"
+            android:icon="@drawable/baseline_shopping_cart_24"
+            android:title="Cart" />
 
     </group>
 

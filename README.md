@@ -44,8 +44,11 @@ Travel & Local
 ### 2. Google Maps Direction (Koo Bing En)
 - For user to direct themselve more easily with the use of the map that is available in the app.
 
-### 3. Currency Exchange (Vetriselvan Praveen)
-- For travellers that are required to see the exchange rate based on different countries.  
+### 3. Currency Exchange and Expense Tracker (Vetriselvan Praveen)
+- For travellers that are required to see the exchange rate based on different countries.
+- For travellers to change the currency in the app to their preferred currency
+- EXPENSE TRACKER
+- For Travellers to calculate their expenses
 
 ### 4. Nearby Recommendations (Tan Jun Qin)
 - Provide users with personalized recommendations for nearby attractions, restaurants, and points of interest based on their current location.
