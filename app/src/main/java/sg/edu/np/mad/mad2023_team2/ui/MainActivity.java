@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to Accomodation
-                NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment_content_main);
+                NavController navController = Navigation.findNavController(MainActivity.this, R.id.card_hotel_booking);
                 navController.navigate(R.id.nav_accommodations);
             }
         });
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to GoogleMapsDirection
-                NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment_content_main);
+                NavController navController = Navigation.findNavController(MainActivity.this, R.id.card_GoogleMapsDirection);
                 navController.navigate(R.id.nav_direction);
             }
         });
@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to Translate
-                NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment_content_main);
+                NavController navController = Navigation.findNavController(MainActivity.this, R.id.card_Translate);
                 navController.navigate(R.id.nav_translate);
             }
         });
