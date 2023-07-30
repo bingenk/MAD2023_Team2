@@ -3,7 +3,7 @@ package sg.edu.np.mad.mad2023_team2.ui.accomodations;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Favorites.Favourites;
+import sg.edu.np.mad.mad2023_team2.ui.Favorites.Favourites;
 
 // Model class to store and manage hotel details
 
