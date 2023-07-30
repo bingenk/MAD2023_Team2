@@ -40,6 +40,7 @@ import sg.edu.np.mad.mad2023_team2.R;
 
 public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback, PopupMenu.OnMenuItemClickListener {
 
+    // Define private variables for map and location service
     private GoogleMap myMap;
     private FusedLocationProviderClient fusedLocationClient;
     private static final int LOCATION_REQUEST_CODE = 100;
@@ -53,12 +54,15 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback,
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
+        // Initialize UI components
         SearchView mapSearchView = view.findViewById(R.id.mapSearch); // Initialize SearchView
         mapOptionsMenuButton = view.findViewById(R.id.mapOptionsMenu); // Initialize ImageButton
 
+        // Set up Google Map
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // Set listener for search queries in SearchView
         mapSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -122,6 +126,7 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback,
         googleMap.getUiSettings().setRotateGesturesEnabled(false);
     }
 
+    // Handle the result of the permission request
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -133,6 +138,7 @@ public class GoogleMapsDirection extends Fragment implements OnMapReadyCallback,
     }
 
     private void getLocationAndUpdateMap() {
+        // Get the user's last known location and update the map
         if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {

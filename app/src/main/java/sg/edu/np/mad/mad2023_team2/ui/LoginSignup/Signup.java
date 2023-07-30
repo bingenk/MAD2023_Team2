@@ -178,9 +178,10 @@ public class Signup extends AppCompatActivity {
                                 return;
                             }
 
+                            String encryptedPassword = AESUtil.encrypt(password);
 
                             // Create a new HelperClass instance with the user input
-                            HelperClass user = new HelperClass(email, username, password);
+                            HelperClass user = new HelperClass(email, username, encryptedPassword);
 
                             // Create a user in Firebase Authentication
                             firebaseAuth.createUserWithEmailAndPassword(email, password)
