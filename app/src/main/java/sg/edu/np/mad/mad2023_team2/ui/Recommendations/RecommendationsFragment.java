@@ -93,11 +93,14 @@ public class RecommendationsFragment extends Fragment implements OnClickInterfac
         loadMore = v.findViewById(R.id.recco_load);
         locationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
+        latitude = 0;
+        longitude = 0;
+
+        getLocation();
+
         LinearLayoutManager lm = new LinearLayoutManager(requireContext());
         rv.setLayoutManager(lm);
         rv.setItemAnimator(new DefaultItemAnimator());
-
-        getLocation();
 
         if (restrauntList.isEmpty() && attractionList.isEmpty())
         {
@@ -137,6 +140,7 @@ public class RecommendationsFragment extends Fragment implements OnClickInterfac
                         distance = distVal;
                         unit = unitVal;
                         pageNo = 0;
+                        getLocation();
                         Toast.makeText(getContext(),"Filters applied!",Toast.LENGTH_SHORT).show();
                         Log.d("RADIUSINPUT", unit);
                         generateList(getView(),latitude,longitude,pageNo,distance,unit);
@@ -156,7 +160,6 @@ public class RecommendationsFragment extends Fragment implements OnClickInterfac
             unit = "km";
             distance = 10;
             pageNo = 0;
-            getLocation();
             if (ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
             {
@@ -177,6 +180,14 @@ public class RecommendationsFragment extends Fragment implements OnClickInterfac
         attractionToggle.setEnabled(false);
         selectText.setVisibility(View.GONE);
         loadMore.setVisibility(View.GONE);
+
+        if (lat == 0 || lon == 0)
+        {
+            getLocation();
+            Toast.makeText(getContext(), "Please ensure your location permissions are enabled to locate nearby recommendations", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         String url = "";
 
@@ -324,7 +335,7 @@ public class RecommendationsFragment extends Fragment implements OnClickInterfac
     private void showErrorAlert(View v, double lat, double lon, int pageNo, int distance, String unit, VolleyError error) {
         AlertDialog.Builder errorAlert = new AlertDialog.Builder(v.getContext());
         errorAlert.setTitle("Error occurred when fetching request :(");
-        errorAlert.setMessage(error != null ? error.toString() + "\n" : "" + "Do you want to try again?");
+        errorAlert.setMessage((error != null ? error.getMessage() + "\n" : "") + "Do you want to try again?");
 
         errorAlert.setPositiveButton("Reload", new DialogInterface.OnClickListener() {
             @Override
@@ -352,7 +363,6 @@ public class RecommendationsFragment extends Fragment implements OnClickInterfac
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
                     Location location = task.getResult();
-
                     if (location != null) {
                         latitude = location.getLatitude();
                         longitude = location.getLongitude();
@@ -366,9 +376,11 @@ public class RecommendationsFragment extends Fragment implements OnClickInterfac
                         locationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
                         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            Toast.makeText(getContext(), "Please ensure your location permissions are enabled to locate nearby recommendations", Toast.LENGTH_SHORT).show();
                             ActivityCompat.requestPermissions(getActivity(), new String[]{
                                     Manifest.permission.ACCESS_COARSE_LOCATION,
                                     Manifest.permission.ACCESS_FINE_LOCATION},44);
+                            return;
                         }
 
                         locationClient.requestLocationUpdates(locationRequest, new LocationCallback() {
@@ -386,6 +398,7 @@ public class RecommendationsFragment extends Fragment implements OnClickInterfac
         }
         else
         {
+            Toast.makeText(getContext(), "Please ensure your location permissions are enabled to locate nearby recommendations", Toast.LENGTH_SHORT).show();
             ActivityCompat.requestPermissions(getActivity(), new String[]{
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION},44);

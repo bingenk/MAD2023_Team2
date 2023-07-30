@@ -109,5 +109,4 @@
             android:value="@string/my_map_api_key"/>
 
     </application>
-
 </manifest>

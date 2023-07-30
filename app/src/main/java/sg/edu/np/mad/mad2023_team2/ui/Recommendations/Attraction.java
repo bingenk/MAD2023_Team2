@@ -7,7 +7,9 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-public class Attraction implements Parcelable {
+import sg.edu.np.mad.mad2023_team2.ui.Favorites.Favourites;
+
+public class Attraction implements Parcelable, Favourites {
     private int id;
     private String name;
     private String desc;
@@ -21,9 +23,11 @@ public class Attraction implements Parcelable {
     private double longitude;
     private double rating;
     private ArrayList<String> awards;
-
     private String url;
     private String image;
+
+    public Attraction() {
+    }
 
     public Attraction(int id, String name, String desc, String status, String type, String location, String address, String distanceAway, String price, double latitude, double longitude, double rating, ArrayList<String> awards, String url, String image) {
         this.id = id;
@@ -107,6 +111,16 @@ public class Attraction implements Parcelable {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getItemType() {
+        return "Attraction";
+    }
+
+    @Override
+    public String getStringPrice() {
+        return price;
     }
 
     public void setName(String name) {
@@ -212,4 +226,5 @@ public class Attraction implements Parcelable {
     public String getUrl() {
         return url;
     }
+
 }

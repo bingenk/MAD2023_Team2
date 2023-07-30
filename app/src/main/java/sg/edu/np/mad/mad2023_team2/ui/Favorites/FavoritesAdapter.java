@@ -2,6 +2,7 @@ package sg.edu.np.mad.mad2023_team2.ui.Favorites;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,21 @@ import sg.edu.np.mad.mad2023_team2.ui.accomodations.Accommodations;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder> {
 
-    private OnClickInterface onClickInterface;
+    private OnLongClickInterface onClickInterface;
     private ArrayList<Object> data;
     private Context context;
+
+    public FavoritesAdapter(OnLongClickInterface onClickInterface, ArrayList<Object> data, Context context) {
+        this.onClickInterface = onClickInterface;
+        this.data = data;
+        this.context = context;
+    }
+
+    public void updateAdapter(ArrayList<Object> newList)
+    {
+        this.data = newList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -40,53 +53,27 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
 
     @Override
     public void onBindViewHolder(@NonNull FavoritesViewHolder holder, int position) {
-
-        if (data.get(position) instanceof Restaurant)
+        if (data.get(position) instanceof Favourites)
         {
-            Restaurant restaurant = (Restaurant) data.get(position);
-            Picasso.with(context).load(restaurant.getImage()).fit().centerCrop().into(holder.image);
-            holder.name.setText(restaurant.getName());
-            if (restaurant.getPriceLevel() != null)
+            Favourites favourites = (Favourites) data.get(position);
+            Picasso.with(context).load(favourites.getImage()).fit().centerCrop().into(holder.image);
+            holder.name.setText(favourites.getName());
+            if (favourites.getStringPrice() != null)
             {
-                holder.price.setText(restaurant.getPriceLevel());
+                holder.price.setText(favourites.getStringPrice());
             }
             else
             {
                 holder.price.setVisibility(View.GONE);
             }
-            holder.address.setText(restaurant.getAddress());
-            holder.type.setText("Restraunt");
-        }
-        if (data.get(position) instanceof Attraction)
-        {
-            Attraction attraction = (Attraction) data.get(position);
-            Picasso.with(context).load(attraction.getImage()).fit().centerCrop().into(holder.image);
-            holder.name.setText(attraction.getName());
-            if (attraction.getPrice() != null)
-            {
-                holder.price.setText(attraction.getPrice());
-            }
-            else
-            {
-                holder.price.setVisibility(View.GONE);
-            }
-            holder.address.setText(attraction.getAddress());
-            holder.type.setText("Attraction");
-        }
-        if (data.get(position) instanceof Accommodations)
-        {
-            Accommodations hotel = (Accommodations) data.get(position);
-            holder.name.setText(hotel.getName());
-            holder.address.setText(hotel.getAddress());
-            holder.type.setText(hotel.getType());
-            holder.price.setText("$ "+  String.format("%.2f", hotel.getPrice()));
-            Picasso.with(context).load(hotel.getImage()).fit().centerCrop().into(holder.image);
+            holder.address.setText(favourites.getAddress());
+            holder.type.setText(favourites.getItemType());
         }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data.size();
     }
 
     class FavoritesViewHolder extends RecyclerView.ViewHolder {
@@ -101,6 +88,34 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
             type = item.findViewById(R.id.hotel_rating);
             address = item.findViewById(R.id.hotel_address);
             price = item.findViewById(R.id.hotel_price);
+            item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickInterface != null)
+                    {
+                        int pos = getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION)
+                        {
+                            onClickInterface.OnClick(pos);
+                        }
+                    }
+                }
+            });
+            item.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v)
+                {
+                    if (onClickInterface != null)
+                    {
+                        int pos = getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION)
+                        {
+                            onClickInterface.OnLongClick(pos);
+                        }
+                    }
+                    return true;
+                }
+            });
         }
     }
 }

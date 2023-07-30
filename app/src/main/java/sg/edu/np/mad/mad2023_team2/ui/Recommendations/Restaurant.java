@@ -7,7 +7,9 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-public class Restaurant implements Parcelable {
+import sg.edu.np.mad.mad2023_team2.ui.Favorites.Favourites;
+
+public class Restaurant implements Parcelable, Favourites {
     private int id;
     private String name;
     private String desc;
@@ -26,6 +28,7 @@ public class Restaurant implements Parcelable {
     private String url;
     private String image;
 
+    public Restaurant(){}
 
     public Restaurant(int id, String name, ArrayList<String> cuisine, String status, String address, String distanceAway, String priceLevel, double rating, String image) {
         this.id = id;
@@ -126,6 +129,20 @@ public class Restaurant implements Parcelable {
         return name;
     }
 
+    @Override
+    public String getItemType() {
+        return "Restaurant";
+    }
+
+    @Override
+    public String getStringPrice() {
+        return priceLevel;
+    }
+
+    public String getPrice() {
+        return priceLevel;
+    }
+
     public String getDesc() {
         return desc;
     }
@@ -184,5 +201,73 @@ public class Restaurant implements Parcelable {
 
     public String getUrl() {
         return url;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setDistanceAway(String distanceAway) {
+        this.distanceAway = distanceAway;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public void setCuisine(ArrayList<String> cuisine) {
+        this.cuisine = cuisine;
+    }
+
+    public void setDietaryRestrictions(ArrayList<String> dietaryRestrictions) {
+        this.dietaryRestrictions = dietaryRestrictions;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPriceLevel(String priceLevel) {
+        this.priceLevel = priceLevel;
+    }
+
+    public void setPriceRange(String priceRange) {
+        this.priceRange = priceRange;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public void setAwards(ArrayList<String> awards) {
+        this.awards = awards;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

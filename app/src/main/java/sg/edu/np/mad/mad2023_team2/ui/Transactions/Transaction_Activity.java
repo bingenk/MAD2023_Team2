@@ -30,21 +30,21 @@ import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Get_Currency_Of_App;
 
 public class Transaction_Activity extends AppCompatActivity implements OnItemsClick  {
 
-private ArrayList<ExpenseModel> expenseList = new ArrayList<>();
-ActivityTransactionBinding binding;
-private ExpenseAdapter expenseAdapter;
+    private ArrayList<ExpenseModel> expenseList = new ArrayList<>();
+    ActivityTransactionBinding binding;
+    private ExpenseAdapter expenseAdapter;
 
-private List<String> expenseCategories = new ArrayList<>();
+    private List<String> expenseCategories = new ArrayList<>();
 
-private String Currency_Code;
-
-
-private double conversion_Rate;
+    private String Currency_Code;
 
 
+    private double conversion_Rate;
 
-private long income=0,expense=0;
-Intent intent;
+
+
+    private long income=0,expense=0;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,12 +56,12 @@ Intent intent;
 
 
         retrieveAllExpenses();
-       expenseAdapter=new ExpenseAdapter(this,this,expenseList);
-       binding.recycler.setAdapter(expenseAdapter);
-       binding.recycler.setLayoutManager(new LinearLayoutManager(this));
+        expenseAdapter=new ExpenseAdapter(this,this,expenseList);
+        binding.recycler.setAdapter(expenseAdapter);
+        binding.recycler.setLayoutManager(new LinearLayoutManager(this));
 
 
-         intent = new Intent(Transaction_Activity.this,AddExpenseActivity.class);
+        intent = new Intent(Transaction_Activity.this,AddExpenseActivity.class);
 
 
         binding.addExpense.setOnClickListener(new View.OnClickListener() {

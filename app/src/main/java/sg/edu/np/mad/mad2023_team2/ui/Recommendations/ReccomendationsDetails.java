@@ -17,15 +17,15 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import sg.edu.np.mad.mad2023_team2.R;
+import sg.edu.np.mad.mad2023_team2.ui.Favorites.FavoritesManager;
 
 public class ReccomendationsDetails extends AppCompatActivity {
 
     private ImageView reccoDetailsImage;
-    private FloatingActionButton reccoDetailsBack;
+    private FloatingActionButton reccoDetailsBack, reccoDetailsFav;
     private ImageButton reccoDetailsWeb;
     private RatingBar reccoDetailsRatingBar;
     private TextView reccoDetailsPrice,reccoDetailsName,reccoDetailsRatingNum,reccoDetailsAddress,reccoDetailsType,reccoDetailsStatus,reccoDetailsDistance,reccoDetailsLocation,reccoDetailsAwards,reccoDetailsDesc,reccoDetailsDietary;
-
     private String url;
 
     @Override
@@ -46,14 +46,16 @@ public class ReccomendationsDetails extends AppCompatActivity {
         reccoDetailsDesc = findViewById(R.id.recco_details_desc);
         reccoDetailsDietary = findViewById(R.id.recco_details_dietary);
 
+        reccoDetailsFav = findViewById(R.id.recco_details_fav);
         reccoDetailsImage = findViewById(R.id.recco_details_image);
         reccoDetailsBack = findViewById(R.id.recco_details_back);
         reccoDetailsRatingBar = findViewById(R.id.recco_details_ratingBar);
         reccoDetailsWeb = findViewById(R.id.recco_details_web);
 
-        if (getIntent().getParcelableExtra("reccomendation") instanceof Restaurant)
+        Object intent = getIntent().getParcelableExtra("reccomendation");
+        if (intent instanceof Restaurant)
         {
-            Restaurant restaurant = getIntent().getParcelableExtra("reccomendation");
+            Restaurant restaurant = (Restaurant) intent;
 
             reccoDetailsName.setText(restaurant.getName());
             reccoDetailsAddress.setText(restaurant.getAddress());
@@ -85,23 +87,21 @@ public class ReccomendationsDetails extends AppCompatActivity {
 
         else
         {
-            Attraction attraction = getIntent().getParcelableExtra("reccomendation");
+            Attraction attraction = (Attraction)intent;
 
             reccoDetailsDietary.setVisibility(View.GONE);
 
             reccoDetailsName.setText(attraction.getName());
-            reccoDetailsAddress.setText(attraction.getAddress());
             reccoDetailsType.setText(attraction.getType());
             reccoDetailsDesc.setText(attraction.getDesc());
-            reccoDetailsDistance.setText(attraction.getDistanceAway());
-
+            checkAndSetText(reccoDetailsAddress,attraction.getAddress());
+            checkAndSetText(reccoDetailsDistance,attraction.getDistanceAway());
             checkAndSetText(reccoDetailsPrice, attraction.getPrice());
             checkAndSetText(reccoDetailsLocation, attraction.getLocation());
             checkAndSetText(reccoDetailsStatus, attraction.getStatus());
             checkAndSetRating(reccoDetailsRatingNum, reccoDetailsRatingBar, attraction.getRating());
             checkAndSetList(reccoDetailsAwards, attraction.getAwards(), "\uD83C\uDFC6 Awards:");
             Picasso.with(this).load(attraction.getImage()).fit().centerCrop().into(reccoDetailsImage);
-
             url = attraction.getUrl();
         }
 
@@ -122,13 +122,39 @@ public class ReccomendationsDetails extends AppCompatActivity {
                 finish();
             }
         });
+
+        reccoDetailsFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reccoDetailsFav.setEnabled(false);
+                if (getIntent().getParcelableExtra("reccomendation") instanceof Restaurant)
+                {
+                    Restaurant restaurant = getIntent().getParcelableExtra("reccomendation");
+                    restaurant.setStatus("");
+                    restaurant.setDistanceAway(null);
+
+                    new FavoritesManager(restaurant,getApplicationContext(),"Restaurant",restaurant.getId()).createObject();
+                }
+                else
+                {
+                    Attraction attraction = getIntent().getParcelableExtra("reccomendation");
+                    attraction.setStatus("");
+                    attraction.setDistanceAway(null);
+                    new FavoritesManager(attraction,getApplicationContext(),"Attraction",attraction.getId()).createObject();
+                }
+                reccoDetailsFav.setEnabled(true);
+            }
+        });
     }
 
     private void checkAndSetText(TextView text, String value)
     {
-        if (value != null && !value.isEmpty())
+        if (value != null)
         {
-            text.setText(value);
+            if (!value.isEmpty())
+            {
+                text.setText(value);
+            }
         }
         else
         {
@@ -138,15 +164,16 @@ public class ReccomendationsDetails extends AppCompatActivity {
 
     private void checkAndSetList(TextView text, ArrayList<String> valueList, String s)
     {
-        if (!valueList.isEmpty() && valueList != null)
+        if (valueList != null)
         {
-            s = s + TextUtils.join(",", valueList);
-            text.setText(s);
+            if (!valueList.isEmpty())
+            {
+                s = s + TextUtils.join(",", valueList);
+                text.setText(s);
+                return;
+            }
         }
-        else
-        {
-            text.setVisibility(View.GONE);
-        }
+        text.setVisibility(View.GONE);
     }
 
     private void checkAndSetRating(TextView num, RatingBar ratingBar, double rating)

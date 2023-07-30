@@ -9,6 +9,17 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_weight="1"
+        android:src="@drawable/baseline_touch_app_24"
+        app:layout_constraintBottom_toBottomOf="@+id/textView15"
+        app:layout_constraintEnd_toStartOf="@+id/textView15"
+        app:layout_constraintTop_toTopOf="@+id/textView15" />
+
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
@@ -47,7 +58,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14">
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
 
         <SearchView
             android:id="@+id/fav_search"
@@ -68,9 +79,37 @@
         android:id="@+id/fav_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:paddingBottom="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fav_pb"
+        tools:listitem="@layout/accommodations_layout" />
+
+    <ProgressBar
+        android:id="@+id/fav_pb"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fav_noItemsText"
-        tools:listitem="@layout/accommodations_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/fav_noItemsText" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:includeFontPadding="true"
+        android:text="Hold down on items to remove it from favourites"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:layout_constraintWidth="wrap_content_constrained" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
