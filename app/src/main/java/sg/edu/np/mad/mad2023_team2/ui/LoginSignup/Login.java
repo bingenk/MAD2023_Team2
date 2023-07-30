@@ -119,6 +119,9 @@ public class Login extends AppCompatActivity {
         String userUsername = loginUsername.getText().toString().trim();
         String userPassword = loginPassword.getText().toString().trim();
 
+        // Encrypt the user's entered password using the same method
+        String encryptedPassword = AESUtil.encrypt(userPassword);
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
         Query checkUserDatabase = reference.orderByChild("username").equalTo(userUsername);
 
@@ -135,7 +138,7 @@ public class Login extends AppCompatActivity {
                     loginUsername.setError(null);
                     String passwordFromDB = snapshot.child(userUsername).child("password").getValue(String.class);
 
-                    if (!Objects.equals(passwordFromDB, userPassword)) {
+                    if (!Objects.equals(passwordFromDB, encryptedPassword)) { // Compare encrypted entered password to stored password
                         loginUsername.setError(null);
                         loginPassword.setError("Invalid Credentials!");
                         loginPassword.requestFocus();
