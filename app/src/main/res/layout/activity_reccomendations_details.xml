@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".ui.accomodations.AccommodationsDetails">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.accomodations.AccommodationsDetails">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -22,26 +22,13 @@ tools:context=".ui.accomodations.AccommodationsDetails">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/recco_details_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="$231"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recco_details_ratingBar" />
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/recco_details_image"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"
+                    android:background="#2196F3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -57,86 +44,9 @@ tools:context=".ui.accomodations.AccommodationsDetails">
                     android:clickable="true"
                     android:paddingTop="10dp"
                     android:src="@drawable/baseline_arrow_back_24"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/recco_details_image"
+                    app:layout_constraintStart_toStartOf="@+id/recco_details_image"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription,KeyboardInaccessibleWidget,MissingConstraints,SpeakableTextPresentCheck" />
-
-                <TextView
-                    android:id="@+id/recco_details_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="sans-serif-smallcaps"
-                    android:text="Reccomendation Name"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recco_details_image"
-                    app:layout_constraintWidth="match_constraint"
-                    tools:ignore="HardcodedText" />
-
-                <RatingBar
-                    android:id="@+id/recco_details_ratingBar"
-                    style="@android:style/Widget.Material.Light.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    app:layout_constraintStart_toEndOf="@+id/recco_details_ratingNum"
-                    app:layout_constraintTop_toTopOf="@+id/recco_details_ratingNum" />
-
-                <TextView
-                    android:id="@+id/recco_details_ratingNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:text="4.8"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recco_details_name" />
-
-                <TextView
-                    android:id="@+id/recco_details_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="170 Upper Bukit Timah Rd, #B1-05, Singapore 588179"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recco_details_status"
-                    app:layout_constraintWidth="match_constraint" />
-
-                <TextView
-                    android:id="@+id/recco_details_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Restraunt"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recco_details_price" />
-
-                <TextView
-                    android:id="@+id/recco_details_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Open Now"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recco_details_type" />
 
                 <TextView
                     android:id="@+id/recco_details_distance"
@@ -155,64 +65,175 @@ tools:context=".ui.accomodations.AccommodationsDetails">
                     android:text="1.2 Km Away"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/ic_launcher_background"
-                    app:layout_constraintBottom_toBottomOf="@+id/recco_details_image"
+                    app:layout_constraintBottom_toTopOf="@+id/cardView"
                     app:layout_constraintEnd_toEndOf="parent" />
 
-                <TextView
-                    android:id="@+id/recco_details_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Bukit Batok"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recco_details_address" />
-
-                <TextView
-                    android:id="@+id/recco_details_awards"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:includeFontPadding="true"
-                    android:text="🏆 Awards: Best Dicksucker of the year 2019"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textDirection="anyRtl"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="335dp"
+                    app:cardBackgroundColor="?android:colorBackground"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recco_details_location"
-                    app:layout_constraintWidth="match_constraint" />
+                    app:layout_constraintTop_toTopOf="@+id/recco_details_image">
 
-                <TextView
-                    android:id="@+id/recco_details_desc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sapien urna, lobortis in velit at, rhoncus imperdiet est. Cras id eros magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras faucibus iaculis elit eu fermentum. Aliquam sit amet sagittis urna, id vulputate est. Mauris luctus varius efficitur. Etiam id eros elit. Nam ac cursus erat. Praesent tincidunt odio sit amet quam aliquet imperdiet. Suspendisse risus lectus, pulvinar sit amet metus at, efficitur efficitur lorem. Nam malesuada sem non urna pellentesque hendrerit. Quisque nisi ligula, pretium luctus ligula in, lacinia posuere augue."
-                    android:textAlignment="textStart"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recco_details_dietary"
-                    app:layout_constraintWidth="match_constraint" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/recco_details_dietary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="🍽 Vegeterian-Friendly"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recco_details_awards" />
+                        <TextView
+                            android:id="@+id/recco_details_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="$231"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recco_details_ratingBar" />
 
+                        <TextView
+                            android:id="@+id/recco_details_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:fontFamily="sans-serif-smallcaps"
+                            android:text="Reccomendation Name"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth="match_constraint"
+                            tools:ignore="HardcodedText" />
+
+                        <RatingBar
+                            android:id="@+id/recco_details_ratingBar"
+                            style="@android:style/Widget.Material.Light.RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            app:layout_constraintStart_toEndOf="@+id/recco_details_ratingNum"
+                            app:layout_constraintTop_toTopOf="@+id/recco_details_ratingNum" />
+
+                        <TextView
+                            android:id="@+id/recco_details_ratingNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="4dp"
+                            android:text="4.8"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recco_details_name" />
+
+                        <TextView
+                            android:id="@+id/recco_details_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="170 Upper Bukit Timah Rd, #B1-05, Singapore 588179"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recco_details_status"
+                            app:layout_constraintWidth="match_constraint" />
+
+                        <TextView
+                            android:id="@+id/recco_details_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="Restraunt"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recco_details_price"
+                            app:layout_constraintWidth="match_constraint" />
+
+                        <TextView
+                            android:id="@+id/recco_details_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="Open Now"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recco_details_type" />
+
+                        <TextView
+                            android:id="@+id/recco_details_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:text="Bukit Batok"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recco_details_address" />
+
+                        <TextView
+                            android:id="@+id/recco_details_awards"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:includeFontPadding="true"
+                            android:text="🏆 Awards: Best Dicksucker of the year 2019"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textDirection="anyRtl"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recco_details_location"
+                            app:layout_constraintWidth="match_constraint" />
+
+                        <TextView
+                            android:id="@+id/recco_details_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sapien urna, lobortis in velit at, rhoncus imperdiet est. Cras id eros magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras faucibus iaculis elit eu fermentum. Aliquam sit amet sagittis urna, id vulputate est. Mauris luctus varius efficitur. Etiam id eros elit. Nam ac cursus erat. Praesent tincidunt odio sit amet quam aliquet imperdiet. Suspendisse risus lectus, pulvinar sit amet metus at, efficitur efficitur lorem. Nam malesuada sem non urna pellentesque hendrerit. Quisque nisi ligula, pretium luctus ligula in, lacinia posuere augue."
+                            android:textAlignment="textStart"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recco_details_dietary"
+                            app:layout_constraintWidth="match_constraint" />
+
+                        <TextView
+                            android:id="@+id/recco_details_dietary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:text="🍽 Vegeterian-Friendly"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recco_details_awards" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -220,7 +241,7 @@ tools:context=".ui.accomodations.AccommodationsDetails">
                 android:layout_height="match_parent">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/recco_details_findLocation"
+                    android:id="@+id/recco_details_fav"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -228,18 +249,31 @@ tools:context=".ui.accomodations.AccommodationsDetails">
                     android:layout_marginBottom="8dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foregroundTint="#FFFFFF"
-                    android:tint="#FFFFFF"
+                    android:tint="@android:color/white"
                     app:backgroundTint="#3F51B5"
                     app:elevation="0dp"
                     app:fabSize="normal"
-                    app:iconTint="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:rippleColor="#FFFFFF"
-                    app:srcCompat="@drawable/baseline_location_on_24"
+                    app:srcCompat="@drawable/baseline_favorite_24"
                     tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+                <ImageButton
+                    android:id="@+id/recco_details_web"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/hotel_outline"
+                    android:backgroundTint="@color/purple_700"
+                    android:paddingStart="25dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="25dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/recco_details_fav"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/recco_details_fav"
+                    app:srcCompat="@drawable/baseline_language_24" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

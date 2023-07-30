@@ -33,9 +33,8 @@
 
         <item
             android:id="@+id/nav_expense_planner"
-            android:icon="@drawable/baseline_currency_exchange_24"
-            android:title="Expense Planner"
-            />
+            android:icon="@drawable/baseline_wallet_24"
+            android:title="Expense Planner" />
 
         <item
             android:id="@+id/nav_recommendations"
@@ -47,12 +46,10 @@
             android:icon="@drawable/baseline_translate_24"
             android:title="Translate"
             />
-
         <item
-            android:id="@+id/nav_contact"
-            android:icon="@android:drawable/ic_dialog_email"
-            android:title="Contact Us"
-            />
+            android:id="@+id/nav_favourites"
+            android:icon="@drawable/baseline_favorite_24"
+            android:title="Favourites" />
 
         <item
             android:id="@+id/nav_checkout_cart"

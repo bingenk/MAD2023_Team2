@@ -7,7 +7,9 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-public class Restaurant implements Parcelable {
+import sg.edu.np.mad.mad2023_team2.ui.Favorites.Favourites;
+
+public class Restaurant implements Parcelable, Favourites {
     private int id;
     private String name;
     private String desc;
@@ -23,26 +25,23 @@ public class Restaurant implements Parcelable {
     private double longitude;
     private double rating;
     private ArrayList<String> awards;
+    private String url;
     private String image;
 
-    public Restaurant(int id, String name, String desc, ArrayList<String> cuisine, ArrayList<String> dietaryRestrictions, String status, String location, String address, String distanceAway, String priceLevel, String priceRange, double latitude, double longitude, double rating, ArrayList<String> awards, String image) {
+    public Restaurant(){}
+
+    public Restaurant(int id, String name, ArrayList<String> cuisine, String status, String address, String distanceAway, String priceLevel, double rating, String image) {
         this.id = id;
         this.name = name;
-        this.desc = desc;
         this.cuisine = cuisine;
-        this.dietaryRestrictions = dietaryRestrictions;
         this.status = status;
-        this.location = location;
         this.address = address;
         this.distanceAway = distanceAway;
         this.priceLevel = priceLevel;
-        this.priceRange = priceRange;
-        this.latitude = latitude;
-        this.longitude = longitude;
         this.rating = rating;
-        this.awards = awards;
         this.image = image;
     }
+
 
     protected Restaurant(Parcel in) {
         id = in.readInt();
@@ -60,7 +59,54 @@ public class Restaurant implements Parcelable {
         longitude = in.readDouble();
         rating = in.readDouble();
         awards = in.createStringArrayList();
+        url = in.readString();
         image = in.readString();
+    }
+
+    public Restaurant(int id, String name, String desc, ArrayList<String> cuisine, ArrayList<String> dietaryRestrictions, String status, String location, String address, String distanceAway, String priceLevel, String priceRange, double latitude, double longitude, double rating, ArrayList<String> awards, String url, String image) {
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.cuisine = cuisine;
+        this.dietaryRestrictions = dietaryRestrictions;
+        this.status = status;
+        this.location = location;
+        this.address = address;
+        this.distanceAway = distanceAway;
+        this.priceLevel = priceLevel;
+        this.priceRange = priceRange;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.rating = rating;
+        this.awards = awards;
+        this.url = url;
+        this.image = image;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(desc);
+        dest.writeStringList(cuisine);
+        dest.writeStringList(dietaryRestrictions);
+        dest.writeString(status);
+        dest.writeString(location);
+        dest.writeString(address);
+        dest.writeString(distanceAway);
+        dest.writeString(priceLevel);
+        dest.writeString(priceRange);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeDouble(rating);
+        dest.writeStringList(awards);
+        dest.writeString(url);
+        dest.writeString(image);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
@@ -75,26 +121,26 @@ public class Restaurant implements Parcelable {
         }
     };
 
-    public Restaurant(int id, String name, ArrayList<String> cuisine, String status, String address, String distanceAway, String priceLevel, double rating, String image) {
-        this.id = id;
-        this.name = name;
-        this.cuisine = cuisine;
-        this.status = status;
-        this.address = address;
-        this.distanceAway = distanceAway;
-        this.priceLevel = priceLevel;
-        this.rating = rating;
-        this.image = image;
-    }
-
-
-
     public int getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getItemType() {
+        return "Restaurant";
+    }
+
+    @Override
+    public String getStringPrice() {
+        return priceLevel;
+    }
+
+    public String getPrice() {
+        return priceLevel;
     }
 
     public String getDesc() {
@@ -153,28 +199,75 @@ public class Restaurant implements Parcelable {
         return image;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getUrl() {
+        return url;
     }
 
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeString(desc);
-        dest.writeStringList(cuisine);
-        dest.writeStringList(dietaryRestrictions);
-        dest.writeString(status);
-        dest.writeString(location);
-        dest.writeString(address);
-        dest.writeString(distanceAway);
-        dest.writeString(priceLevel);
-        dest.writeString(priceRange);
-        dest.writeDouble(latitude);
-        dest.writeDouble(longitude);
-        dest.writeDouble(rating);
-        dest.writeStringList(awards);
-        dest.writeString(image);
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setDistanceAway(String distanceAway) {
+        this.distanceAway = distanceAway;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public void setCuisine(ArrayList<String> cuisine) {
+        this.cuisine = cuisine;
+    }
+
+    public void setDietaryRestrictions(ArrayList<String> dietaryRestrictions) {
+        this.dietaryRestrictions = dietaryRestrictions;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPriceLevel(String priceLevel) {
+        this.priceLevel = priceLevel;
+    }
+
+    public void setPriceRange(String priceRange) {
+        this.priceRange = priceRange;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public void setAwards(ArrayList<String> awards) {
+        this.awards = awards;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

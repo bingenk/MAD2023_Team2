@@ -57,11 +57,11 @@ import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Countries;
 import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.CurrencyConverterUtil;
 
 public class AddExpenseActivity extends AppCompatActivity {
-ActivityAddExpenseBinding binding;
-private String type;
-private ExpenseModel expenseModel;
+    ActivityAddExpenseBinding binding;
+    private String type;
+    private ExpenseModel expenseModel;
 
-Button submit;
+    Button submit;
 
     TextView convert_from_dropdown_menu, convert_to_dropdown_menu, conversion_rate,tv_currency_code_amt_to_convert,currency_symbol,convert_app_currency_dropdown;
     EditText edit_amount_to_convert_value;
@@ -72,7 +72,7 @@ Button submit;
     Button conversion, Apply_Changes_Button;
     String convert_from_value, convert_to_value, conversion_value;
 
-public ArrayList<String> expenseCategories;
+    public ArrayList<String> expenseCategories;
 
     private RequestQueue requestQueue;
 
@@ -120,6 +120,12 @@ public ArrayList<String> expenseCategories;
             // Handle the case when the intent is null (if needed)
         }
 
+        binding.floatingActionButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
 
@@ -137,7 +143,7 @@ public ArrayList<String> expenseCategories;
                 }
 
 
-          }
+            }
         });
 
         binding.tDelete.setOnClickListener(new View.OnClickListener() {
@@ -302,7 +308,7 @@ public ArrayList<String> expenseCategories;
 
 
 
-//  bi
+    //  bi
 //
 //
 //    {
@@ -314,64 +320,64 @@ public ArrayList<String> expenseCategories;
 //        }
 //        return false;
 //    }
-private void createExpense() {
-    if (!validateAmount() || !validateCategory() || !validateNote()) {
-        // Validation failed, return without creating the expense
-        return;
-    }
-    Log.d("Wassup", "createExpense: 1312124");
-    String expenseId = UUID.randomUUID().toString();
-    String amount = binding.amount.getText().toString();
-    String note = binding.note.getText().toString();
-    String category = binding.categoryDropdown.getSelectedItem().toString(); // Get the selected category from the dropdown
+    private void createExpense() {
+        if (!validateAmount() || !validateCategory() || !validateNote()) {
+            // Validation failed, return without creating the expense
+            return;
+        }
+        Log.d("Wassup", "createExpense: 1312124");
+        String expenseId = UUID.randomUUID().toString();
+        String amount = binding.amount.getText().toString();
+        String note = binding.note.getText().toString();
+        String category = binding.categoryDropdown.getSelectedItem().toString(); // Get the selected category from the dropdown
 
 
-    if (amount.trim().length() == 0) {
-        binding.amount.setError("Empty");
-        return;
-    }
+        if (amount.trim().length() == 0) {
+            binding.amount.setError("Empty");
+            return;
+        }
 
-    // If expenseModel is null, create a new ExpenseModel object
-    if (expenseModel == null) {
-        expenseModel = new ExpenseModel();
-    }
+        // If expenseModel is null, create a new ExpenseModel object
+        if (expenseModel == null) {
+            expenseModel = new ExpenseModel();
+        }
 
-    // Set the properties of the expenseModel
-    expenseModel.setExpenseId(expenseId);
-    expenseModel.setAmount(Double.parseDouble(amount));
-    expenseModel.setCategory(category);
-    expenseModel.setNote(note);
-    expenseModel.setType("expense");
-    Date currentDate = new Date();
-    expenseModel.setTime(currentDate);
+        // Set the properties of the expenseModel
+        expenseModel.setExpenseId(expenseId);
+        expenseModel.setAmount(Double.parseDouble(amount));
+        expenseModel.setCategory(category);
+        expenseModel.setNote(note);
+        expenseModel.setType("expense");
+        Date currentDate = new Date();
+        expenseModel.setTime(currentDate);
 
 
-    // Firebase related code
-    SharedPreferences sharedPreferences = getSharedPreferences("CartFb", MODE_PRIVATE);
-    String username = sharedPreferences.getString("username", "");
-    Log.d("whoo", username+"wassup1");
-    if (username == null || username.isEmpty()) {
-        // Show an error message or handle the case when the username is not available
-        Toast.makeText(this, "Username not found. Cannot update expense.", Toast.LENGTH_SHORT).show();
-        return;
-    }
-    DatabaseReference expensesRef = FirebaseDatabase.getInstance().getReference("users").child(username).child("Expense");
-    Log.d("Wassup", "createExpense: 1312124fwefwe");
-    // Push the ExpenseModel object to the database
-    expensesRef.child(expenseId).setValue(expenseModel)
-            .addOnSuccessListener(aVoid -> {
-                // Expense added successfully
-                Toast.makeText(this, "Expense added successfully!", Toast.LENGTH_SHORT).show();
-                expenseModel = null;
-                finish();
-            })
-            .addOnFailureListener(e -> {
-                // Error occurred while adding the expense
-                Toast.makeText(this, "Failed to add expense: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            });
+        // Firebase related code
+        SharedPreferences sharedPreferences = getSharedPreferences("CartFb", MODE_PRIVATE);
+        String username = sharedPreferences.getString("username", "");
+        Log.d("whoo", username+"wassup1");
+        if (username == null || username.isEmpty()) {
+            // Show an error message or handle the case when the username is not available
+            Toast.makeText(this, "Username not found. Cannot update expense.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        DatabaseReference expensesRef = FirebaseDatabase.getInstance().getReference("users").child(username).child("Expense");
+        Log.d("Wassup", "createExpense: 1312124fwefwe");
+        // Push the ExpenseModel object to the database
+        expensesRef.child(expenseId).setValue(expenseModel)
+                .addOnSuccessListener(aVoid -> {
+                    // Expense added successfully
+                    Toast.makeText(this, "Expense added successfully!", Toast.LENGTH_SHORT).show();
+                    expenseModel = null;
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    // Error occurred while adding the expense
+                    Toast.makeText(this, "Failed to add expense: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
 
 //    finish();
-}
+    }
     private void updateExpense() {
         // Check if expenseModel is null before proceeding with the update
         if (expenseModel == null) {

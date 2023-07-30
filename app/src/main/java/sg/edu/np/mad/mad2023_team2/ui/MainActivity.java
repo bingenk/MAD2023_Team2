@@ -53,6 +53,7 @@ import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DataBaseHelper;
 import sg.edu.np.mad.mad2023_team2.ui.cart_sqllite_database.DatabaseManager;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.Cart_item;
 import sg.edu.np.mad.mad2023_team2.ui.checkout_cart_sqllite.checkout_cart_details;
+import sg.edu.np.mad.mad2023_team2.ui.contact.ContactFragment;
 import sg.edu.np.mad.mad2023_team2.ui.home.PrivacyPolicyActivity;
 import sg.edu.np.mad.mad2023_team2.ui.home.SettingsActivity;
 
@@ -106,6 +107,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.nav_contact)
+        {
+            NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment_content_main);
+            navController.navigate(R.id.nav_contact);
+            return true;
+        }
         if (id == R.id.action_settings) {
             // Open the desired activity here
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
@@ -147,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         TextView myTextView = (TextView) findViewById(R.id.home_username);
         profileUsername = headerView.findViewById(R.id.profileUsername);
         profileEmail = headerView.findViewById(R.id.profileEmail);
-        profileUsername_Home = myTextView.findViewById(R.id.home_username);
+        profileUsername_Home = myTextView;
 
         // Retrieve the user profile information from the intent
         Intent intent = getIntent();

@@ -9,8 +9,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="30dp"
+            android:padding="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/reccoPU_radius"
             app:layout_constraintTop_toBottomOf="@+id/reccoPU_radius">
 
@@ -51,7 +51,7 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:text="Radius:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintEnd_toStartOf="@+id/reccoPU_radius"
@@ -63,7 +63,7 @@
                 android:id="@+id/reccoPU_radius"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="6"
+                android:ems="5"
                 android:hint="Distance"
                 android:inputType="number"
                 android:padding="10dp"
@@ -81,14 +81,13 @@
                 android:text="Units:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintEnd_toEndOf="@+id/textView11"
-                app:layout_constraintTop_toBottomOf="@+id/reccoPU_radius" />
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
             <Button
                 android:id="@+id/reccoPU_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:layout_marginBottom="16dp"
                 android:text="Save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

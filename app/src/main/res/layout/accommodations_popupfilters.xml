@@ -34,8 +34,10 @@
                 android:textStyle="bold" />
 
             <TableLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
                 android:layout_marginTop="10dp">
 
                 <TableRow
@@ -47,8 +49,6 @@
                         android:id="@+id/filter_textppl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
                         android:fontFamily="sans-serif"
                         android:text="No. of People:"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -75,8 +75,6 @@
                         android:id="@+id/filter_textrooms"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
                         android:fontFamily="sans-serif"
                         android:text="No. of Rooms:"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -103,8 +101,6 @@
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
                         android:fontFamily="sans-serif"
 
                         android:text="Check-in date"
@@ -135,8 +131,7 @@
                         android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="5dp"
                         android:fontFamily="sans-serif"
                         android:text="Check-out date"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"

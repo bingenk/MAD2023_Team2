@@ -11,10 +11,12 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Date;
 
+import sg.edu.np.mad.mad2023_team2.ui.Favorites.Favourites;
+
 // Model class to store and manage hotel details
 
 // Uses parcelable interface to send accommodation objects through intents
-public class Accommodations implements Parcelable {
+public class Accommodations implements Parcelable, Favourites {
 
     private int id;
     private String name;
@@ -120,6 +122,16 @@ public class Accommodations implements Parcelable {
         return name;
     }
 
+    @Override
+    public String getItemType() {
+        return "Accommodations";
+    }
+
+    @Override
+    public String getStringPrice() {
+        return "$ "+  String.format("%.2f", price);
+    }
+
     public String getAddress() {
         return address;
     }
@@ -200,4 +212,6 @@ public class Accommodations implements Parcelable {
         dest.writeString(image);
         dest.writeString(hasCots);
     }
+
+
 }

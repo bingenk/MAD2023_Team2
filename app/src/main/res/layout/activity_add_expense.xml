@@ -9,6 +9,13 @@
     tools:context=".ui.Transactions.AddExpenseActivity"
     tools:ignore="Orientation">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +35,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amount"
+                    android:text="Amount (In SGD)"
                     android:textColor="@color/black" />
 
                 <EditText

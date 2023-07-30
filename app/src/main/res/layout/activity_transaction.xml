@@ -4,12 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     tools:context=".ui.Transactions.Transaction_Activity">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:layout_marginBottom="2dp"
         android:orientation="vertical">
 
@@ -32,7 +44,9 @@
                 android:id="@+id/pieChart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/recycler" />
+                android:layout_below="@+id/recycler" >
+
+            </com.github.mikephil.charting.charts.PieChart>
 
 
         </androidx.cardview.widget.CardView>
@@ -59,15 +73,15 @@
             android:id="@+id/addExpense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           android:textSize="23dp"
-            android:textColor="@color/black"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center"
             android:padding="15dp"
             android:text="Add Expense"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="23dp" />
 
     </LinearLayout>
 

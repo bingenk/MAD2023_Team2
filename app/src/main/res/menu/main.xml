@@ -12,4 +12,9 @@
         android:orderInCategory="100"
         android:title="Privacy &amp; Policy"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/nav_contact"
+        android:title="Contact Us"
+        />
 </menu>

@@ -7,7 +7,9 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-public class Attraction implements Parcelable {
+import sg.edu.np.mad.mad2023_team2.ui.Favorites.Favourites;
+
+public class Attraction implements Parcelable, Favourites {
     private int id;
     private String name;
     private String desc;
@@ -21,9 +23,13 @@ public class Attraction implements Parcelable {
     private double longitude;
     private double rating;
     private ArrayList<String> awards;
+    private String url;
     private String image;
 
-    public Attraction(int id, String name, String desc, String status, String type, String location, String address, String distanceAway, String price, double latitude, double longitude, double rating, ArrayList<String> awards, String image) {
+    public Attraction() {
+    }
+
+    public Attraction(int id, String name, String desc, String status, String type, String location, String address, String distanceAway, String price, double latitude, double longitude, double rating, ArrayList<String> awards, String url, String image) {
         this.id = id;
         this.name = name;
         this.desc = desc;
@@ -37,6 +43,7 @@ public class Attraction implements Parcelable {
         this.longitude = longitude;
         this.rating = rating;
         this.awards = awards;
+        this.url = url;
         this.image = image;
     }
 
@@ -54,7 +61,32 @@ public class Attraction implements Parcelable {
         longitude = in.readDouble();
         rating = in.readDouble();
         awards = in.createStringArrayList();
+        url = in.readString();
         image = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(desc);
+        dest.writeString(status);
+        dest.writeString(type);
+        dest.writeString(location);
+        dest.writeString(address);
+        dest.writeString(distanceAway);
+        dest.writeString(price);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeDouble(rating);
+        dest.writeStringList(awards);
+        dest.writeString(url);
+        dest.writeString(image);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Attraction> CREATOR = new Creator<Attraction>() {
@@ -69,21 +101,6 @@ public class Attraction implements Parcelable {
         }
     };
 
-    // test constructor
-    public Attraction(int id, String name, String status, String type, String address, String distanceAway, String price, double rating, String image) {
-        this.id = id;
-        this.name = name;
-        this.status = status;
-        this.type = type;
-        this.address = address;
-        this.distanceAway = distanceAway;
-        this.price = price;
-        this.rating = rating;
-        this.image = image;
-    }
-
-
-
     public int getId() {
         return id;
     }
@@ -94,6 +111,16 @@ public class Attraction implements Parcelable {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getItemType() {
+        return "Attraction";
+    }
+
+    @Override
+    public String getStringPrice() {
+        return price;
     }
 
     public void setName(String name) {
@@ -196,26 +223,8 @@ public class Attraction implements Parcelable {
         this.image = image;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getUrl() {
+        return url;
     }
 
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeString(desc);
-        dest.writeString(status);
-        dest.writeString(type);
-        dest.writeString(location);
-        dest.writeString(address);
-        dest.writeString(distanceAway);
-        dest.writeString(price);
-        dest.writeDouble(latitude);
-        dest.writeDouble(longitude);
-        dest.writeDouble(rating);
-        dest.writeStringList(awards);
-        dest.writeString(image);
-    }
 }

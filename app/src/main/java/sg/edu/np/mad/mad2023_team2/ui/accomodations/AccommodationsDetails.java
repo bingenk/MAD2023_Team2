@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 
 import android.view.View;
@@ -23,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import sg.edu.np.mad.mad2023_team2.R;
 import sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Get_Currency_Of_App;
+import sg.edu.np.mad.mad2023_team2.ui.Favorites.FavoritesManager;
 
 // Showcases information of the accommodation the user has selected
 public class AccommodationsDetails extends AppCompatActivity {
@@ -63,6 +62,7 @@ public class AccommodationsDetails extends AppCompatActivity {
         checkin = findViewById(R.id.details_checkin);
         checkout = findViewById(R.id.details_checkout);
 
+
         // Shows the information from the accommodation object if it is there
         if (accommodation != null) {
             name.setText(accommodation.getName());
@@ -87,21 +87,15 @@ public class AccommodationsDetails extends AppCompatActivity {
         }
 
         // For use in the next stage
-        FloatingActionButton map = findViewById(R.id.recco_details_findLocation);
-        map.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fav = findViewById(R.id.details_fav);
+        fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(AccommodationsDetails.this)
-                        .setTitle("Sorry! This feature is still being worked on")
-                        .setMessage("We will release this in the next update")
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setIcon(R.drawable.baseline_construction_24)
-                        .show();
+               Accommodations accommodation = getIntent().getParcelableExtra("accommodation");
+
+               fav.setEnabled(false);
+               new FavoritesManager(accommodation,getApplicationContext(),"Accommodations",accommodation.getId()).createObject();
+               fav.setEnabled(true);
             }
         });
 
@@ -117,6 +111,10 @@ public class AccommodationsDetails extends AppCompatActivity {
 
         // Brings users to the page to book the items while sending the accommodation object too
         Button book = findViewById(R.id.details_book);
+        if (getIntent().getBooleanExtra("isViewing",false))
+        {
+            book.setEnabled(false);
+        }
 
         book.setOnClickListener(new View.OnClickListener() {
             @Override
