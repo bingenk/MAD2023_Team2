@@ -1,4 +1,4 @@
-package sg.edu.np.mad.mad2023_team2.ui.Favorites;
+package sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Favorites;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,6 @@ import sg.edu.np.mad.mad2023_team2.ui.Recommendations.Attraction;
 import sg.edu.np.mad.mad2023_team2.ui.Recommendations.ReccomendationsDetails;
 import sg.edu.np.mad.mad2023_team2.ui.Recommendations.Restaurant;
 import sg.edu.np.mad.mad2023_team2.ui.accomodations.Accommodations;
-import sg.edu.np.mad.mad2023_team2.ui.accomodations.AccommodationsAdapter;
 import sg.edu.np.mad.mad2023_team2.ui.accomodations.AccommodationsDetails;
 
 

@@ -1,8 +1,7 @@
-package sg.edu.np.mad.mad2023_team2.ui.Favorites;
+package sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Favorites;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Objects;
 
 import sg.edu.np.mad.mad2023_team2.R;
-import sg.edu.np.mad.mad2023_team2.ui.Recommendations.Attraction;
-import sg.edu.np.mad.mad2023_team2.ui.Recommendations.OnClickInterface;
-import sg.edu.np.mad.mad2023_team2.ui.Recommendations.Restaurant;
-import sg.edu.np.mad.mad2023_team2.ui.accomodations.Accommodations;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder> {
 
