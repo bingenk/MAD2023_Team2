@@ -1,4 +1,4 @@
-package sg.edu.np.mad.mad2023_team2.ui.Currency_Converter.Favorites;
+package sg.edu.np.mad.mad2023_team2.ui.Favorites;
 
 public interface Favourites {
     int getId();
