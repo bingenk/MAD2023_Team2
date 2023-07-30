@@ -47,7 +47,7 @@ Travel & Local
 ### 3. Currency Exchange and Expense Tracker (Vetriselvan Praveen)
 - For travellers that are required to see the exchange rate based on different countries.
 - For travellers to change the currency in the app to their preferred currency
- ###Expense  Tracker
+-Expense  Tracker
 - For Travellers to calculate their expenses
 
 ### 4. Nearby Recommendations (Tan Jun Qin)
