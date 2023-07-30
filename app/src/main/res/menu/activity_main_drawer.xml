@@ -8,6 +8,7 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/baseline_home_24"
             android:title="Home" />
+
         <item
             android:id="@+id/nav_accommodations"
             android:icon="@drawable/ic_menu_hotel"
@@ -26,10 +27,9 @@
             />
 
         <item
-            android:id="@+id/nav_currency_converter"
-            android:icon="@drawable/baseline_currency_exchange_24"
-            android:title="Currency Converter"
-            />
+            android:id="@+id/nav_recommendations"
+            android:icon="@drawable/baseline_near_me_24"
+            android:title="Nearby Recommendations" />
 
         <item
             android:id="@+id/nav_expense_planner"
@@ -37,9 +37,10 @@
             android:title="Expense Planner" />
 
         <item
-            android:id="@+id/nav_recommendations"
-            android:icon="@drawable/baseline_near_me_24"
-            android:title="Recommendations" />
+            android:id="@+id/nav_currency_converter"
+            android:icon="@drawable/baseline_currency_exchange_24"
+            android:title="Currency Converter"
+            />
 
         <item
             android:id="@+id/nav_translate"
