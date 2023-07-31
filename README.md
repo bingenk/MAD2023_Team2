@@ -43,6 +43,8 @@ Travel & Local
 
 ### 2. Google Maps Direction (Koo Bing En)
 - For user to direct themselve more easily with the use of the map that is available in the app.
+- Modifying previous SignUp/Login features to store password encrypted in Firebase Database for user safety and app's privacy.
+- Home Page setup 
 
 ### 3. Currency Exchange and Expense Tracker (Vetriselvan Praveen)
 - For travellers that are required to see the exchange rate based on different countries.
