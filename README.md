@@ -54,6 +54,7 @@ Travel & Local
 
 ### 4. Nearby Recommendations (Tan Jun Qin)
 - Provide users with personalized recommendations for nearby attractions, restaurants, and points of interest based on their current location.
+- New API Key (Quota limit reached fro previous one): 706d1c79d0msh1510014c4b703ddp1b3268jsn6eadb5f3c621
 
 ### 5. Language Translator (Nicholas Josiah Kam Yin Ting)
 - Enable users to translate text or phrases from one language to another, helping them overcome language barriers during their travels. 
